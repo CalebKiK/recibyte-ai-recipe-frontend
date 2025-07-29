@@ -24,12 +24,12 @@
 .ingredient-detector-component{
     text-align: left;
     position: relative;
-    display: flex; /* Helps with layout */
+    display: flex; 
     flex-direction: column;
-    align-items: center; /* Center content */
+    align-items: center; 
     padding: 10px 0px;
     border-radius: 8px;
-    max-width: 900px; /* Adjust as needed */
+    max-width: 900px; 
     /* margin: 20px auto;  */
     margin: 10px 0px;
 }
@@ -112,7 +112,7 @@
     margin-top: 10px;
 }
 .action-button.clear-button:hover {
-    background-color: #e68a00;
+    background-color: #cc7a00;
 }
 
 .action-button.proceed-button{
@@ -188,6 +188,7 @@
     list-style: inside;
     padding-left: 0;
     display: flex;
+    flex-wrap: wrap;
     margin-bottom: 20px;
 }
 
@@ -197,6 +198,12 @@
     padding: 10px 20px 10px 10px;
     border-radius: 3px;
     color: #282828;
+}
+
+.detected-results li button{
+    margin-left: 15px;
+    border: none;
+    padding: 1px 10px;
 }
 
 .ingredients-input input{
@@ -222,108 +229,9 @@
     font-style: italic;
 }
 
-/* .webcam-button{
-    padding: 10px 20px;
-    border-radius: 20px;
-    background-color: #8B4513;
-    border: none;
-    color: #ffffff;
-    margin-top: 30px;
-}
-
-.webcam-button:hover{
-    background-color: #b35c1f;
-    transition: 0.4s ease-in;
-} */
-
-/* .cam-view {
-    position: relative; 
-    width: 100%; 
-    max-width: 860px; 
-    height: auto; 
-    overflow: hidden; 
-    margin-bottom: 20px; 
-    border-radius: 5px;
-} */
-
-/* .webcam-video{
-    width: 100%;
-    height: auto;
-    display: block;
-}
-
-.highlighter {
-  background: rgba(0, 255, 0, 0.25);
-  border: 1px dashed #fff;
-  z-index: 1;
-  position: absolute;
-} */
-
-/* .prediction-label.prediction-label {
-    background-color: rgba(0, 0, 0, 0.5); 
-    color: white;
-    width: 100%;
-    padding: 3px 10px;
-    margin-top: 10px;
-    font-size: 14px;
-    border-radius: 3px;
-    white-space: nowrap;
-    z-index: 11; 
-    cursor: pointer; 
-    transition: background-color 0.2s ease;
-}
-
-.prediction-label:hover {
-    background-color: rgba(0, 0, 0, 0.7);
-}
-
-.instruction-text {
-    font-size: 0.9em;
-    color: #777;
-    margin-top: 10px;
-    text-align: center;
-} */
-
-.selected-ingredients-section {
-    width: 100%;
-    max-width: 640px;
-    background-color: #fff;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    margin-top: 20px;
-}
-
-.selected-ingredients-section h3 {
-    color: #333;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 5px;
-}
-
-.selected-ingredients-list {
-    list-style-type: none;
-    padding: 0;
-    max-height: 150px;
-    overflow-y: auto;
-}
-
-.selected-ingredients-list li {
-    background-color: #e9ecef;
-    padding: 8px 12px;
-    margin-bottom: 5px;
-    border-radius: 4px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: #333;
-}
-
-@media (max-width: 500px) {
+@media (max-width: 600px) {
     .image-detector-page{
         margin: 0px 30px;
-        align-items: center;
-        justify-content: center;
     }
 
     .image-detector-page h2{
@@ -336,7 +244,7 @@
         font-size: 13px;
     }
 
-    .image-detector-model-loading p{
+    .image-detector-model-loading p, .instruction-message{
         line-height: 20px;
         font-size: 12px;
     }
@@ -357,6 +265,7 @@
         margin: 30px 10px 0px;
         padding: 10px 20px;
         border-radius: 10px;
+        font-size: 12px;
     }
 
     .detected-results {
@@ -367,7 +276,6 @@
     .detected-results h3 {
         text-align: center;
         margin-bottom: 15px;
-        color: #333;
     }
 
     .detected-results ul {
@@ -378,26 +286,115 @@
     }
 
     .detected-results li {
-        background-color: #e9f5e9;
         margin: 0px 20px 10px 0px;
         padding: 10px 20px 10px 10px;
         border-radius: 3px;
-        color: #282828;
     }
 
     .ingredients-input input{
-        height: 40px;
-        width: 400px;
+        height: 30px;
+        width: 200px;
         padding: 0px 0px 0px 10px;
         border: none;
         border-radius: 10px 0px 0px 10px;
     }
+
+    .add-ingredient-btn{
+        height: 30px;
+        width: 50px;
+        border-radius: 0px 5px 5px 0px;
+        font-size: 12px;
+    }
+
+    .detected-results li button{
+        margin-left: 5px;
+        padding: 1px 5px;
+    }
 }
 
-@media (min-width: 500px) and (max-width: 860px) {
-    
+@media (min-width: 600px) and (max-width: 960px) {
+    .image-detector-page{
+        margin: 0px 80px;
+    }
+
+    .image-detector-page h2{
+        margin: 20px 0px 0px;
+        font-size: 23px;
+    }
+
+    .image-detector-model-loading h3{
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+
+    .image-detector-model-loading p, .instruction-message{
+        line-height: 21px;
+        font-size: 14px;
+    }
+
+    .ingredient-detector-component{
+        padding: 10px 0px;
+        border-radius: 8px;
+        max-width: 700px;
+        margin: 10px 0px;
+    }
+
+    .input-options {
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+
+    .button-label, .action-button {
+        margin: 30px 10px 0px;
+        padding: 10px 20px;
+        border-radius: 10px;
+        font-size: 14px;
+    }
+
+    .detected-results {
+        margin: 20px;
+        padding: 20px;
+    }
+
+    .detected-results h3 {
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    .detected-results ul {
+        list-style: inside;
+        padding-left: 0;
+        display: flex;
+        margin-bottom: 20px;
+    }
+
+    .detected-results li {
+        margin: 0px 20px 10px 0px;
+        padding: 10px 20px 10px 10px;
+        border-radius: 5px;
+    }
+
+    .ingredients-input input{
+        height: 40px;
+        width: 350px;
+        padding: 0px 0px 0px 10px;
+        border: none;
+        border-radius: 10px 0px 0px 10px;
+    }
+
+    .add-ingredient-btn{
+        height: 40px;
+        width: 90px;
+        border-radius: 0px 5px 5px 0px;
+        font-size: 13px;
+    }
+
+    .detected-results li button{
+        margin-left: 10px;
+        padding: 1px 5px;
+    }
 }
 
-@media (min-width: 860px) and (max-width: 1300px) {
+@media (min-width: 960px) and (max-width: 1300px) {
     
 }

@@ -269,8 +269,7 @@
     }
 
     .detected-results {
-        margin: 20px;
-        padding: 20px;
+        margin: 20px 0px;
     }
 
     .detected-results h3 {
@@ -289,6 +288,11 @@
         margin: 0px 20px 10px 0px;
         padding: 10px 20px 10px 10px;
         border-radius: 3px;
+    }
+
+    .detected-results p{
+        margin-bottom: 10px;
+        font-size: 12px;
     }
 
     .ingredients-input input{

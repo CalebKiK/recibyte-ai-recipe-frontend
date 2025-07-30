@@ -49,9 +49,14 @@
     transition: 0.5s ease-in;
 }
 
-@media (max-width: 500px) {
+.btn-group, .btn-group button{
+    display: none;
+}
+
+@media (max-width: 600px) {
     .navbar{
         padding: 10px 30px;
+        justify-content: space-between;
     }
 
     .navbar-logo h3{
@@ -59,19 +64,58 @@
         margin-left: 10px;
     }
 
-    .navbar-links{
-        margin-left: 20px;
+    .navbar-links, .navbar-links a{
+        display: none;
     }
 
-    .navbar-links a, .navbar-links button{
-        margin: 0px 10px;
+    .btn-group{
+        display: block;
+        margin-left: 80px;
+    }
+
+    .btn-group .btn {
+        background-color: #8B4513;
+        border: none;
         font-size: 14px;
-        text-decoration: underline;
+        padding: 5px 10px;
+        border-radius: 5px;
+        color: #FAF1E6;
+    }
+
+    /* Make dropdown links vertical */
+    .mobile-dropdown {
+        display: flex;
+        flex-direction: column;
+        min-width: 150px;
+    }
+
+    .mobile-dropdown .dropdown-item {
+        font-size: 14px;
+        padding: 10px 15px;
+    }
+
+    .dropdown-menu{
+        display: block;
+    }
+
+    .btn-group button{
+        display: block;
+        color: #FAF1E6;
+        background-color: #8B4513;
+        border: none;
+        font-size: 14px;
+        padding: 5px 10px;
+        border-radius: 5px;
+    }
+
+    .dropdown-menu-end a{
+        margin: 10px 0px;
+        font-size: 14px;
     }
 
 }
 
-@media (min-width: 500px) and (max-width: 860px) {
+@media (min-width: 600px) and (max-width: 860px) {
     .navbar{
         padding: 10px 40px;
     }

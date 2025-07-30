@@ -132,7 +132,7 @@
 
 @media (max-width: 500px) {
     .hero-section-component{
-        padding: 30px;
+        padding: 0px 30px;
     }
 
     .hero-section-component h1{

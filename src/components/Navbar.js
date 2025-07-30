@@ -5,9 +5,12 @@ import { useAuth } from '@/context/AuthContext';
 import { useRouter } from "next/navigation";
 import toast from 'react-hot-toast';
 import Image from 'next/image';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+import '../styles/BootstrapDropdown.scss';
 import BootstrapClient from './BootstrapClient';
 import '../styles/Navbar.css';
+import { Menu } from 'lucide-react';
+
 // import { Navbar as BSNavbar, Nav, NavDropdown, Container, Button } from 'react-bootstrap';
 
 export default function Navbar() {
@@ -95,11 +98,11 @@ export default function Navbar() {
             <div className="btn-group d-md-none">
                 <button
                     type="button"
-                    className="btn btn-secondary dropdown-toggle"
+                    className="btn btn-secondary"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                 >
-                    Menu
+                    <Menu size={20} />
                 </button>
                 <ul className="dropdown-menu">
                     <li><Link href="/homepage" className="dropdown-item">Home</Link></li>

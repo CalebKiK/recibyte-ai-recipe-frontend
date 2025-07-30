@@ -6,7 +6,7 @@ import RecipeSuggestions from "@/components/RecipeSuggestions";
 import WhyRecipe from "@/components/WhyRecipe";
 import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import '../styles/RecipePage.css';
+import '../../styles/RecipePage.css';
 
 function RecipePageContent() {
     const searchParams = useSearchParams();

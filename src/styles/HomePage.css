@@ -1,5 +1,6 @@
 .hero-section-component{
-    margin: 30px 300px;
+    padding: 30px 300px;
+    background-color: #FAF1E6;
 }
 
 .hero-section-component h1{
@@ -131,7 +132,7 @@
 
 @media (max-width: 500px) {
     .hero-section-component{
-        margin: 30px;
+        padding: 30px;
     }
 
     .hero-section-component h1{
@@ -209,7 +210,7 @@
 
 @media (min-width: 500px) and (max-width: 860px) {
     .hero-section-component{
-        margin: 30px 60px;
+        padding: 30px 60px;
     }
 
     .hero-section-component h1{
@@ -288,7 +289,7 @@
 
 @media (min-width: 860px) and (max-width: 1030px) {
    .hero-section-component{
-        margin: 30px 80px;
+        padding: 30px 80px;
     }
 
     .hero-section-component h1{

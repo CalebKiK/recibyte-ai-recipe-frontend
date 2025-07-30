@@ -1,13 +1,13 @@
 "use client";
 
-import '../styles/Navbar.css';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from "next/navigation";
 import toast from 'react-hot-toast';
 import Image from 'next/image';
-// import 'bootstrap/dist/css/bootstrap.min.css';
-// import BootstrapClient from './BootstrapClient';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import BootstrapClient from './BootstrapClient';
+import '../styles/Navbar.css';
 // import { Navbar as BSNavbar, Nav, NavDropdown, Container, Button } from 'react-bootstrap';
 
 export default function Navbar() {
@@ -65,13 +65,14 @@ export default function Navbar() {
 
 
     return (
-        <div className="navbar">
-          {/* <BootstrapClient /> */}
-            <div className='navbar-logo'>
+        <div className="custom-navbar">
+          <BootstrapClient />
+            {/* Desktop menu */}
+            <div className='custom-navbar-logo'>
                 <Image src='/images/logo_option_3.png' alt='recipebyte-logo' height={40} width={40}/>
                 <h3>RECIPBYTE</h3>
             </div>
-            <div className='navbar-links'>
+            <div className='custom-navbar-links'>
                 <Link href="/homepage">Home</Link>
                 {/* <Link href="/recipes">Recipes</Link> */}
 

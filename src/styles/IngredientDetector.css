@@ -1,7 +1,9 @@
 .image-detector-page{
-    margin: 0px 300px;
+    padding: 0px 300px;
+    background-color: #FAF1E6;
     align-items: center;
     justify-content: center;
+    height: 100%;
 }
 
 .image-detector-page h2{
@@ -231,7 +233,7 @@
 
 @media (max-width: 600px) {
     .image-detector-page{
-        margin: 0px 30px;
+        padding: 0px 30px;
     }
 
     .image-detector-page h2{
@@ -318,7 +320,8 @@
 
 @media (min-width: 600px) and (max-width: 960px) {
     .image-detector-page{
-        margin: 0px 80px;
+        padding: 0px 80px;
+        height: 100%;
     }
 
     .image-detector-page h2{

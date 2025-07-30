@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');
 
-.navbar{
+.custom-navbar{
     display: flex;
     align-items: center;
     text-align: center;
@@ -9,34 +9,34 @@
     background-color: #FAF1E6;
 }
 
-.navbar-logo{
+.custom-navbar-logo{
     display: flex;
     align-items: center;
     text-align: center;
     justify-content: center;
 }
 
-.navbar-logo img{
+.custom-navbar-logo img{
     height: 40px;
 }
 
-.navbar-logo h3{
+.custom-navbar-logo h3{
     font-family: "Fredoka", sans-serif;
     font-weight: 600;
     font-size: 25px;
     margin-left: 10px;
 }
 
-.navbar-links{
+.custom-navbar-links{
     margin-left: 200px;
 }
 
-.navbar-links a{
+.custom-navbar-links a{
     margin: 0px 30px;
     font-weight: 600;
 }
 
-.navbar-links button{
+.custom-navbar-links button{
     font-weight: 600;
     background-color: #FAF1E6;
     border: none;
@@ -44,7 +44,7 @@
     margin-left: 30px;
 }
 
-.navbar-links a:hover, .navbar-links button:hover{
+.custom-navbar-links a:hover, .custom-navbar-links button:hover{
     color: #8B4513;
     transition: 0.5s ease-in;
 }
@@ -54,17 +54,17 @@
 }
 
 @media (max-width: 600px) {
-    .navbar{
+    .custom-navbar{
         padding: 10px 30px;
         justify-content: space-between;
     }
 
-    .navbar-logo h3{
+    .custom-navbar-logo h3{
         font-size: 17px;
         margin-left: 10px;
     }
 
-    .navbar-links, .navbar-links a{
+    .custom-navbar-links, .custom-navbar-links a{
         display: none;
     }
 
@@ -116,24 +116,24 @@
 }
 
 @media (min-width: 600px) and (max-width: 860px) {
-    .navbar{
+    .custom-navbar{
         padding: 10px 40px;
     }
 
-    .navbar-logo img{
+    .custom-navbar-logo img{
         height: 30px;
     }
 
-    .navbar-logo h3{
+    .custom-navbar-logo h3{
         font-size: 19px;
         margin-left: 10px;
     }
 
-    .navbar-links{
+    .custom-navbar-links{
         margin-left: 80px;
     }
 
-    .navbar-links a, .navbar-links button{
+    .custom-navbar-links a, .custom-navbar-links button{
         margin: 0px 25px;
         font-size: 15px;
         text-decoration: underline;

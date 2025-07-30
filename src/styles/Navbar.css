@@ -84,7 +84,6 @@
         color: #FAF1E6;
     }
 
-    /* Make dropdown links vertical */
     .mobile-dropdown {
         display: flex;
         flex-direction: column;

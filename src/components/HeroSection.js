@@ -141,10 +141,18 @@ export default function HeroSection() {
                         </ul>
                         <ul className='filters-list'></ul>
                     </div>
-                    <div className='homepage-btns'>
+                    <div className='homepage-btns-desktop'>
                         <button className='to-image-detection-btn' onClick={goToImageDetectorPage}>Snap Ingredients 📸</button>
                         <button className='feeling-adventurous-btn' onClick={handleRandomRecipe}>Feeling Adventurous?</button>
                         <button className='generate-recipe-btn' onClick={handleGenerateRecipes}>Generate Recipes!</button>
+                    </div>
+
+                    <div className='homepage-btns-mobile'>
+                        <button className='generate-recipe-btn' onClick={handleGenerateRecipes}>Generate Recipes!</button>
+                        <div className='homepage-btns-tier-2'>
+                            <button className='to-image-detection-btn' onClick={goToImageDetectorPage}>Snap Ingredients 📸</button>
+                            <button className='feeling-adventurous-btn' onClick={handleRandomRecipe}>Feeling Adventurous?</button>
+                        </div>
                     </div>
                 </div>
             </div>

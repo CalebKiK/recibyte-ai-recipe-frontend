@@ -1,3 +1,7 @@
+.home-page{
+    background-color: #FAF1E6;
+}
+
 .hero-section-component{
     padding: 30px 300px;
     background-color: #FAF1E6;
@@ -81,10 +85,14 @@
     padding: 1px 10px;
 }
 
-.homepage-btns button{
+.homepage-btns-desktop button{
     margin: 30px 30px 0px;
     padding: 10px 20px;
     border-radius: 20px;
+}
+
+.homepage-btns-mobile{
+    display: none;
 }
 
 .generate-recipe-btn{
@@ -132,7 +140,7 @@
 
 @media (max-width: 500px) {
     .hero-section-component{
-        padding: 30px;
+        padding: 20px 30px;
     }
 
     .hero-section-component h1{
@@ -157,6 +165,21 @@
         font-size: 10px;
         padding: 0px 0px 0px 5px;
         border-radius: 5px 0px 0px 5px;
+    }
+
+    .homepage-btns-desktop{
+        display: none;
+    }
+
+    .homepage-btns-mobile{
+        display: block;
+    }
+
+    .homepage-btns-mobile button{
+        border-radius: 15px;
+        margin: 10px 10px 0px;
+        padding: 10px;
+        font-size: 10px;
     }
 
     .add-ingredient-btn{
@@ -187,9 +210,18 @@
         padding: 1px 5px;
     }
 
-    .homepage-btns button{
+    .generate-recipe-btn button{
+        font-size: 100px;
+    }
+
+    .homepage-btns-tier-2{
+        display: flex;
+        flex-direction: row;
+    }
+
+    .homepage-btns-tier-2 button{
         margin: 20px 10px 0px;
-        padding: 10px;
+        padding: 10px 5px;
         font-size: 10px;
     }
 
@@ -266,7 +298,11 @@
         padding: 1px 10px;
     }
 
-    .homepage-btns button{
+    .homepage-btns-desktop{
+        display: none;
+    }
+
+    .homepage-btns-mobile button{
         margin: 20px 15px 0px;
         padding: 10px;
         font-size: 13px;

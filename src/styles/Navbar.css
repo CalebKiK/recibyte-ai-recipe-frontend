@@ -34,6 +34,8 @@
 .custom-navbar-links a{
     margin: 0px 30px;
     font-weight: 600;
+    color: black;
+    text-decoration: none;
 }
 
 .custom-navbar-links button{
@@ -74,7 +76,7 @@
     }
 
     .btn-group .btn {
-        background-color: #8B4513;
+        background-color: #8b4513da;
         border: none;
         font-size: 14px;
         padding: 5px 10px;
@@ -82,11 +84,10 @@
         color: #FAF1E6;
     }
 
-    /* Make dropdown links vertical */
     .mobile-dropdown {
         display: flex;
         flex-direction: column;
-        min-width: 150px;
+        min-width: 100px;
     }
 
     .mobile-dropdown .dropdown-item {
@@ -96,6 +97,7 @@
 
     .dropdown-menu{
         display: block;
+        background-color: white;
     }
 
     .btn-group button{
@@ -106,6 +108,20 @@
         font-size: 14px;
         padding: 5px 10px;
         border-radius: 5px;
+    }
+    
+    .dropdown-menu .dropdown-item {
+        background-color: rgba(255, 255, 255, 0.944); 
+        color: #333;             
+        padding: 10px 15px;
+        font-size: 14px;
+        text-decoration: none;
+        border-bottom: 1px solid #eee;
+    }
+
+    .dropdown-menu .dropdown-item:hover {
+        background-color: #e3843ff1;
+        color: #333; 
     }
 
     .dropdown-menu-end a{

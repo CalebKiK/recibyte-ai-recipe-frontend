@@ -36,13 +36,9 @@
 ## ⚙️ Getting Started
 
 ### Frontend Setup (Next.js)
-```bash
-cd backend
-python -m venv env
-source env/bin/activate
-pip install -r requirements.txt
-python manage.py migrate
-python manage.py runserver
+cd frontend-recipbyte
+npm install
+npm run dev
 
 ### Backend Setup (Django)
 ```bash

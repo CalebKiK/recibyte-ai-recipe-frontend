@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import '../styles/HomePage.css';
 import toast from 'react-hot-toast';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCamera, faDice, faUtensils } from "@fortawesome/free-solid-svg-icons";
 
 export default function HeroSection() {
 
@@ -14,6 +16,10 @@ export default function HeroSection() {
     const { user } = useAuth();
     const [dietaryRestrictions, setDietaryRestrictions] = useState([]);
     const router = useRouter();
+
+    const backgroundImages = [
+        ''
+    ];
 
     const handleInputChange = (event) => {
         setIngredient(event.target.value);
@@ -142,16 +148,28 @@ export default function HeroSection() {
                         <ul className='filters-list'></ul>
                     </div>
                     <div className='homepage-btns-desktop'>
-                        <button className='to-image-detection-btn' onClick={goToImageDetectorPage}>Snap Ingredients 📸</button>
-                        <button className='feeling-adventurous-btn' onClick={handleRandomRecipe}>Feeling Adventurous?</button>
-                        <button className='generate-recipe-btn' onClick={handleGenerateRecipes}>Generate Recipes!</button>
+                        <button className='to-image-detection-btn' onClick={goToImageDetectorPage}>
+                            <FontAwesomeIcon icon={faCamera} /> Snap Ingredients
+                        </button>
+                        <button className='feeling-adventurous-btn' onClick={handleRandomRecipe}>
+                            <FontAwesomeIcon icon={faDice} /> Feeling Adventurous?
+                        </button>
+                        <button className='generate-recipe-btn' onClick={handleGenerateRecipes}>
+                            <FontAwesomeIcon icon={faUtensils} /> Generate Recipes!
+                        </button>
                     </div>
 
                     <div className='homepage-btns-mobile'>
-                        <button className='generate-recipe-btn' onClick={handleGenerateRecipes}>Generate Recipes!</button>
+                        <button className='generate-recipe-btn' onClick={handleGenerateRecipes}>
+                            <FontAwesomeIcon icon={faUtensils} /> Generate Recipes!
+                        </button>
                         <div className='homepage-btns-tier-2'>
-                            <button className='to-image-detection-btn' onClick={goToImageDetectorPage}>Snap Ingredients 📸</button>
-                            <button className='feeling-adventurous-btn' onClick={handleRandomRecipe}>Feeling Adventurous?</button>
+                            <button className='to-image-detection-btn' onClick={goToImageDetectorPage}>
+                                <FontAwesomeIcon icon={faCamera} /> Snap Ingredients
+                            </button>
+                            <button className='feeling-adventurous-btn' onClick={handleRandomRecipe}>
+                                <FontAwesomeIcon icon={faDice} /> Feeling Adventurous?
+                            </button>
                         </div>
                     </div>
                 </div>

@@ -55,7 +55,7 @@
     display: none;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 620px) {
     .custom-navbar{
         padding: 10px 30px;
         justify-content: space-between;
@@ -131,7 +131,7 @@
 
 }
 
-@media (min-width: 600px) and (max-width: 860px) {
+@media (min-width: 620px) and (max-width: 860px) {
     .custom-navbar{
         padding: 10px 40px;
     }
@@ -152,6 +152,5 @@
     .custom-navbar-links a, .custom-navbar-links button{
         margin: 0px 25px;
         font-size: 15px;
-        text-decoration: underline;
     }
 }

@@ -311,7 +311,109 @@
     }
 }
 
-@media (min-width: 600px) and (max-width: 860px) {
+@media (min-width: 600px) and (max-width: 720px) {
+    .hero-section-component{
+        padding: 30px 60px;
+    }
+
+    .hero-section-component h1{
+        margin: 20px 0px;
+        font-size: 20px;
+    }
+
+    .hero-section-component h2{
+        margin: 20px 0px;
+        font-size: 17px;
+    }
+
+    .ingredients-component{
+        padding: 50px 80px;
+    }
+
+    .ingredients-section{
+        padding: 40px 0px;
+    }
+
+    .ingredients-input input{
+        height: 40px;
+        width: 200px;
+        font-size: 13px;
+        padding: 0px 0px 0px 10px;
+        border-radius: 5px 0px 0px 5px;
+    }
+
+    .add-ingredient-btn{
+        height: 40px;
+        width: 80px;
+        border-radius: 0px 10px 10px 0px;
+    }
+
+    .filters-btn{
+        margin-left: 20px;
+        height: 30px;
+        width: 40px;
+    }
+
+    .ingredients-list{
+        margin: 10px 20px 0px;
+    }
+
+    .ingredients-list li{
+        margin: 10px;
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    .ingredients-list li button{
+        margin-left: 15px;
+        padding: 1px 10px;
+    }
+
+    .homepage-btns-desktop{
+        display: none;
+    }
+
+    .homepage-btns-mobile{
+        display: block;
+    }
+
+    .homepage-btns-tier-2{
+        display: flex;
+        flex-direction: row;
+        text-align: center;
+        justify-content: center;
+        align-content: center;
+    }
+
+    .homepage-btns-mobile button{
+        border-radius: 15px;
+        margin: 20px 15px 0px;
+        padding: 10px 30px;
+        font-size: 13px;
+    }
+
+    .homepage-btns-tier-2 button{
+        margin: 20px 10px 0px;
+        padding: 10px;
+        font-size: 12px;
+    }
+
+    .did-you-know-component{
+        margin: 50px 60px;
+        padding: 20px 10px;
+    }
+
+    .did-you-know-component h2{
+        font-size: 16px;
+    }
+
+    .did-you-know-component p{
+        margin-top: 15px;
+        font-size: 13px;
+    }
+}
+
+@media (min-width: 720px) and (max-width: 860px) {
     .hero-section-component{
         padding: 30px 60px;
     }

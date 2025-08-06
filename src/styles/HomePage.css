@@ -29,7 +29,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.4); 
+  background-color: rgba(0, 0, 0, 0.5); 
   z-index: 1;
 }
 
@@ -204,7 +204,7 @@
     }
 
     .swipe-track {
-        animation: swipe 100s linear infinite;
+        animation: swipe 150s linear infinite;
     }
 
     @keyframes swipe {

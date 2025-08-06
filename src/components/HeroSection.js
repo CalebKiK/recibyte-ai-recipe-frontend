@@ -18,7 +18,22 @@ export default function HeroSection() {
     const router = useRouter();
 
     const backgroundImages = [
-        ''
+        '/images/background-images/alexandru-bogdan-ghita-UeYkqQh4PoI-unsplash.jpg',
+        '/images/background-images/anh-nguyen-kcA-c3f_3FE-unsplash.jpg',
+        '/images/background-images/eaters-collective-12eHC6FxPyg-unsplash.jpg',
+        '/images/background-images/gaelle-marcel-GaLWM8dX73U-unsplash.jpg',
+        '/images/background-images/joseph-gonzalez-fdlZBWIP0aM-unsplash.jpg',
+        '/images/background-images/katie-smith-uQs1802D0CQ-unsplash.jpg',
+        '/images/background-images/lily-banse--YHSwy6uqvk-unsplash.jpg',
+        '/images/background-images/mariana-medvedeva-iNwCO9ycBlc-unsplash.jpg',
+        '/images/background-images/megan-thomas-xMh_ww8HN_Q-unsplash.jpg',
+        '/images/background-images/odiseo-castrejon--OXFGMUaNhM-unsplash.jpg',
+        '/images/background-images/pexels-ella-olsson-572949-1640777.jpg',
+        '/images/background-images/pexels-ella-olsson-572949-3026802.jpg',
+        '/images/background-images/pexels-picjumbo-com-55570-196643.jpg',
+        '/images/background-images/pexels-vanmalidate-769289.jpg',
+        '/images/background-images/thermopro-wAkmA9I54dY-unsplash.jpg',
+        '/images/background-images/victoria-shes-UC0HZdUitWY-unsplash.jpg',
     ];
 
     const handleInputChange = (event) => {
@@ -96,6 +111,18 @@ export default function HeroSection() {
             <h1>Welcome{user?.username ? `, ${user.username}` : ''}!</h1>
             <h2>Let&apos;s turn your ingredients into culinary magic.</h2>
             <div className="ingredients-component">
+                <div className="swipe-background-container">
+                    <div className="swipe-track">
+                        {backgroundImages.concat(backgroundImages).map((src, index) => (
+                        <img
+                            key={index}
+                            src={src}
+                            alt=""
+                            className="swipe-image"
+                        />
+                        ))}
+                    </div>
+                </div>
                 <div className="ingredients-section">
                     <div className="ingredients-input">
                         <input

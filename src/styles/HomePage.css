@@ -16,7 +16,6 @@
 }
 
 .ingredients-component{
-    /* background-color: #c9a66b76; */
     position: relative;
     background-color: #c9a66b76;
     border-radius: 5px;
@@ -30,11 +29,10 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.4); /* Dark semi-transparent overlay */
+  background-color: rgba(0, 0, 0, 0.2); 
   z-index: 1;
 }
 
-/* Container behind the input area */
 .swipe-background-container {
   position: absolute;
   top: 0;
@@ -52,7 +50,6 @@
   animation: swipe 200s linear infinite;
 }
 
-/* Each image */
 .swipe-image {
   height: 100%;
   flex-shrink: 0;

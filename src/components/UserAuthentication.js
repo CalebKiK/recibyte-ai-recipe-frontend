@@ -7,7 +7,7 @@ import { useAuth } from "@/context/AuthContext";
 import "@/styles/UserAuthentication.css";
 import toast from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faLock, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 export default function UserAuthentication() {
     const [isLogin, setIsLogin] = useState(true);
@@ -72,7 +72,7 @@ export default function UserAuthentication() {
                         ) : "Login"}
                     </button>
                     <p className="toggle-link" onClick={() => setIsLogin(!isLogin)}>
-                        Don't have an account? <span>Sign Up</span>
+                        Don&apos;t have an account? <span>Sign Up</span>
                     </p>
                 </form>
             </div>
@@ -87,7 +87,7 @@ export default function UserAuthentication() {
                     </div>
                     <div className="input-container">
                         <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
-                        <FontAwesomeIcon icon={faUser} className="input-icon" /> {/* You can use a different icon here if you prefer */}
+                        <FontAwesomeIcon icon={faEnvelope} className="input-icon" /> {/* You can use a different icon here if you prefer */}
                     </div>
                     <div className="input-container">
                         <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
@@ -119,7 +119,7 @@ export default function UserAuthentication() {
                 </div>
                 <div className="welcome-panel-register">
                     <h2>WELCOME!</h2>
-                    <p>We're delighted to have you here. If you need any assistance, feel free to reach out.</p>
+                    <p>We&apos;re delighted to have you here. If you need any assistance, feel free to reach out.</p>
                 </div>
             </div>
         </div>

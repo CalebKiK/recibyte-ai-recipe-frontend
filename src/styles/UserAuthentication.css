@@ -44,6 +44,7 @@
 
 .form-box.login {
     left: 0;
+    transform: translateX(0);
 }
 
 .form-box.register {

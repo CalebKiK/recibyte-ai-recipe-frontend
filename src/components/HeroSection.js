@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import '../styles/HomePage.css';
 import toast from 'react-hot-toast';
+import Image from 'next/image';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera, faDice, faUtensils } from "@fortawesome/free-solid-svg-icons";
 

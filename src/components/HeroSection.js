@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import '../styles/HomePage.css';
@@ -16,6 +16,20 @@ export default function HeroSection() {
     const { user } = useAuth();
     const [dietaryRestrictions, setDietaryRestrictions] = useState([]);
     const router = useRouter();
+    const [loadingGenerate, setLoadingGenerate] = useState(false);
+    const [loadingSnap, setLoadingSnap] = useState(false);
+    const [loadingRandom, setLoadingRandom] = useState(false);
+    const [dots, setDots] = useState("");
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setDots((prev) => {
+                if (prev === ".....") return "";
+                return prev + ".";
+            });
+        }, 500);
+        return () => clearInterval(interval);
+    }, []);
 
     const backgroundImages = [
         '/images/background-images/alexandru-bogdan-ghita-UeYkqQh4PoI-unsplash.jpg',
@@ -64,12 +78,20 @@ export default function HeroSection() {
         }
     };
 
-    const goToImageDetectorPage = () => {
-        router.push('/image-detector');
+    const goToImageDetectorPage = async () => {
+        try {
+            setLoadingSnap(true);
+            router.push('/image-detector');
+        } catch (error) {
+            console.error(error);
+            toast.error("Error navigating to Image Detector.");
+            setLoadingSnap(false);
+        }
     };
 
     const handleRandomRecipe = async () => { 
         try {
+            setLoadingRandom(true);
             const response = await fetch('http://127.0.0.1:8000/api/recipes/random/'); 
 
             if (response.ok) {
@@ -85,22 +107,29 @@ export default function HeroSection() {
         } catch (error) {
             console.error("Error fetching random recipe:", error);
             toast.error("An error occurred while fetching a random recipe. Check console for details.");
+        } finally {
+            setLoadingRandom(false);
         }
     };
 
     const handleGenerateRecipes = async () => {
         if(ingredientsList.length > 0) {
-            const ingredientsQuery = ingredientsList.map(encodeURIComponent).join(',');
-            const restrictionsQuery = dietaryRestrictions.map(encodeURIComponent).join(',');
+            try {
+                setLoadingGenerate(true);
+                 const ingredientsQuery = ingredientsList.map(encodeURIComponent).join(',');
+                const restrictionsQuery = dietaryRestrictions.map(encodeURIComponent).join(',');
 
-            
-            let url = `/recipes?ingredients=${ingredientsQuery}`;
-            if (restrictionsQuery) {
-                url += `&dietaryRestrictions=${restrictionsQuery}`;
+                let url = `/recipes?ingredients=${ingredientsQuery}`;
+                if (restrictionsQuery) {
+                    url += `&dietaryRestrictions=${restrictionsQuery}`;
+                }
+
+                router.push(url);
+            } catch (error) {
+                console.error("Error generating recipes:", error);
+                toast.error("Something went wrong. Please try again.");
+                setLoadingGenerate(false);
             }
-
-            router.push(url);
-
         } else {
             toast.error("Please enter at least 1 ingredient.")
         }
@@ -126,7 +155,7 @@ export default function HeroSection() {
                 <div className="ingredients-section">
                     <div className="ingredients-input">
                         <input
-                            placeholder='Add your ingredients here...'
+                            placeholder={`Add your ingredients here${dots}`}
                             value={ingredient}
                             onChange={handleInputChange}
                             onKeyDown={(e) =>{
@@ -175,27 +204,105 @@ export default function HeroSection() {
                         <ul className='filters-list'></ul>
                     </div>
                     <div className='homepage-btns-desktop'>
-                        <button className='to-image-detection-btn' onClick={goToImageDetectorPage}>
-                            <FontAwesomeIcon icon={faCamera} /> Snap Ingredients
+                        <button 
+                            className='generate-recipe-btn' 
+                            onClick={handleGenerateRecipes}
+                            disabled={loadingGenerate}
+                        >
+                            <FontAwesomeIcon icon={faUtensils} />{" "}
+                            {loadingGenerate ? (
+                                <>
+                                    Cooking up ideas<span className="dots"></span>
+                                </>
+                            ) : (
+                                "Generate Recipes!"
+                            )}
                         </button>
-                        <button className='feeling-adventurous-btn' onClick={handleRandomRecipe}>
-                            <FontAwesomeIcon icon={faDice} /> Feeling Adventurous?
-                        </button>
-                        <button className='generate-recipe-btn' onClick={handleGenerateRecipes}>
-                            <FontAwesomeIcon icon={faUtensils} /> Generate Recipes!
-                        </button>
+                        <div className='to-other-options'>
+                            <button 
+                                className='to-image-detection-btn' 
+                                onClick={goToImageDetectorPage}
+                                disabled={loadingSnap}
+                            >
+                                <FontAwesomeIcon icon={faCamera} />{" "}
+                                {loadingSnap ? (
+                                    <>
+                                        Snapping to it<span className="dots"></span>
+                                    </>
+                                ) : (
+                                    "Snap Ingredients"
+                                )}
+                            </button>
+                            <button 
+                                className='feeling-adventurous-btn' 
+                                onClick={handleRandomRecipe}
+                                disabled={loadingRandom}
+                            >
+                                <FontAwesomeIcon icon={faDice} /> {" "}
+                                {loadingRandom ? (
+                                    <>
+                                        Rolling the dice<span className="dots"></span>
+                                    </>
+                                ) : (
+                                    "Feeling Adventurous?"
+                                )}
+                            </button>
+                        </div>
                     </div>
 
                     <div className='homepage-btns-mobile'>
-                        <button className='generate-recipe-btn' onClick={handleGenerateRecipes}>
-                            <FontAwesomeIcon icon={faUtensils} /> Generate Recipes!
+                        <button 
+                            className='generate-recipe-btn' 
+                            onClick={handleGenerateRecipes}
+                            disabled={loadingGenerate}
+                        >
+                            <FontAwesomeIcon icon={faUtensils} />{" "}
+                            {loadingGenerate ? (
+                                <>
+                                    Cooking up ideas<span className="dots"></span>
+                                </>
+                            ) : (
+                                "Generate Recipes!"
+                            )}
                         </button>
+
+                        {/* <button 
+                            className='generate-recipe-btn' 
+                            onClick={handleGenerateRecipes}
+                            disabled={loadingGenerate}
+                        >
+                            <FontAwesomeIcon icon={faUtensils} />{" "}
+                            {loadingGenerate ? "Cooking up ideas…" : "Generate Recipes!"}
+                        </button> */}
+
                         <div className='homepage-btns-tier-2'>
-                            <button className='to-image-detection-btn' onClick={goToImageDetectorPage}>
-                                <FontAwesomeIcon icon={faCamera} /> Snap Ingredients
+                            <button 
+                                className='to-image-detection-btn' 
+                                onClick={goToImageDetectorPage}
+                                disabled={loadingSnap}
+                            >
+                                <FontAwesomeIcon icon={faCamera} />{" "}
+                                {loadingSnap ? (
+                                    <>
+                                        Snapping to it<span className="dots"></span>
+                                    </>
+                                ) : (
+                                    "Snap Ingredients"
+                                )}
                             </button>
-                            <button className='feeling-adventurous-btn' onClick={handleRandomRecipe}>
-                                <FontAwesomeIcon icon={faDice} /> Feeling Adventurous?
+                            <button 
+                                className='feeling-adventurous-btn' 
+                                onClick={handleRandomRecipe}
+                                disabled={loadingRandom}
+                            >
+                                <FontAwesomeIcon icon={faDice} /> {" "}
+                                {loadingRandom ? (
+                                    <>
+                                        Rolling the dice<span className="dots"></span>
+                                    </>
+                                ) : (
+                                    "Feeling Adventurous?"
+                                )}
                             </button>
                         </div>
                     </div>

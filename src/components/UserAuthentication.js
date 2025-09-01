@@ -51,73 +51,72 @@ export default function UserAuthentication() {
 
     return (
         <div className={`user-authentication-component ${isLogin ? '' : 'active'}`}>
-            <div className="form-box login">
-                <h2 className="title">Login</h2>
-                {/* Login form goes here */}
-                <form onSubmit={handleSubmit}>
-                    <div className="input-container">
-                        <input type="text" name="username" placeholder="Username" onChange={handleChange} required />
-                        <FontAwesomeIcon icon={faUser} className="input-icon" />
-                    </div>
-                    <div className="input-container">
-                        <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
-                        <FontAwesomeIcon icon={faLock} className="input-icon" />
-                    </div>
-                    <button className="user-authentication-button" type="submit" disabled={loading}>
-                        {loading ?  (
-                            <>
-                                {"Authenticating"}
-                                <div className="spinner"></div>
-                            </>
-                        ) : "Login"}
-                    </button>
-                    <p className="toggle-link" onClick={() => setIsLogin(!isLogin)}>
-                        Don&apos;t have an account? <span>Sign Up</span>
-                    </p>
-                </form>
+            <div className='form-container'>
+                <div className="form-box login">
+                    <h2 className="title">Login</h2>
+                    <form onSubmit={handleSubmit}>
+                        <div className="input-container">
+                            <input type="text" name="username" placeholder="Username" onChange={handleChange} required />
+                            <FontAwesomeIcon icon={faUser} className="input-icon" />
+                        </div>
+                        <div className="input-container">
+                            <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
+                            <FontAwesomeIcon icon={faLock} className="input-icon" />
+                        </div>
+                        <button className="user-authentication-button" type="submit" disabled={loading}>
+                            {loading ?  (
+                                <>
+                                    {"Authenticating"}
+                                    <div className="spinner"></div>
+                                </>
+                            ) : "Login"}
+                        </button>
+                        <p className="toggle-link" onClick={() => setIsLogin(!isLogin)}>
+                            Don&apos;t have an account? <span>Sign Up</span>
+                        </p>
+                    </form>
+                </div>
+
+                <div className="form-box register">
+                    <h2 className="title">Register</h2>
+                    <form onSubmit={handleSubmit}>
+                        <div className="input-container">
+                            <input type="text" name="username" placeholder="Username" onChange={handleChange} required />
+                            <FontAwesomeIcon icon={faUser} className="input-icon" />
+                        </div>
+                        <div className="input-container">
+                            <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
+                            <FontAwesomeIcon icon={faEnvelope} className="input-icon" /> {/* You can use a different icon here if you prefer */}
+                        </div>
+                        <div className="input-container">
+                            <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
+                            <FontAwesomeIcon icon={faLock} className="input-icon" />
+                        </div>
+                        <div className="input-container">
+                            <input type="password" name="password2" placeholder="Confirm Password" onChange={handleChange} required />
+                            <FontAwesomeIcon icon={faLock} className="input-icon" />
+                        </div>
+                        <button className="user-authentication-button" type="submit" disabled={loading}>
+                            {loading ? (
+                                <>
+                                    {"Creating Profile"}
+                                    <div className="spinner"></div>
+                                </>
+                                ) : "Register"}
+                        </button>
+                        <p className="toggle-link" onClick={() => setIsLogin(!isLogin)}>
+                            Already have an account? <span>Login</span>
+                        </p>
+                    </form>
+                </div>
             </div>
 
-            <div className="form-box register">
-                <h2 className="title">Register</h2>
-                {/* Sign-up form goes here */}
-                <form onSubmit={handleSubmit}>
-                    <div className="input-container">
-                        <input type="text" name="username" placeholder="Username" onChange={handleChange} required />
-                        <FontAwesomeIcon icon={faUser} className="input-icon" />
-                    </div>
-                    <div className="input-container">
-                        <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
-                        <FontAwesomeIcon icon={faEnvelope} className="input-icon" /> {/* You can use a different icon here if you prefer */}
-                    </div>
-                    <div className="input-container">
-                        <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
-                        <FontAwesomeIcon icon={faLock} className="input-icon" />
-                    </div>
-                    <div className="input-container">
-                        <input type="password" name="password2" placeholder="Confirm Password" onChange={handleChange} required />
-                        <FontAwesomeIcon icon={faLock} className="input-icon" />
-                    </div>
-                    <button className="user-authentication-button" type="submit" disabled={loading}>
-                        {loading ? (
-                            <>
-                                {"Creating Profile"}
-                                <div className="spinner"></div>
-                            </>
-                            ) : "Register"}
-                    </button>
-                    <p className="toggle-link" onClick={() => setIsLogin(!isLogin)}>
-                        Already have an account? <span>Login</span>
-                    </p>
-                </form>
-            </div>
-
-            {/* Add the "welcome" text panel, which also slides */}
-            <div className="welcome-panel">
-                <div className="welcome-panel-login">
+            <div className="welcome-container">
+                <div className="welcome-panel welcome-panel-login">
                     <h2>WELCOME BACK!</h2>
                     <p>We are happy to have you with us again. If you need anything, we are here to help.</p>
                 </div>
-                <div className="welcome-panel-register">
+                <div className="welcome-panel welcome-panel-register">
                     <h2>WELCOME!</h2>
                     <p>We&apos;re delighted to have you here. If you need any assistance, feel free to reach out.</p>
                 </div>

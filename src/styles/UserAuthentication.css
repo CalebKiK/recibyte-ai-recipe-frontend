@@ -36,6 +36,13 @@
     background-color: #FAF1E6; 
     z-index: 2; 
     transition: transform 0.7s ease-in-out;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.form-box::-webkit-scrollbar {
+  display: none;
 }
 
 .form-box.login {
@@ -214,104 +221,130 @@
 }
 
 @media (max-width: 500px) {
-    .user-authentication-component{
-        /* margin: 100px 40px; */
-        border-radius: 5px;
-        padding: 30px 10px;
-        flex-direction: column;
-        height: auto;
-        min-height: 100vh; 
-        overflow-y: auto;
-    }
+  .user-authentication-component {
+    border-radius: 5px;
+    flex-direction: column;
+    min-height: 100vh;
+    position: relative; 
+    overflow: hidden;   
+    padding: 10px;
+  }
+  .form-container {
+    width: 100%;
+    min-height: 60vh; /* each takes half of viewport */
+    position: relative;
+    overflow: hidden;
+  }
 
-    .form-container, .welcome-container {
-        width: 100%;
-        /* height: 100%; */
-        min-height: auto;         
-        height: auto;
-    }
+  .welcome-container {
+    width: 100%;
+    max-height: 40vh; 
+    position: relative;
+    overflow: hidden;
+  }
 
-    .form-box{
-        position: relative;
-        width: 100%;
-        height: auto;
-        padding: 20px 50px;
-        border-radius: 10px;
-        overflow-y: auto;
-    }
+  /* Panels fill their container */
+  .form-box,
+  .welcome-panel-login,
+  .welcome-panel-register {
+    position: absolute;   
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: all 0.6s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 
-    .welcome-panel-login,
-    .welcome-panel-register {
-        position: relative;       /* same fix: let them flow normally */
-        
-        width: 100%;
-        height: auto;
-        padding: 20px;
-    }
+  /* Default: login visible */
+  .form-box.login,
+  .welcome-panel-login {
+    opacity: 1;
+    transform: translateX(0);
+    z-index: 2;
+  }
 
-    .form-box.register,
-    .welcome-panel-register {
-        display: none;
-    }
+  /* Register hidden by default */
+  .form-box.register,
+  .welcome-panel-register {
+    opacity: 0;
+    transform: translateX(100%);
+    z-index: 1;
+  }
 
-    /* when parent is active, show register & hide login */
-    .user-authentication-component.active .form-box.login,
-    .user-authentication-component.active .welcome-panel-login {
-        display: none;
-    }
+  /* When active: login slides out left */
+  .user-authentication-component.active .form-box.login,
+  .user-authentication-component.active .welcome-panel-login {
+    opacity: 0;
+    transform: translateX(-100%);
+    z-index: 1;
+  }
 
-    .user-authentication-component.active .form-box.register,
-    .user-authentication-component.active .welcome-panel-register {
-        display: block;
-    }
+  /* When active: register slides in */
+  .user-authentication-component.active .form-box.register,
+  .user-authentication-component.active .welcome-panel-register {
+    opacity: 1;
+    transform: translateX(0);
+    z-index: 2;
+  }
 
-    .user-authentication-component h2{
-        font-size: 20px;
-        font-weight: 500;
-        margin-bottom: 10px;
-    }
+  .form-box {
+    padding: 20px;
+    border-radius: 10px;
+    overflow-y: auto;
+    background: #FAF1E6;
+  }
 
-    .user-authentication-component input{
-        margin: 10px 20px;
-        height: 35px;
-        padding-left: 10px;
-        border-radius: 5px;
-    }
+  .welcome-container {
+    background: #C9A66B;
+    color: #FAF1E6;
+  }
 
-    .input-container input{
-        margin: 15px 0px;
-       font-size: 12px;
-    }
+  .user-authentication-component h2 {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
 
-    .input-icon {
-        right: 10px;
-        font-size: 12px;
-    }
+  .input-container input {
+    margin: 12px 0;
+    font-size: 12px;
+    height: 35px;
+    border-radius: 5px;
+  }
 
-    .user-authentication-button{
-        padding: 5px 10px;
-        margin: 10px 30px 0px;
-        height: 35px;
-        font-size: 12px;
-        font-weight: 600;
-        border-radius: 5px;
-    }
+  .input-icon {
+    right: 10px;
+    font-size: 12px;
+  }
 
-    .dont-have-account-button{
-        padding: 10px 15px;
-        margin-top: 20px;
-        font-size: 12px;
-        border-radius: 5px;
-    }
+  .user-authentication-button {
+    padding: 5px 10px;
+    margin: 10px 0;
+    height: 35px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 5px;
+  }
 
-    .toggle-link{
-        font-size: 12px;
-    }
+  .dont-have-account-button {
+    padding: 10px 15px;
+    margin-top: 20px;
+    font-size: 12px;
+    border-radius: 5px;
+  }
 
-    .toggle-link span{
-        font-size: 13px;
-        margin-left: 5px;
-    }
+  .toggle-link {
+    font-size: 12px;
+  }
+
+  .toggle-link span {
+    font-size: 13px;
+    margin-left: 5px;
+  }
 }
 
 @media (min-width: 500px) and (max-width: 860px) {
@@ -357,7 +390,33 @@
     }
 }
 
-@media (min-width: 860px) and (max-width: 1300px) {
+@media (min-width: 860px) and (max-width: 1100px) {
+    .user-authentication-component{
+        /* margin: 100px 200px; */
+        border-radius: 10px;
+        /* padding: 30px 100px; */
+    }
+
+    .form-box{
+        padding: 0px 100px;
+    }
+
+    .user-authentication-component h2{
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+
+    .user-authentication-component input{
+        margin: 10px 0px;
+        padding-left: 10px;
+    }
+
+    .user-authentication-button{
+        margin-top: 20px;
+    }
+}
+
+@media (min-width: 1100px) and (max-width: 1300px) {
     .user-authentication-component{
         /* margin: 100px 200px; */
         border-radius: 10px;

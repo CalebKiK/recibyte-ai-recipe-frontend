@@ -14,25 +14,18 @@
 }
 
 .form-container {
-    /* position: relative; */
+    position: relative;
     height: 100%;
     width: 60%;
     overflow: hidden;
 }
 
-.welcome-container {
-    position: relative;
-    height: 100%;
-    width: 40%;
-    background: #C9A66B;
-    overflow: hidden;
-    color: #FAF1E6;
-}
-
 .form-box {
     position: absolute;
     height: 100%;
+    width: 100%;
     top: 0;
+    left: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -42,21 +35,38 @@
     text-align: center;
     background-color: #FAF1E6; 
     z-index: 2; 
-    width: 60%;
-    left: 0;
     transition: transform 0.7s ease-in-out;
 }
 
-/* .welcome-container {
-  width: 40%;
-  background: #C9A66B;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
-  color: #FAF1E6;
-} */
+.form-box.login {
+    /* left: 0; */
+    transform: translateX(0);
+}
+
+.form-box.register {
+    /* left: 0; */
+    transform: translateX(100%);
+}
+
+.user-authentication-component.active .form-box.login {
+    transform: translateX(100%); 
+}
+
+.user-authentication-component.active .form-box.register {
+    transform: translateX(0);
+}
+
+.welcome-container {
+    position: relative;
+    height: 100%;
+    width: 40%;
+    background: #C9A66B;
+    overflow: hidden;
+    color: #FAF1E6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 .welcome-panel {
     position: absolute;
@@ -72,30 +82,11 @@
     align-items: center;
 }
 
-.form-box.login {
-    /* left: 0; */
-    transform: translateX(0);
-}
-
-.form-box.register {
-    /* left: 0; */
-    transform: translateX(-100%);
-}
-
-.user-authentication-component.active .form-box.login {
-    transform: translateX(100%); 
-}
-
-.user-authentication-component.active .form-box.register {
-    transform: translateX(100%);
-}
-
-.user-authentication-component.active .welcome-panel {
+/* .user-authentication-component.active .welcome-panel {
     transform: translateX(-100%); 
-}
+} */
 
 .welcome-panel-login, .welcome-panel-register {
-    /* Position the welcome text inside the panel */
     position: absolute;
     width: 100%;
     height: 100%;
@@ -114,7 +105,7 @@
 }
 
 .welcome-panel-register {
-    transform: translateX(100%); /* Welcome panel for register starts off-screen to the right */
+    transform: translateX(100%); 
 }
 
 .user-authentication-component.active .welcome-panel-login {

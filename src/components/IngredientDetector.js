@@ -1,25 +1,31 @@
 "use client";
 
 import React, { useRef, useState, useEffect, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
 import '../styles/IngredientDetector.css';
 import * as tf from '@tensorflow/tfjs';
+import toast from 'react-hot-toast';
 import Image from 'next/image';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUtensils } from "@fortawesome/free-solid-svg-icons";
 
 const IngredientDetector = ({ model, onIngredientsDetected }) => {
     const videoRef = useRef(null);
     const imagePreviewRef = useRef(null);
     const canvasRef = useRef(null);
-    const fileInputRef = useRef(null); // Keep this ref for the hidden file input
+    const fileInputRef = useRef(null); 
 
     const [imageSrc, setImageSrc] = useState(null);
-    const [capturedPhoto, setCapturedPhoto] = useState(null); // This state isn't strictly needed if imageSrc is always the source
+    const [capturedPhoto, setCapturedPhoto] = useState(null); 
     const [detectedIngredients, setDetectedIngredients] = useState([]);
     const [ingredient, setIngredient] = useState('');
     const [processing, setProcessing] = useState(false);
     const [cameraActive, setCameraActive] = useState(false);  
     const [error, setError] = useState(null);
     const [commonIngredientsMap, setCommonIngredientsMap] = useState(null);
-
+    const [loadingGenerate, setLoadingGenerate] = useState(false);
+    const [dietaryRestrictions, setDietaryRestrictions] = useState([]);
+    const router = useRouter();
 
     // Load the ingredients map once when the component mounts
     useEffect(() => {
@@ -98,8 +104,6 @@ const IngredientDetector = ({ model, onIngredientsDetected }) => {
         }
     }, [model, onIngredientsDetected, getCanonicalIngredients, commonIngredientsMap]); // Add commonIngredientsMap to deps
 
-
-    // --- "Upload Image" functionality ---
     const handleImageUpload = (event) => {
         const file = event.target.files[0];
         if (file) {
@@ -114,7 +118,6 @@ const IngredientDetector = ({ model, onIngredientsDetected }) => {
         }
     };
 
-    // Handler for clearing the image
     const handleClearImage = () => {
         setImageSrc(null);
         setCapturedPhoto(null); // Clear captured photo as well
@@ -130,7 +133,6 @@ const IngredientDetector = ({ model, onIngredientsDetected }) => {
         }
     };
 
-    // Handler for replacing the image (just triggers file input click)
     const handleReplaceImage = () => {
         // Clear current image and detections before opening file dialog
         handleClearImage(); 
@@ -139,7 +141,6 @@ const IngredientDetector = ({ model, onIngredientsDetected }) => {
         }
     };
 
-    // --- "Take a Photo" functionality ---
     const startWebcam = async () => {
         setError(null);
         setImageSrc(null); // Clear any existing image preview when starting webcam
@@ -278,9 +279,31 @@ const IngredientDetector = ({ model, onIngredientsDetected }) => {
         setDetectedIngredients(updatedList);
     };
 
+    const handleGenerateRecipes = async () => {
+            if(detectedIngredients.length > 0) {
+                try {
+                    setLoadingGenerate(true);
+                     const ingredientsQuery = detectedIngredients.map(encodeURIComponent).join(',');
+                    const restrictionsQuery = dietaryRestrictions.map(encodeURIComponent).join(',');
+    
+                    let url = `/recipes?ingredients=${ingredientsQuery}`;
+                    if (restrictionsQuery) {
+                        url += `&dietaryRestrictions=${restrictionsQuery}`;
+                    }
+    
+                    router.push(url);
+                } catch (error) {
+                    console.error("Error generating recipes:", error);
+                    toast.error("Something went wrong. Please try again.");
+                    setLoadingGenerate(false);
+                }
+            } else {
+                toast.error("Please enter at least 1 ingredient.")
+            }
+        };
+
     return (
         <div className={`ingredient-detector-component ${!model || !commonIngredientsMap ? 'loading' : ''}`}>
-            {/* Show loading for map as well */}
             {!commonIngredientsMap && <p className="loading-message">Loading ingredient definitions...</p>}
 
             <p className="instruction-message">
@@ -291,11 +314,11 @@ const IngredientDetector = ({ model, onIngredientsDetected }) => {
                     Upload Image
                     <input type="file" accept="image/*" onChange={handleImageUpload} ref={fileInputRef} style={{ display: 'none' }} disabled={!model || !commonIngredientsMap} /> {/* Disable if model/map not ready */}
                 </label>
-                {!cameraActive ? (
+                {/* {!cameraActive ? (
                     <button onClick={startWebcam} className="action-button" disabled={!model || !commonIngredientsMap}>Take a Photo</button>
                 ) : (
                     <button onClick={stopWebcam} className="action-button secondary">Stop Camera</button>
-                )}
+                )} */}
             </div>
 
             {error && <p className="error-message">{error}</p>}
@@ -303,7 +326,7 @@ const IngredientDetector = ({ model, onIngredientsDetected }) => {
             {cameraActive && (
                 <div className="webcam-preview-container">
                     <video 
-                        key={cameraActive} // Adding key might help re-render if camera stream gets stuck
+                        key={cameraActive} 
                         ref={videoRef} 
                         autoPlay 
                         playsInline 
@@ -378,8 +401,20 @@ const IngredientDetector = ({ model, onIngredientsDetected }) => {
                         <button className='add-ingredient-btn' onClick={handleAddIngredient}>Add</button>
                     </div>
                     
-                    <button className="action-button proceed-button" onClick={() => onIngredientsDetected(detectedIngredients)}>
-                        Confirm & Find Recipes
+                    <button 
+                        className="action-button proceed-button" 
+                        onClick={handleGenerateRecipes}
+                        // onClick={() => onIngredientsDetected(detectedIngredients)}
+                        disabled={loadingGenerate}
+                    >
+                        <FontAwesomeIcon icon={faUtensils} />{" "}
+                        {loadingGenerate ? (
+                            <>
+                                Cooking up ideas<span className="dots"></span>
+                            </>
+                        ) : (
+                            "Confirm & Find Recipes!"
+                        )}
                     </button>
                 </div>
             )}
@@ -392,9 +427,6 @@ const IngredientDetector = ({ model, onIngredientsDetected }) => {
 
 export default IngredientDetector;
 
-// import React, { useRef, useState, useEffect, useCallback } from 'react';
-// import '../styles/IngredientDetector.css';
-// import * as tf from '@tensorflow/tfjs';
 
 // // No longer need a direct const for commonIngredientsMap here
 // // import commonIngredientsMapData from '../../../public/data/commonIngredientsMap.json'; // This direct import won't work for client-side unless it's a static build-time asset

@@ -15,7 +15,7 @@ export default function UserAuthentication() {
         username: "", email: "", password: "", password2: ""
     });
     const [error, setError] = useState("");
-    const [loading, setLoading] = useState(false); // 🔑 loading state
+    const [loading, setLoading] = useState(false); 
     const router = useRouter();
     const { login } = useAuth();
 
@@ -24,7 +24,7 @@ export default function UserAuthentication() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError("");
-        setLoading(true); // start loading
+        setLoading(true); 
         try {
             if (isLogin) {
                 const res = await axios.post("http://127.0.0.1:8000/api/users/login/", {

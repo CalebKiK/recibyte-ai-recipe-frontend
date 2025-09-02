@@ -1,11 +1,11 @@
-# RecipByte AI-Enhanced Recipe Generator 🍽️
+# ReciByte AI-Enhanced Recipe Generator 🍽️
 
 - An intelligent web app that helps users discover recipes based on ingredients they have at home. It uses AI-powered image detection, custom filters like dietary preferences on top of the existing manual ingredients input to suggest smart and personalized meals.
 
 
 ## 🚀 Live Demo
 
-[Visit the App](https://recipbyte.vercel.app/)
+[Visit the App](https://recibyte.vercel.app/)
 
 
 ## 🔑 Key Features
@@ -36,13 +36,13 @@
 ## ⚙️ Getting Started
 
 ### Frontend Setup (Next.js)
-cd frontend-recipbyte
+cd frontend-recibyte
 npm install
 npm run dev
 
 ### Backend Setup (Django)
 ```bash
-cd backend-recipbyte
+cd backend-recibyte
 python -m venv env
 source env/bin/activate
 pip install -r requirements.txt

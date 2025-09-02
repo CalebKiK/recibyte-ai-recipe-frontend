@@ -35,7 +35,7 @@ export default function Navbar() {
             {/* Desktop menu */}
             <div className='custom-navbar-logo'>
                 <Image src='/images/logo_option_3.png' alt='recipebyte-logo' height={40} width={40}/>
-                <h3>RECIPBYTE</h3>
+                <h3>ReciByTE</h3>
             </div>
             <div className='custom-navbar-links'>
                 <Link href="/homepage">Home</Link>

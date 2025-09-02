@@ -27,6 +27,12 @@ const IngredientDetector = ({ model, onIngredientsDetected }) => {
     const [dietaryRestrictions, setDietaryRestrictions] = useState([]);
     const router = useRouter();
 
+    const ingredientRegex = /^[a-zA-Z\s-]+$/;
+    const MAX_IMAGE_SIZE = 5 * 1024 * 1024; // 5MB
+    const ALLOWED_IMAGE_TYPES = ["image/jpg", "image/jpeg", "image/png", "image/webp"];
+    const MIN_IMAGE_WIDTH = 200; 
+    const MIN_IMAGE_HEIGHT = 200;
+
     // Load the ingredients map once when the component mounts
     useEffect(() => {
         const loadIngredientsMap = async () => {
@@ -107,13 +113,45 @@ const IngredientDetector = ({ model, onIngredientsDetected }) => {
     const handleImageUpload = (event) => {
         const file = event.target.files[0];
         if (file) {
+
+            if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
+                setError("Only JPG, PNG, or WebP images are allowed.");
+                toast.error("Invalid file type. Only JPG, PNG, or WebP images are allowed.");
+                return;
+            }
+
+            if (file.size > MAX_IMAGE_SIZE) {
+                setError("Image must be smaller than 5MB.");
+                toast.error("Image too large. Image must be smaller than 5MB.");
+                return;
+            }
+
             const reader = new FileReader();
+
             reader.onload = (e) => {
-                setImageSrc(e.target.result); // This will trigger the useEffect for detection
-                setCapturedPhoto(null); // Clear captured photo if user uploads an image
-                setDetectedIngredients([]); // Clear previous detections immediately
-                setError(null); // Clear any previous errors
+                setImageSrc(e.target.result); 
+                setCapturedPhoto(null); 
+                setDetectedIngredients([]); 
+                setError(null); 
             };
+
+            // reader.onload = (e) => {
+            //     const img = new Image();
+            //     img.onload = () => {
+            //         if (img.width < MIN_IMAGE_WIDTH || img.height < MIN_IMAGE_HEIGHT) {
+            //             setError(`Image must be at least ${MIN_IMAGE_WIDTH}x${MIN_IMAGE_HEIGHT} pixels.`);
+            //             toast.error(`Image too small. Please upload one at least ${MIN_IMAGE_WIDTH}x${MIN_IMAGE_HEIGHT}px.`);
+            //             return;
+            //         }
+
+            //         setImageSrc(e.target.result); 
+            //         setCapturedPhoto(null); 
+            //         setDetectedIngredients([]); 
+            //         setError(null); 
+            //     };
+            //     img.src = e.target.result;
+            // };
+
             reader.readAsDataURL(file);
         }
     };
@@ -278,10 +316,29 @@ const IngredientDetector = ({ model, onIngredientsDetected }) => {
     };
 
     const handleAddIngredient = () => {
-        if (ingredient.trim() !== '') {
-            setDetectedIngredients([...detectedIngredients, ingredient.trim().toLowerCase()]);
-            setIngredient('');
+        const newIngredient = ingredient.trim().toLowerCase();
+
+        if (!newIngredient) return;
+
+        if (!ingredientRegex.test(newIngredient)) {
+            toast.error("Ingredient should only contain letters, spaces, or dashes.");
+            return;
         }
+        if (newIngredient.length < 3) {
+            toast.error("Ingredient must be at least 3 characters long.");
+            return;
+        }
+        if (newIngredient.length > 30) {
+            toast.error("Ingredient cannot exceed 30 characters.");
+            return;
+        }
+        if (detectedIngredients.includes(newIngredient)) {
+            toast.error("Duplicate ingredients are not allowed.");
+            return;
+        }
+
+        setDetectedIngredients([...detectedIngredients, newIngredient]);
+        setIngredient("");
     };
 
     const handleRemoveIngredient = (index) => {

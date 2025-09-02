@@ -25,7 +25,7 @@ export default function HeroSection() {
     useEffect(() => {
         const interval = setInterval(() => {
             setDots((prev) => {
-                if (prev === ".....") return "";
+                if (prev === "....") return "";
                 return prev + ".";
             });
         }, 500);
@@ -56,10 +56,40 @@ export default function HeroSection() {
     };
 
     const handleAddIngredient = () => {
-        if (ingredient.trim() !== '') {
-            setIngredientsList([...ingredientsList, ingredient.trim().toLowerCase()]);
-            setIngredient('');
+        const newIngredient = ingredient.trim().toLowerCase();
+
+        if (!newIngredient){
+            toast.error("Ingredient cannot be empty.");
+            return;
         }
+
+        if (!/^[a-zA-Z\s-]+$/.test(newIngredient)) {
+            toast.error("Ingredient should only contain letters, spaces or dashes.")
+            return;
+        }
+
+        if (newIngredient.length > 30) {
+            toast.error("Ingredient name is too long (max 30 characters).");
+            return;
+        }
+
+        if (newIngredient.length < 3) {
+            toast.error("Ingredient name is too short (min 3 characters).");
+            return;
+        }
+
+        if (ingredientsList.length >= 8) {
+            toast.error("You can only add up to 8 ingredients.");
+            return;
+        }
+
+        if (ingredientsList.includes(newIngredient)) {
+            toast.error("You already added this ingredient.");
+            return;
+        }
+
+        setIngredientsList([...ingredientsList, newIngredient]);
+        setIngredient('');
     };
 
     const handleRemoveIngredient = (index) => {

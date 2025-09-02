@@ -122,7 +122,7 @@
     width: fit-content;
     padding: 5px 10px;
     list-style-type: none;
-    border-radius: 5px;
+    border-radius: 10px;
     border: none;
     font-size: 13px;
 }
@@ -192,6 +192,7 @@
   display: inline-block;
   content: '...';
   animation: dots 1.5s steps(4, end) infinite;
+  font-size: 14px;
 }
 
 @keyframes dots {

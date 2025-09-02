@@ -220,6 +220,11 @@
     cursor: pointer;
 }
 
+.error-message{
+    color: red;
+    font-size: 14px;
+}
+
 @media (max-width: 500px) {
   .user-authentication-component {
     border-radius: 5px;

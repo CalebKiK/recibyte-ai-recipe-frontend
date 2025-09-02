@@ -8,28 +8,51 @@ import "@/styles/UserAuthentication.css";
 import toast from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faLock, faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { Formik, Form, Field, ErrorMessage} from "formik";
+import * as Yup from "yup";
 
 export default function UserAuthentication() {
     const [isLogin, setIsLogin] = useState(true);
-    const [formData, setFormData] = useState({
-        username: "", email: "", password: "", password2: ""
-    });
+    // const [formData, setFormData] = useState({
+    //     username: "", email: "", password: "", password2: ""
+    // });
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false); 
     const router = useRouter();
     const { login } = useAuth();
 
-    const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+    const loginSchema = Yup.object({
+        email: Yup.string().email("Invalid email").required("Email is required"),
+        password: Yup.string().required("Password is required",)
+    });
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setError("");
+    const registerSchema = Yup.object({
+        username: Yup.string()
+            .min(5, "Username must be at least 5 characters")
+            .required("Username is required"),
+        email: Yup.string().email("Invalid email").required("Email is required"),
+        password: Yup.string()
+            .min(8, "Password must be at least 8 characters")
+            .matches(/[A-Z]/, "Must contain at least one uppercase letter")
+            .matches(/[a-z]/, "Must contain at least one lowercase letter")
+            .matches(/[0-9]/, "Must contain at least one number")
+            .matches(/[@$!%*?&#]/, "Must contain at least one special character")
+            .required("Password is required"),
+        password2: Yup.string()
+            .oneOf([Yup.ref("password"), null], "Passwords must match")
+            .required("Confirm password is required"),
+    });
+
+    // const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+    const handleSubmit = async (values, { resetForm }) => {
+        // e.preventDefault();
         setLoading(true); 
         try {
             if (isLogin) {
                 const res = await axios.post("http://127.0.0.1:8000/api/users/login/", {
-                    username: formData.username,
-                    password: formData.password
+                    email: values.email,
+                    password: values.password
                 });
                 login(res.data.access);
                 localStorage.setItem("refreshToken", res.data.refresh);
@@ -38,12 +61,24 @@ export default function UserAuthentication() {
             } else {
                 await axios.post("http://127.0.0.1:8000/api/users/register/", formData);
                 toast.success("Account created successfully!");
+                resetForm();
                 setIsLogin(true);
             }
         } catch (err) {
-            const errorMessage = err.response?.data?.error || "An error occurred";
-            setError(errorMessage);
-            toast.error(errorMessage);
+            if (err.response?.data) {
+                const data = err.response.data;
+
+                Object.keys(data).forEach((field) => {
+                const messages = data[field];
+                if (Array.isArray(messages)) {
+                    messages.forEach((msg) => toast.error(msg));
+                } else {
+                    toast.error(messages);
+                }
+                });
+            } else {
+                toast.error("An unexpected error occurred");
+            }
         } finally {
             setLoading(false); 
         }
@@ -52,6 +87,120 @@ export default function UserAuthentication() {
     return (
         <div className={`user-authentication-component ${isLogin ? '' : 'active'}`}>
             <div className='form-container'>
+                <div className="form-box login">
+                    <h2 className="title">Login</h2>
+                    <Formik 
+                        initialValues={{ email: "", password: "" }}
+                        validationSchema={loginSchema}
+                        onSubmit={handleSubmit}
+                    >
+                        {() => (
+                            <Form>
+                                <div className="input-container">
+                                    <Field type="text" name="email" placeholder="Email" />
+                                    <FontAwesomeIcon icon={faUser} className="input-icon" />
+                                    <ErrorMessage
+                                        name="email"
+                                        component="div"
+                                        className="error-message"
+                                    />
+                                </div>
+                                <div className="input-container">
+                                    <Field type="password" name="password" placeholder="Password" />
+                                    <FontAwesomeIcon icon={faLock} className="input-icon" />
+                                    <ErrorMessage
+                                        name="password"
+                                        component="div"
+                                        className="error-message"
+                                    />
+                                </div>
+                                <button 
+                                    className="user-authentication-button" 
+                                    type="submit" 
+                                    disabled={loading}
+                                >
+                                    {loading ?  (
+                                        <>
+                                            {"Authenticating"}
+                                            <div className="spinner"></div>
+                                        </>
+                                    ) : "Login"}
+                                </button>
+                                <p className="toggle-link" onClick={() => setIsLogin(!isLogin)}>
+                                    Don&apos;t have an account? <span>Sign Up</span>
+                                </p>
+                            </Form>
+                        )}
+                    </Formik>
+                </div>
+
+                <div className="form-box register">
+                    <h2 className="title">Register</h2>
+                    <Formik 
+                        initialValues={{
+                            username: "",
+                            email: "",
+                            password: "",
+                            password2: "",
+                        }}
+                        validationSchema={registerSchema}
+                        onSubmit={handleSubmit}
+                    >
+                        {() => (
+                            <Form>
+                                <div className="input-container">
+                                    <Field type="text" name="username" placeholder="Username" />
+                                    <FontAwesomeIcon icon={faUser} className="input-icon" />
+                                    <ErrorMessage
+                                        name="username"
+                                        component="div"
+                                        className="error-message"
+                                    />
+                                </div>
+                                <div className="input-container">
+                                    <Field type="email" name="email" placeholder="Email" />
+                                    <FontAwesomeIcon icon={faEnvelope} className="input-icon" />
+                                    <ErrorMessage
+                                        name="email"
+                                        component="div"
+                                        className="error-message"
+                                    /> 
+                                </div>
+                                <div className="input-container">
+                                    <Field type="password" name="password" placeholder="Password" />
+                                    <FontAwesomeIcon icon={faLock} className="input-icon" />
+                                    <ErrorMessage
+                                        name="password"
+                                        component="div"
+                                        className="error-message"
+                                    />
+                                </div>
+                                <div className="input-container">
+                                    <Field type="password" name="password2" placeholder="Confirm Password" />
+                                    <FontAwesomeIcon icon={faLock} className="input-icon" />
+                                    <ErrorMessage
+                                        name="password2"
+                                        component="div"
+                                        className="error-message"
+                                    />
+                                </div>
+                                <button className="user-authentication-button" type="submit" disabled={loading}>
+                                    {loading ? (
+                                        <>
+                                            {"Creating Profile"}
+                                            <div className="spinner"></div>
+                                        </>
+                                        ) : "Register"}
+                                </button>
+                                <p className="toggle-link" onClick={() => setIsLogin(!isLogin)}>
+                                    Already have an account? <span>Login</span>
+                                </p>
+                            </Form>
+                        )}
+                    </Formik>
+                </div>
+            </div>
+            {/* <div className='form-container'>
                 <div className="form-box login">
                     <h2 className="title">Login</h2>
                     <form onSubmit={handleSubmit}>
@@ -86,7 +235,7 @@ export default function UserAuthentication() {
                         </div>
                         <div className="input-container">
                             <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
-                            <FontAwesomeIcon icon={faEnvelope} className="input-icon" /> {/* You can use a different icon here if you prefer */}
+                            <FontAwesomeIcon icon={faEnvelope} className="input-icon" /> 
                         </div>
                         <div className="input-container">
                             <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
@@ -109,7 +258,7 @@ export default function UserAuthentication() {
                         </p>
                     </form>
                 </div>
-            </div>
+            </div> */}
 
             <div className="welcome-container">
                 <div className="welcome-panel welcome-panel-login">
@@ -123,36 +272,4 @@ export default function UserAuthentication() {
             </div>
         </div>
     );
-
-    // return (
-    //     <div className="user-authentication-component">
-    //         <h2>{isLogin ? "Login" : "Sign Up"}</h2>
-    //         {/* {error && <p className="error">{error}</p>} */}
-    //         <form onSubmit={handleSubmit}>
-    //             <input type="text" name="username" placeholder="Username" onChange={handleChange} required />
-    //             {!isLogin && <input type="email" name="email" placeholder="Email" onChange={handleChange} required />}
-    //             <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
-    //             {!isLogin && <input type="password" name="password2" placeholder="Confirm Password" onChange={handleChange} required />}
-
-    //             <button className="user-authentication-button" type="submit" disabled={loading}>
-    //                 {loading ? (
-    //                     <>
-    //                         {isLogin ? "Authenticating" : "Creating Profile"}
-    //                         <div className="spinner"></div>
-    //                     </>
-    //                 ) : (
-    //                     isLogin ? "Login" : "Register"
-    //                 )}
-    //             </button>
-    //         </form>
-
-    //         <button
-    //             className="dont-have-account-button"
-    //             onClick={() => setIsLogin(!isLogin)}
-    //             disabled={loading}
-    //         >
-    //             {isLogin ? "Don't have an account? Sign Up" : "Already have an account? Login"}
-    //         </button>
-    //     </div>
-    // );
 }

@@ -30,7 +30,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@types/bootstrap": "^5.2.10",
-    "eslint": "^9",
+    "eslint": "^9.34.0",
     "eslint-config-next": "15.2.4"
   }
 }

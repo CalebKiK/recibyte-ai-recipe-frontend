@@ -32,7 +32,7 @@ export function AuthProvider({ children }) {
         try {
             const decoded = jwtDecode(newToken);
 
-            const res = await axios.get('http://127.0.0.1:8000/api/users/profile/', {
+            const res = await axios.get('https://backend-recipbyte.fly.dev/api/users/profile/', {
                 headers: { Authorization: `Bearer ${newToken}` }
             });
 

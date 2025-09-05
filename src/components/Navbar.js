@@ -38,21 +38,59 @@ export default function Navbar() {
                 <h3>RECIBYTE</h3>
             </div>
             <div className='custom-navbar-links'>
-                <Link href="/homepage">Home</Link>
+                <Link className='nav-bar-link' href="/homepage">
+                    <div>
+                        <Image 
+                            src="/images/navbar-icons/home.png" 
+                            alt="homepage-icon"
+                            height={15}
+                            width={15}
+                        />
+                        Home
+                    </div>
+                </Link>
                 {/* <Link href="/recipes">Recipes</Link> */}
 
                 {/* {token && (
                     <Link href="/dashboard">Dashboard</Link>
                 )} */}
 
-                <Link href="/dashboard" legacyBehavior>
-                    <a onClick={handleDashboardClick}>Dashboard</a>
+                <Link className='nav-bar-link' href="/dashboard" legacyBehavior>
+                    <div>
+                        <Image 
+                            src="/images/navbar-icons/dashboards.png" 
+                            alt="dashboard-icon"
+                            height={15}
+                            width={15}
+                        />
+                        <a onClick={handleDashboardClick}>Dashboard</a>
+                    </div>
                 </Link>
                 
                 {!token ? (
-                    <Link href="/auth">Sign In</Link>
+                    <Link className='nav-bar-link' href="/auth">
+                        <div>
+                            <Image 
+                                src="/images/navbar-icons/login.png" 
+                                alt="login-icon"
+                                height={15}
+                                width={15}
+                            />
+                            Sign In
+                        </div>
+                    </Link>
                 ) : (
-                    <button onClick={handleLogout}>Logout</button>
+                    <button onClick={handleLogout}>
+                        <div>
+                            <Image 
+                                src="/images/navbar-icons/logout.png" 
+                                alt="logout-icon"
+                                height={15}
+                                width={15}
+                            />
+                            Logout
+                        </div>
+                    </button>
                 )}
             </div>
 
@@ -69,13 +107,15 @@ export default function Navbar() {
                 <ul className="dropdown-menu">
                     <li>
                         <Link href="/homepage" className="dropdown-item">
-                            <Image 
-                                src="/images/navbar-icons/home.png" 
-                                alt="homepage-icon"
-                                height={10}
-                                width={10}
-                            />
-                            Home
+                            <div>
+                                <Image 
+                                    src="/images/navbar-icons/home.png" 
+                                    alt="homepage-icon"
+                                    height={10}
+                                    width={10}
+                                />
+                                Home
+                            </div>
                         </Link>
                     </li>
                     <li>
@@ -94,23 +134,27 @@ export default function Navbar() {
                     <li>
                         {!token ? (
                             <Link href="/auth" className="dropdown-item">
-                                <Image 
-                                    src="/images/navbar-icons/login.png" 
-                                    alt="login-icon"
-                                    height={10}
-                                    width={10}
-                                />
-                                Sign In
+                                <div>
+                                    <Image 
+                                        src="/images/navbar-icons/login.png" 
+                                        alt="login-icon"
+                                        height={10}
+                                        width={10}
+                                    />
+                                    Sign In
+                                </div>
                             </Link>
                         ) : (
                             <button onClick={handleLogout} className="dropdown-item">
-                                <Image 
-                                    src="/images/navbar-icons/logout.png" 
-                                    alt="logout-icon"
-                                    height={10}
-                                    width={10}
-                                />
-                                Logout
+                                <div>
+                                    <Image 
+                                        src="/images/navbar-icons/logout.png" 
+                                        alt="logout-icon"
+                                        height={10}
+                                        width={10}
+                                    />
+                                    Logout
+                                </div>
                             </button>
                         )}
                     </li>

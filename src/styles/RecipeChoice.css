@@ -10,6 +10,10 @@
     flex-direction: row;
 }
 
+.recipe-choice-header img{
+    margin-right: 10px;
+}
+
 .recipe-choice-text ul{
     margin-left: 15px;
 }
@@ -17,7 +21,6 @@
 .recipe-choice-text ul li{
     line-height: 25px;
 }
-
 
 .recipe-choice-ingredients, .recipe-choice-text{
     text-align: left;

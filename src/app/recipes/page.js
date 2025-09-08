@@ -28,9 +28,9 @@ function RecipePageContent() {
             let apiUrl = '';
 
             if (isRandom === 'true') {
-                apiUrl = 'https://backend-recipbyte.fly.dev/api/recipes/random/';
+                apiUrl = 'http://127.0.0.1:8000/api/recipes/random/';
             } else if (ingredients) {
-                apiUrl = `https://backend-recipbyte.fly.dev/api/recipes/filter_by_ingredients/?ingredients=${ingredients}`;
+                apiUrl = `http://127.0.0.1:8000/api/recipes/filter_by_ingredients/?ingredients=${ingredients}`;
                 if (dietaryRestrictions) {
                     apiUrl += `&dietaryRestrictions=${dietaryRestrictions}`;
                 }

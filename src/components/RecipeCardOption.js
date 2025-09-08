@@ -20,12 +20,12 @@ export default function RecipeCard({ recipe, onSelectRecipe }) {
 
     return (
         <div className="recipe-card" onClick={handleRecipeClick}>
-            {recipe.image_url && <Image src={recipe.image_url} alt={recipe.title} />}
+            {recipe.image && <Image src={recipe.image} alt={recipe.title} height={150} width={150} />}
             <h5>{toTitleCase(recipe.title)}</h5>
-            {recipe.description && <p>{toSentenceCase(recipe.description.substring(0, 200))}...</p>} {/* Optional description */}
+            {recipe.description && <p>{toSentenceCase(recipe.description.substring(0, 200))}...</p>} 
             <p><span>Ingredients:</span> {displayIngredients}</p>
-            {recipe.minutes && <p><span>Cooking Time:</span> {recipe.minutes} minutes</p>} {/* Optional cooking time */}
-            {recipe.nutrition && <p><span>Calories:</span> {recipe.nutrition[0]}</p>} {/* Basic nutrition */}
+            {recipe.total_time && <p><span>Cooking Time:</span> {recipe.total_time} minutes</p>} 
+            {recipe.nutrition && <p><span>Calories:</span> {recipe.nutrition[0]}</p>} 
         </div>
     );
 }

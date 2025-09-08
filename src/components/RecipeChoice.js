@@ -4,6 +4,7 @@ import { toSentenceCase, toTitleCase } from '@/utils/stringFormatters';
 import '../styles/RecipeChoice.css';
 import { useAuth } from '@/context/AuthContext';
 import axios from 'axios';
+import Image from 'next/image';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 
@@ -18,7 +19,7 @@ export default function RecipeChoice({ recipe }) {
     const addToFavorites = async () => {
         try {
             const response = await axios.put(
-                `https://backend-recipbyte.fly.dev/api/users/favorites/${recipe.id}/toggle/`,
+                `http://127.0.0.1:8000/api/users/favorites/${recipe.id}/toggle/`,
                 {},
                 { headers: { Authorization: `Bearer ${token}` } }
             );
@@ -31,7 +32,7 @@ export default function RecipeChoice({ recipe }) {
     const addToHistory = async () => {
         try {
             await axios.put(
-                `https://backend-recipbyte.fly.dev/api/users/history/${recipe.id}/add/`,
+                `http://127.0.0.1:8000/api/users/history/${recipe.id}/add/`,
                 {},
                 { headers: { Authorization: `Bearer ${token}` } }
             );
@@ -50,16 +51,37 @@ export default function RecipeChoice({ recipe }) {
         toast.success("Recipe added to favourites!");
     };
 
+    const instructionSteps = recipe.instructions 
+        ? recipe.instructions.split('. ').filter(step => step.trim() !== '') 
+        : [];
+
     return (
         <div className="recipe-choice-component">
-            <h2>Let’s make: {toTitleCase(recipe.title)}</h2>
+            <div className='recipe-choice-header'>
+                {recipe.image && <Image src={recipe.image} alt={recipe.title} height={200} width={200} />}
+                <div className='recipe-choice-heading'>
+                    <h2>Let’s make: {toTitleCase(recipe.title)}</h2>
+                    <div className='recipe-choice-ingredients'>
+                        <h4>Ingredients</h4>
+                        <p>{displayIngredients}</p>
+                    </div>
+                </div> 
+            </div>
+            {/* <h2>Let’s make: {toTitleCase(recipe.title)}</h2>
             <div className='recipe-choice-ingredients'>
                 <h4>Ingredients</h4>
                 <p>{displayIngredients}</p>
-            </div>
+            </div> */}
             <div className='recipe-choice-text'>
-                <h4>Steps</h4>
-                <p>{toSentenceCase(recipe.steps)}</p>
+                <h4>Instructions</h4>
+                {/* <p>{recipe.instructions}</p> */}
+                <ul>
+                    {instructionSteps.map((step, index) => (
+                        <li key={index}>
+                            {toSentenceCase(step.trim())}
+                        </li>
+                    ))}
+                </ul>
             </div>
             <div className='recipe-choice-btns'>
                 <button className='substitute-ingredient-btn'>Substitute Ingredient</button>

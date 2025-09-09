@@ -104,11 +104,10 @@ function RecipePageContent() {
     );
 }
 
-// The main export for the page, now wrapping the client-side content in Suspense
 export default function RecipePage() {
     return (
         <div className="recipe-page">
-            <Navbar /> {/* Navbar can be a Server Component or Client Component, but it's separate from the searchParams logic */}
+            <Navbar /> 
             <Suspense fallback={<div>Loading page content...</div>}>
                 <RecipePageContent />
             </Suspense>

@@ -12,9 +12,27 @@ export default function RecipeChoice({ recipe }) {
     const { token } = useAuth();
     const [message, setMessage] = useState(null);
 
-    const displayIngredients = recipe.ingredients 
-        ? recipe.ingredients.map(ingredient => toSentenceCase(ingredient.name)).join(', ') 
-        : 'N/A';
+    let displayIngredients = "N/A";
+
+    const sourceIngredients = recipe.detailed_ingredients?.length
+        ? recipe.detailed_ingredients
+        : recipe.ingredients;
+
+    if (Array.isArray(sourceIngredients)) {
+        if (sourceIngredients.length > 0) {
+            if (typeof sourceIngredients[0] === "string") {
+                displayIngredients = sourceIngredients
+                    .filter(ing => ing.trim() !== "")
+                    .join(", ");
+            } else if (typeof sourceIngredients[0] === "object" && sourceIngredients[0].name) {
+                displayIngredients = sourceIngredients
+                    .map(ingredient => toSentenceCase(ingredient.name))
+                    .join(", ");
+            }
+        }
+    } else if (typeof sourceIngredients === "string") {
+        displayIngredients = sourceIngredients.trim();
+    }
 
     const addToFavorites = async () => {
         try {
@@ -51,9 +69,13 @@ export default function RecipeChoice({ recipe }) {
         toast.success("Recipe added to favourites!");
     };
 
-    const instructionSteps = recipe.instructions 
-        ? recipe.instructions.split('. ').filter(step => step.trim() !== '') 
-        : [];
+    let instructionSteps = [];
+
+    if (Array.isArray(recipe.instructions)) {
+        instructionSteps = recipe.instructions.filter(step => step.trim() !== '');
+    } else if (typeof recipe.instructions === 'string') {
+        instructionSteps = recipe.instructions.split('. ').filter(step => step.trim() !== '');
+    }
 
     return (
         <div className="recipe-choice-component">

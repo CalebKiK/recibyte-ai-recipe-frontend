@@ -16,7 +16,7 @@ export default function Favourites() {
     useEffect(() => {
         async function fetchFavorites() {
             try {
-                const response = await axios.get('https://backend-recipbyte.fly.dev/api/users/profile/', {
+                const response = await axios.get('http://127.0.0.1:8000/api/users/profile/', {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 // console.log("Fetched profile response:", response.data);
@@ -30,13 +30,13 @@ export default function Favourites() {
 
     const handleRemove = async (id) => {
         try {
-            const res = await axios.put(`https://backend-recipbyte.fly.dev/api/users/favorites/${id}/toggle/`, {}, {
+            const res = await axios.put(`http://127.0.0.1:8000/api/users/favorites/${id}/toggle/`, {}, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             toast.success(res.data.message);
 
             // Refetch updated favorites
-            const updatedRes = await axios.get('https://backend-recipbyte.fly.dev/api/users/profile/', {
+            const updatedRes = await axios.get('http://127.0.0.1:8000/api/users/profile/', {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setFavorites(updatedRes.data.favorite_recipes || []);
@@ -47,7 +47,7 @@ export default function Favourites() {
 
     // const handleRemove = async (id) => {
     //     try {
-    //         const res = await axios.put(`https://backend-recipbyte.fly.dev/api/users/favorites/${id}/toggle/`, {}, {
+    //         const res = await axios.put(`http://127.0.0.1:8000/api/users/favorites/${id}/toggle/`, {}, {
     //             headers: { Authorization: `Bearer ${token}` },
     //         });
     //         setFavorites(prev => prev.filter(r => r.id !== id));

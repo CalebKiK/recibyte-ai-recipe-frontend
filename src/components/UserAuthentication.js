@@ -50,7 +50,7 @@ export default function UserAuthentication() {
         setLoading(true); 
         try {
             if (isLogin) {
-                const res = await axios.post("https://backend-recipbyte.fly.dev/api/users/login/", {
+                const res = await axios.post("http://127.0.0.1:8000/api/users/login/", {
                     email: values.email,
                     password: values.password
                 });
@@ -59,7 +59,7 @@ export default function UserAuthentication() {
                 toast.success(`Welcome back, ${formData.username}!`);
                 router.push("/homepage");
             } else {
-                await axios.post("https://backend-recipbyte.fly.dev/api/users/register/", formData);
+                await axios.post("http://127.0.0.1:8000/api/users/register/", formData);
                 toast.success("Account created successfully!");
                 resetForm();
                 setIsLogin(true);

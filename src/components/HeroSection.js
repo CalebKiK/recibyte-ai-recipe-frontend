@@ -123,7 +123,7 @@ export default function HeroSection() {
     const handleRandomRecipe = async () => { 
         try {
             setLoadingRandom(true);
-            const response = await fetch('https://backend-recipbyte.fly.dev/api/recipes/random/'); 
+            const response = await fetch('http://127.0.0.1:8000/api/recipes/random/'); 
 
             if (response.ok) {
                 const data = await response.json();

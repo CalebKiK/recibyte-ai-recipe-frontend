@@ -1,4 +1,4 @@
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000/api";
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:800/api";
 
 export async function getRecipesByIngredients(ingredients, dietaryRestrictions) {
     let url = `${BASE_URL}/recipes/filter_by_ingredients/?ingredients=${ingredients}`;

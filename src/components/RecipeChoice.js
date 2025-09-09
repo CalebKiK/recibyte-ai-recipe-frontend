@@ -37,7 +37,7 @@ export default function RecipeChoice({ recipe }) {
     const addToFavorites = async () => {
         try {
             const response = await axios.put(
-                `http://127.0.0.1:8000/api/users/favorites/${recipe.id}/toggle/`,
+                `https://backend-recipbyte.fly.dev/api/users/favorites/${recipe.id}/toggle/`,
                 {},
                 { headers: { Authorization: `Bearer ${token}` } }
             );
@@ -50,7 +50,7 @@ export default function RecipeChoice({ recipe }) {
     const addToHistory = async () => {
         try {
             await axios.put(
-                `http://127.0.0.1:8000/api/users/history/${recipe.id}/add/`,
+                `https://backend-recipbyte.fly.dev/api/users/history/${recipe.id}/add/`,
                 {},
                 { headers: { Authorization: `Bearer ${token}` } }
             );

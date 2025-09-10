@@ -28,9 +28,9 @@ function RecipePageContent() {
             let apiUrl = '';
 
             if (isRandom === 'true') {
-                apiUrl = 'http://127.0.0.1:8000/api/recipes/random/';
+                apiUrl = 'https://backend-recipbyte.fly.dev/api/recipes/random/';
             } else if (ingredients) {
-                apiUrl = `http://127.0.0.1:8000/api/recipes/filter_by_ingredients/?ingredients=${ingredients}`;
+                apiUrl = `https://backend-recipbyte.fly.dev/api/recipes/filter_by_ingredients/?ingredients=${ingredients}`;
                 if (dietaryRestrictions) {
                     apiUrl += `&dietaryRestrictions=${dietaryRestrictions}`;
                 }
@@ -104,11 +104,10 @@ function RecipePageContent() {
     );
 }
 
-// The main export for the page, now wrapping the client-side content in Suspense
 export default function RecipePage() {
     return (
         <div className="recipe-page">
-            <Navbar /> {/* Navbar can be a Server Component or Client Component, but it's separate from the searchParams logic */}
+            <Navbar /> 
             <Suspense fallback={<div>Loading page content...</div>}>
                 <RecipePageContent />
             </Suspense>

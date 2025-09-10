@@ -4,6 +4,7 @@ import { toSentenceCase, toTitleCase } from '@/utils/stringFormatters';
 import '../styles/RecipeChoice.css';
 import { useAuth } from '@/context/AuthContext';
 import axios from 'axios';
+import Image from 'next/image';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 
@@ -11,14 +12,32 @@ export default function RecipeChoice({ recipe }) {
     const { token } = useAuth();
     const [message, setMessage] = useState(null);
 
-    const displayIngredients = recipe.ingredients 
-        ? recipe.ingredients.map(ingredient => toSentenceCase(ingredient.name)).join(', ') 
-        : 'N/A';
+    let displayIngredients = "N/A";
+
+    const sourceIngredients = recipe.detailed_ingredients?.length
+        ? recipe.detailed_ingredients
+        : recipe.ingredients;
+
+    if (Array.isArray(sourceIngredients)) {
+        if (sourceIngredients.length > 0) {
+            if (typeof sourceIngredients[0] === "string") {
+                displayIngredients = sourceIngredients
+                    .filter(ing => ing.trim() !== "")
+                    .join(", ");
+            } else if (typeof sourceIngredients[0] === "object" && sourceIngredients[0].name) {
+                displayIngredients = sourceIngredients
+                    .map(ingredient => toSentenceCase(ingredient.name))
+                    .join(", ");
+            }
+        }
+    } else if (typeof sourceIngredients === "string") {
+        displayIngredients = sourceIngredients.trim();
+    }
 
     const addToFavorites = async () => {
         try {
             const response = await axios.put(
-                `http://127.0.0.1:8000/api/users/favorites/${recipe.id}/toggle/`,
+                `https://backend-recipbyte.fly.dev/api/users/favorites/${recipe.id}/toggle/`,
                 {},
                 { headers: { Authorization: `Bearer ${token}` } }
             );
@@ -31,7 +50,7 @@ export default function RecipeChoice({ recipe }) {
     const addToHistory = async () => {
         try {
             await axios.put(
-                `http://127.0.0.1:8000/api/users/history/${recipe.id}/add/`,
+                `https://backend-recipbyte.fly.dev/api/users/history/${recipe.id}/add/`,
                 {},
                 { headers: { Authorization: `Bearer ${token}` } }
             );
@@ -50,16 +69,41 @@ export default function RecipeChoice({ recipe }) {
         toast.success("Recipe added to favourites!");
     };
 
+    let instructionSteps = [];
+
+    if (Array.isArray(recipe.instructions)) {
+        instructionSteps = recipe.instructions.filter(step => step.trim() !== '');
+    } else if (typeof recipe.instructions === 'string') {
+        instructionSteps = recipe.instructions.split('. ').filter(step => step.trim() !== '');
+    }
+
     return (
         <div className="recipe-choice-component">
-            <h2>Let’s make: {toTitleCase(recipe.title)}</h2>
+            <div className='recipe-choice-header'>
+                {recipe.image && <Image src={recipe.image} alt={recipe.title} height={200} width={200} />}
+                <div className='recipe-choice-heading'>
+                    <h2>Let’s make: {toTitleCase(recipe.title)}</h2>
+                    <div className='recipe-choice-ingredients'>
+                        <h4>Ingredients</h4>
+                        <p>{displayIngredients}</p>
+                    </div>
+                </div> 
+            </div>
+            {/* <h2>Let’s make: {toTitleCase(recipe.title)}</h2>
             <div className='recipe-choice-ingredients'>
                 <h4>Ingredients</h4>
                 <p>{displayIngredients}</p>
-            </div>
+            </div> */}
             <div className='recipe-choice-text'>
-                <h4>Steps</h4>
-                <p>{toSentenceCase(recipe.steps)}</p>
+                <h4>Instructions</h4>
+                {/* <p>{recipe.instructions}</p> */}
+                <ul>
+                    {instructionSteps.map((step, index) => (
+                        <li key={index}>
+                            {toSentenceCase(step.trim())}
+                        </li>
+                    ))}
+                </ul>
             </div>
             <div className='recipe-choice-btns'>
                 <button className='substitute-ingredient-btn'>Substitute Ingredient</button>

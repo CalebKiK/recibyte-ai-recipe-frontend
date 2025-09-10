@@ -5,6 +5,23 @@
     padding: 20px;
 }
 
+.recipe-choice-header{
+    display: flex;
+    flex-direction: row;
+}
+
+.recipe-choice-header img{
+    margin-right: 10px;
+}
+
+.recipe-choice-text ul{
+    margin-left: 15px;
+}
+
+.recipe-choice-text ul li{
+    line-height: 25px;
+}
+
 .recipe-choice-ingredients, .recipe-choice-text{
     text-align: left;
     margin: 20px 0px 10px;
@@ -55,6 +72,11 @@
     .recipe-choice-component{
         margin: 30px;
         padding: 10px;
+    }
+
+    .recipe-choice-header{
+        display: flex;
+        flex-direction: column;
     }
 
     .recipe-choice-component h2{

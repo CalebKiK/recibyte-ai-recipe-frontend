@@ -16,7 +16,7 @@ export default function RecipeHistory() {
     useEffect(() => {
         async function fetchHistory() {
             try {
-                const response = await axios.get('http://127.0.0.1:8000/api/users/history/', {
+                const response = await axios.get('https://backend-recipbyte.fly.dev/api/users/history/', {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setHistory(response.data || []);

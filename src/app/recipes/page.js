@@ -6,6 +6,7 @@ import RecipeSuggestions from "@/components/RecipeSuggestions";
 import WhyRecipe from "@/components/WhyRecipe";
 import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
+import { getRecipesByIngredients, getRandomRecipes } from "@/api/recipes";
 import '../../styles/RecipePage.css';
 
 function RecipePageContent() {
@@ -25,39 +26,62 @@ function RecipePageContent() {
             const dietaryRestrictions = searchParams.get('dietaryRestrictions');
             const isRandom = searchParams.get('random');
 
-            let apiUrl = '';
+            try {
+            let fetchedRecipes = [];
 
             if (isRandom === 'true') {
-                apiUrl = 'https://backend-recipbyte.fly.dev/api/recipes/random/';
+                const data = await getRandomRecipes();
+                fetchedRecipes = [data];
             } else if (ingredients) {
-                apiUrl = `https://backend-recipbyte.fly.dev/api/recipes/filter_by_ingredients/?ingredients=${ingredients}`;
-                if (dietaryRestrictions) {
-                    apiUrl += `&dietaryRestrictions=${dietaryRestrictions}`;
-                }
+                const data = await getRecipesByIngredients(ingredients, dietaryRestrictions);
+                fetchedRecipes = data;
             } else {
                 setError('No search criteria provided to fetch recipes.');
                 setLoading(false);
                 return;
             }
 
-            try {
-                const response = await fetch(apiUrl);
+            setRecipes(fetchedRecipes);
+            if (fetchedRecipes.length === 1) {
+                setSelectedRecipe(fetchedRecipes[0]);
+            } else {
+                setSelectedRecipe(null);
+            }
 
-                if (response.ok) {
-                    const data = await response.json();
-                    const fetchedRecipes = isRandom === 'true' ? [data] : data;
-                    setRecipes(fetchedRecipes);
-                    if (fetchedRecipes.length === 1) {
-                        setSelectedRecipe(fetchedRecipes[0]);
-                    } else {
-                        setSelectedRecipe(null);
-                    }
-                } else {
-                    const errorData = await response.json();
-                    setError(errorData.error || `Failed to fetch recipes: ${response.status}`);
-                    setRecipes([]);
-                    setSelectedRecipe(null);
-                }
+            // let apiUrl = '';
+
+            // if (isRandom === 'true') {
+            //     apiUrl = 'https://backend-recipbyte.fly.dev/api/recipes/random/';
+            // } else if (ingredients) {
+            //     apiUrl = `https://backend-recipbyte.fly.dev/api/recipes/filter_by_ingredients/?ingredients=${ingredients}`;
+            //     if (dietaryRestrictions) {
+            //         apiUrl += `&dietaryRestrictions=${dietaryRestrictions}`;
+            //     }
+            // } else {
+            //     setError('No search criteria provided to fetch recipes.');
+            //     setLoading(false);
+            //     return;
+            // }
+
+            // try {
+            //     const response = await fetch(apiUrl);
+
+            //     if (response.ok) {
+            //         const data = await response.json();
+            //         const fetchedRecipes = isRandom === 'true' ? [data] : data;
+            //         setRecipes(fetchedRecipes);
+            //         if (fetchedRecipes.length === 1) {
+            //             setSelectedRecipe(fetchedRecipes[0]);
+            //         } else {
+            //             setSelectedRecipe(null);
+            //         }
+            //     } else {
+            //         const errorData = await response.json();
+            //         setError(errorData.error || `Failed to fetch recipes: ${response.status}`);
+            //         setRecipes([]);
+            //         setSelectedRecipe(null);
+            //     }
+            
             } catch (err) {
                 console.error("Error fetching recipes:", err);
                 setError("An error occurred while fetching recipes. Please check your network connection or the backend server.");

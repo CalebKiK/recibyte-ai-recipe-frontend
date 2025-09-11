@@ -1,12 +1,13 @@
 "use client";
 
 import { toSentenceCase, toTitleCase } from '@/utils/stringFormatters';
-import '../styles/RecipeChoice.css';
+import '../../styles/RecipeChoice.css';
 import { useAuth } from '@/context/AuthContext';
 import axios from 'axios';
 import Image from 'next/image';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import { addRecipeToFavourites, addRecipeToHistory } from "@/api/recipes";
 
 export default function RecipeChoice({ recipe }) {
     const { token } = useAuth();
@@ -34,39 +35,48 @@ export default function RecipeChoice({ recipe }) {
         displayIngredients = sourceIngredients.trim();
     }
 
-    const addToFavorites = async () => {
-        try {
-            const response = await axios.put(
-                `https://backend-recipbyte.fly.dev/api/users/favorites/${recipe.id}/toggle/`,
-                {},
-                { headers: { Authorization: `Bearer ${token}` } }
-            );
-            toast.success(response.data.message);
-        } catch (error) {
-            toast.error('Error adding to favorites. Please try again.');
-        }
-    };
+    // const addToFavorites = async () => {
+    //     try {
+    //         const response = await axios.put(
+    //             `https://backend-recipbyte.fly.dev/api/users/favorites/${recipe.id}/toggle/`,
+    //             {},
+    //             { headers: { Authorization: `Bearer ${token}` } }
+    //         );
+    //         toast.success(response.data.message);
+    //     } catch (error) {
+    //         toast.error('Error adding to favorites. Please try again.');
+    //     }
+    // };
 
-    const addToHistory = async () => {
-        try {
-            await axios.put(
-                `https://backend-recipbyte.fly.dev/api/users/history/${recipe.id}/add/`,
-                {},
-                { headers: { Authorization: `Bearer ${token}` } }
-            );
-        } catch (error) {
-            console.error('Error adding to history');
-        }
-    };
+    // const addToHistory = async () => {
+    //     try {
+    //         await axios.put(
+    //             `https://backend-recipbyte.fly.dev/api/users/history/${recipe.id}/add/`,
+    //             {},
+    //             { headers: { Authorization: `Bearer ${token}` } }
+    //         );
+    //     } catch (error) {
+    //         console.error('Error adding to history');
+    //     }
+    // };
 
     const handleLike = async () => {
         if (!token) {
             toast.error('Please log in to add to favorites.');
             return;
         }
-        await addToFavorites();
-        await addToHistory();
-        toast.success("Recipe added to favourites!");
+
+        try {
+            await addRecipeToFavourites(recipe.id, token);
+            await addRecipeToHistory(recipe.id, token);
+            toast.success("Recipe added to favourites!");
+        } catch (error) {
+            toast.error("Error while updating favourites/history.");
+        }
+
+        // await addToFavorites();
+        // await addToHistory();
+        // toast.success("Recipe added to favourites!");
     };
 
     let instructionSteps = [];
@@ -97,13 +107,13 @@ export default function RecipeChoice({ recipe }) {
             <div className='recipe-choice-text'>
                 <h4>Instructions</h4>
                 {/* <p>{recipe.instructions}</p> */}
-                <ul>
+                <ol>
                     {instructionSteps.map((step, index) => (
                         <li key={index}>
                             {toSentenceCase(step.trim())}
                         </li>
                     ))}
-                </ul>
+                </ol>
             </div>
             <div className='recipe-choice-btns'>
                 <button className='substitute-ingredient-btn'>Substitute Ingredient</button>

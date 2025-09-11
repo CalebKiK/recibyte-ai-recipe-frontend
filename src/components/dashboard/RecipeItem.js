@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import '../styles/UserDashboard.css';
+import '../../styles/UserDashboard.css';
 import { toSentenceCase, toTitleCase } from '@/utils/stringFormatters';
 
 export default function RecipeItem({ recipe, isExpanded, onClick, onRemove, showRemove = true }) {

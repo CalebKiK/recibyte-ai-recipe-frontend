@@ -1,6 +1,6 @@
 "use client";
 
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/shared/Navbar";
 import IngredientDetector from "@/components/IngredientDetector";
 import '../../styles/IngredientDetector.css';
 import { useEffect, useState } from 'react';

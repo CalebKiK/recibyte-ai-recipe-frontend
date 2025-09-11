@@ -5,9 +5,9 @@ import { useAuth } from '@/context/AuthContext';
 import { useRouter } from "next/navigation";
 import toast from 'react-hot-toast';
 import Image from 'next/image';
-import '../styles/BootstrapDropdown.scss';
-import BootstrapClient from './BootstrapClient';
-import '../styles/Navbar.css';
+import '../../styles/BootstrapDropdown.scss';
+import BootstrapClient from '../BootstrapClient';
+import '../../styles/Navbar.css';
 import { Menu } from 'lucide-react';
 
 export default function Navbar() {

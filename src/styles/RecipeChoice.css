@@ -14,11 +14,11 @@
     margin-right: 10px;
 }
 
-.recipe-choice-text ul{
+.recipe-choice-text ol{
     margin-left: 15px;
 }
 
-.recipe-choice-text ul li{
+.recipe-choice-text ol li{
     line-height: 25px;
 }
 

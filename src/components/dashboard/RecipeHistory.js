@@ -1,6 +1,6 @@
 "use client";
 
-import '../styles/UserDashboard.css';
+import '../../styles/UserDashboard.css';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/context/AuthContext';

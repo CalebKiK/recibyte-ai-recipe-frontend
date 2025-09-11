@@ -1,7 +1,7 @@
 "use client";
 
 import '../../styles/RecipePage.css';
-import RecipeCard from './RecipeCardOption';
+import RecipeOptionsCard from './RecipeOptionsCard';
 import { useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -25,7 +25,7 @@ export default function RecipeSuggestions({ recipes, onSelectRecipe }) {
                 </button>
                 <div className='recipe-suggestions' ref={scrollRef}>
                     {recipes.map((recipe) => (
-                        <RecipeCard key={recipe.id} recipe={recipe} onSelectRecipe={onSelectRecipe} />
+                        <RecipeOptionsCard key={recipe.id} recipe={recipe} onSelectRecipe={onSelectRecipe} />
                     ))}
                 </div>
                 <button onClick={() => scroll('right')} className="scroll-btn">

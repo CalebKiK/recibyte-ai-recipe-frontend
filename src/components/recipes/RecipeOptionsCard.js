@@ -1,10 +1,10 @@
 "use client";
 
-import '../../styles/RecipeCard.css';
+import '../../styles/RecipeOptionsCard.css';
 import { toSentenceCase, toTitleCase } from '@/utils/stringFormatters';
 import Image from 'next/image';
 
-export default function RecipeCard({ recipe, onSelectRecipe }) {
+export default function RecipeOptionsCard({ recipe, onSelectRecipe }) {
     
     const handleRecipeClick = () => {
         if(onSelectRecipe) {
@@ -19,23 +19,20 @@ export default function RecipeCard({ recipe, onSelectRecipe }) {
     let displayIngredients = "N/A";
 
     if (Array.isArray(recipe.ingredients)) {
-        // Check if array contains strings or objects
         if (recipe.ingredients.length > 0) {
             if (typeof recipe.ingredients[0] === "string") {
-                // Already formatted strings
                 displayIngredients = recipe.ingredients
                     .filter(ing => ing.trim() !== "")
+                    .map(ing => toSentenceCase(ing))
                     .join(", ");
             } else if (typeof recipe.ingredients[0] === "object" && recipe.ingredients[0].name) {
-                // Objects with name property
                 displayIngredients = recipe.ingredients
                     .map(ingredient => toSentenceCase(ingredient.name))
                     .join(", ");
             }
         }
     } else if (typeof recipe.ingredients === "string") {
-        // If it’s a single string, just display it
-        displayIngredients = recipe.ingredients.trim();
+        displayIngredients = toSentenceCase(recipe.ingredients.trim());
     }
 
     return (

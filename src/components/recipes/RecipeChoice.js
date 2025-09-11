@@ -24,6 +24,7 @@ export default function RecipeChoice({ recipe }) {
             if (typeof sourceIngredients[0] === "string") {
                 displayIngredients = sourceIngredients
                     .filter(ing => ing.trim() !== "")
+                    .map(ing => toSentenceCase(ing))
                     .join(", ");
             } else if (typeof sourceIngredients[0] === "object" && sourceIngredients[0].name) {
                 displayIngredients = sourceIngredients
@@ -32,7 +33,7 @@ export default function RecipeChoice({ recipe }) {
             }
         }
     } else if (typeof sourceIngredients === "string") {
-        displayIngredients = sourceIngredients.trim();
+        displayIngredients = toSentenceCase(sourceIngredients.trim());
     }
 
     // const addToFavorites = async () => {

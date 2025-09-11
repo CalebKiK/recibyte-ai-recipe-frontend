@@ -10,7 +10,7 @@ export async function getRecipesByIngredients(ingredients, dietaryRestrictions) 
 
     const res = await fetch(url);
     if (!res.ok) throw new Error("Failed to fetch recipes");
-    return res.json
+    return res.json();
 }
 
 // 🔹 Get a single recipe detail (local/spoonacular)

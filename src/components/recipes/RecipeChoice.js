@@ -1,7 +1,7 @@
 "use client";
 
 import { toSentenceCase, toTitleCase } from '@/utils/stringFormatters';
-import '../styles/RecipeChoice.css';
+import '../../styles/RecipeChoice.css';
 import { useAuth } from '@/context/AuthContext';
 import axios from 'axios';
 import Image from 'next/image';
@@ -107,13 +107,13 @@ export default function RecipeChoice({ recipe }) {
             <div className='recipe-choice-text'>
                 <h4>Instructions</h4>
                 {/* <p>{recipe.instructions}</p> */}
-                <ul>
+                <ol>
                     {instructionSteps.map((step, index) => (
                         <li key={index}>
                             {toSentenceCase(step.trim())}
                         </li>
                     ))}
-                </ul>
+                </ol>
             </div>
             <div className='recipe-choice-btns'>
                 <button className='substitute-ingredient-btn'>Substitute Ingredient</button>

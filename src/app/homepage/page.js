@@ -1,6 +1,6 @@
-import DidYouKnow from "@/components/DidYouKnow";
-import HeroSection from "@/components/HeroSection";
-import Navbar from "@/components/Navbar";
+import DidYouKnow from "@/components/homepage/DidYouKnow";
+import HeroSection from "@/components/homepage/HeroSection";
+import Navbar from "@/components/shared/Navbar";
 import '../../styles/HomePage.css';
 
 export default function HomePage() {

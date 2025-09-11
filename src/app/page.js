@@ -1,8 +1,8 @@
 import Image from "next/image";
 import styles from "./page.module.css";
-import Navbar from "@/components/Navbar";
-import HeroSection from "@/components/HeroSection";
-import DidYouKnow from "@/components/DidYouKnow";
+import Navbar from "@/components/shared/Navbar";
+import HeroSection from "@/components/homepage/HeroSection";
+import DidYouKnow from "@/components/homepage/DidYouKnow";
 
 export default function Home() {
   return (

@@ -1,9 +1,9 @@
 "use client";
 
-import Navbar from "@/components/Navbar";
-import RecipeChoice from "@/components/RecipeChoice";
-import RecipeSuggestions from "@/components/RecipeSuggestions";
-import WhyRecipe from "@/components/WhyRecipe";
+import Navbar from "@/components/shared/Navbar";
+import RecipeChoice from "@/components/recipes/RecipeChoice";
+import RecipeSuggestions from "@/components/recipes/RecipeSuggestions";
+import WhyRecipe from "@/components/recipes/WhyRecipe";
 import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { getRecipesByIngredients, getRandomRecipes } from "@/api/recipes";

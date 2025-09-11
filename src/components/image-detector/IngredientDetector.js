@@ -2,7 +2,7 @@
 
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import '../styles/IngredientDetector.css';
+import '../../styles/IngredientDetector.css';
 import * as tf from '@tensorflow/tfjs';
 import toast from 'react-hot-toast';
 import Image from 'next/image';

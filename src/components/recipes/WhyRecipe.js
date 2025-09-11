@@ -1,6 +1,6 @@
 "use client";
 
-import '../styles/RecipePage.css';
+import '../../styles/RecipePage.css';
 
 export default function WhyRecipe() {
     return (

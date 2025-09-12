@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import "../../styles/homepage/HomePage.css";
+import "../../styles/homepage/DidYouKnow.css";
 
 const facts = [
   // 🥑 Food/Drink Facts

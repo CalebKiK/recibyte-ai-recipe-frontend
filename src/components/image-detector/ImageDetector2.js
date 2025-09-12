@@ -1,7 +1,7 @@
 // "use client";
 
 // import { useEffect, useRef, useState, useCallback } from 'react';
-// import '../../styles/ImageDetector.css';
+// import '../../styles/image-detector/ImageDetector.css';
 
 // export default function ImageDetector({ model }) {
 //     const videoRef = useRef(null);

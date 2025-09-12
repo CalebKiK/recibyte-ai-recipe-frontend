@@ -1,7 +1,7 @@
 "use client";
 
 import { toSentenceCase, toTitleCase } from '@/utils/stringFormatters';
-import '../../styles/RecipeChoice.css';
+import '../../styles/recipes/RecipeChoice.css';
 import { useAuth } from '@/context/AuthContext';
 import axios from 'axios';
 import Image from 'next/image';

@@ -7,7 +7,7 @@ import WhyRecipe from "@/components/recipes/WhyRecipe";
 import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { getRecipesByIngredients, getRandomRecipes } from "@/api/recipes";
-import '../../styles/RecipePage.css';
+import '../../styles/recipes/RecipePage.css';
 
 function RecipePageContent() {
     const searchParams = useSearchParams();

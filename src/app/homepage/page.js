@@ -1,7 +1,7 @@
 import DidYouKnow from "@/components/homepage/DidYouKnow";
 import HeroSection from "@/components/homepage/HeroSection";
 import Navbar from "@/components/shared/Navbar";
-import '../../styles/HomePage.css';
+import '../../styles/homepage/HomePage.css';
 
 export default function HomePage() {
     return(

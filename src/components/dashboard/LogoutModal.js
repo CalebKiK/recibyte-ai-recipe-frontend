@@ -1,6 +1,6 @@
 "use client";
 
-import "../styles/UserAuthentication.css";
+import "../../styles/dashboard/UserAuthentication.css";
 import { useState } from "react";
 
 export default function LogoutModal({ onClose, onLogout }) {

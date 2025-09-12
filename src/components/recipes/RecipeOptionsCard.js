@@ -1,6 +1,6 @@
 "use client";
 
-import '../../styles/RecipeOptionsCard.css';
+import '../../styles/recipes/RecipeOptionsCard.css';
 import { toSentenceCase, toTitleCase } from '@/utils/stringFormatters';
 import Image from 'next/image';
 

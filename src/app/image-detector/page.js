@@ -2,7 +2,7 @@
 
 import Navbar from "@/components/shared/Navbar";
 import IngredientDetector from "@/components/image-detector/IngredientDetector";
-import '../../styles/IngredientDetector.css';
+import '../../styles/image-detector/IngredientDetector.css';
 import { useEffect, useState } from 'react';
 import * as cocoSsd from "@tensorflow-models/coco-ssd";
 import * as tf from "@tensorflow/tfjs";

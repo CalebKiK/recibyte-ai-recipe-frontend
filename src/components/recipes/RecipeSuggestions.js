@@ -1,6 +1,6 @@
 "use client";
 
-import '../../styles/RecipePage.css';
+import '../../styles/recipes/RecipePage.css';
 import RecipeOptionsCard from './RecipeOptionsCard';
 import { useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';

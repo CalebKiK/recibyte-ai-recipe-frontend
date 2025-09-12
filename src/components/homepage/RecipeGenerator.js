@@ -19,6 +19,23 @@ export default function RecipeGenerator() {
     const [loadingRandom, setLoadingRandom] = useState(false);
     const [dots, setDots] = useState("");
     const [showTip, setShowTip] = useState(false);
+    const [currentPlaceholderIndex, setCurrentPlaceholderIndex] = useState(0);
+
+    const placeholders = [
+        "Add your ingredients here...",
+        "e.g., Chicken, Rice, Soy Sauce",
+        "Try adding 2 or more ingredients for better results!",
+        "What's in your pantry?"
+    ];
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentPlaceholderIndex(
+                (prevIndex) => (prevIndex + 1) % placeholders.length
+            );
+        }, 5000); // Change placeholder every 5 seconds
+        return () => clearInterval(interval);
+    }, []);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -229,7 +246,8 @@ export default function RecipeGenerator() {
             <div className="ingredients-section">
                 <div className="ingredients-input">
                     <input
-                        placeholder={`Add your ingredients here${dots}`}
+                        // placeholder={`Add your ingredients here${dots}`}
+                        placeholder={placeholders[currentPlaceholderIndex]}
                         value={ingredient}
                         onChange={handleInputChange}
                         onBlur={handleInputBlur}

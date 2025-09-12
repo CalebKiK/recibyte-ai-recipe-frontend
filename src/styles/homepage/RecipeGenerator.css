@@ -1,0 +1,575 @@
+.recipe-generator-component{
+    position: relative;
+    background-color: #c9a66b76;
+    border-radius: 5px;
+    margin: 0px 300px 20px;
+    padding: 80px 130px;
+}
+
+.swipe-background-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); 
+  z-index: 1;
+}
+
+.swipe-background-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  z-index: 0;
+  border-radius: 5px;
+}
+
+.swipe-track {
+  display: flex;
+  height: 100%;
+  animation: swipe 200s linear infinite;
+}
+
+.swipe-image {
+  height: 100%;
+  flex-shrink: 0;
+  width: auto;
+  object-fit: cover;
+  border-radius: 3px;
+}
+
+@keyframes swipe {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-500%);
+  }
+}
+
+.ingredients-section{
+    position: relative;
+    z-index: 2;
+    background-color: #C9A66B;
+    border-radius: 5px;
+    padding: 50px 0px;
+}
+
+.ingredients-input input{
+    height: 40px;
+    width: 400px;
+    padding: 0px 0px 0px 10px;
+    border: none;
+    border-radius: 10px 0px 0px 10px;
+}
+
+.add-ingredient-btn{
+    height: 40px;
+    width: 80px;
+    border: 1px solid #8B4513;
+    background-color: #FAF1E6;
+    border-radius: 0px 10px 10px 0px;
+}
+
+.add-ingredient-btn:hover{
+    background-color: #ffefd3;
+    transition: 0.4s ease-in;
+}
+
+.filters-btn{
+    background-color: #F5FFAC;
+    margin-left: 50px;
+    height: 40px;
+    width: 50px;
+    border: none;
+    border-radius: 5px;
+}
+
+.filters-btn:hover{
+    background-color: #f9ffcf;
+    transition: 0.4s ease-in;
+}
+
+.tip-popover{
+    margin-top: 20px;
+}
+
+.ingredients-list{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px 20px 0px;
+}
+
+.ingredients-list li{
+    background-color: #FAF1E6;
+    margin: 10px;
+    width: fit-content;
+    padding: 5px 10px;
+    list-style-type: none;
+    border-radius: 10px;
+    border: none;
+    font-size: 13px;
+}
+
+.ingredients-list li button{
+    margin-left: 20px;
+    border: none;
+    padding: 1px 10px;
+}
+
+.gen-recipe-btns-desktop button{
+    margin: 30px 30px 0px;
+    border-radius: 20px;
+}
+
+.gen-recipe-btns-mobile{
+    display: none;
+}
+
+.generate-recipe-btn{
+    background-color: #8B4513;
+    border: none;
+    color: #ffffff;
+    padding: 10px 40px;
+}
+
+.generate-recipe-btn:hover{
+    background-color: #a05017;
+    transition: 0.4s ease-in;
+}
+
+.feeling-adventurous-btn{
+    background-color: #D9D9D9; 
+    border: 1px solid #8B4513;
+    padding: 10px 20px;
+}
+
+.feeling-adventurous-btn:hover{
+    background-color: #FAF1E6;
+    transition: 0.4s ease-in;
+}
+
+.to-image-detection-btn{
+    background-color: #c3cca7;
+    border: none;
+    padding: 10px 20px;
+}
+
+.to-image-detection-btn:hover{
+    background-color: #b3bd97;
+    transition: 0.4s ease-in;
+}
+
+.dots::after {
+  display: inline-block;
+  content: '...';
+  animation: dots 1.5s steps(4, end) infinite;
+  font-size: 14px;
+}
+
+@keyframes dots {
+  0%, 20% { color: transparent; text-shadow: .25em 0 0 transparent, .5em 0 0 transparent; }
+  40% { color: black; text-shadow: .25em 0 0 transparent, .5em 0 0 transparent; }
+  60% { text-shadow: .25em 0 0 black, .5em 0 0 transparent; }
+  80%, 100% { text-shadow: .25em 0 0 black, .5em 0 0 black; }
+}
+
+
+@media (max-width: 600px) {
+    .recipe-generator-component{
+        margin: 20px 5px;
+        padding: 40px 45px;
+    }
+
+    .swipe-track {
+        animation: swipe 150s linear infinite;
+    }
+
+    @keyframes swipe {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-900%);
+        }
+    }
+
+    .ingredients-section{
+        padding: 20px 0px;
+    }
+
+    .ingredients-input input{
+        height: 30px;
+        width: 160px;
+        font-size: 10px;
+        padding: 0px 0px 0px 5px;
+        border-radius: 5px 0px 0px 5px;
+    }
+
+    .gen-recipe-btns-desktop{
+        display: none;
+    }
+
+    .gen-recipe-btns-mobile{
+        display: block;
+    }
+
+    .gen-recipe-btns-tier-2{
+        display: flex;
+        flex-direction: row;
+        text-align: center;
+        justify-content: center;
+        align-content: center;
+    }
+
+    .gen-recipe-btns-mobile button{
+        border-radius: 15px;
+        margin: 10px 10px 0px;
+        padding: 10px 30px;
+        font-size: 10px;
+    }
+
+    .gen-recipe-btns-tier-2 button{
+        margin: 20px 0px 0px;
+        padding: 10px;
+        font-size: 10px;
+    }
+
+    .gen-recipe-btns-mobile .feeling-adventurous-btn{
+        margin-left: 15px;
+    }
+
+    .add-ingredient-btn{
+        height: 30px;
+        width: 60px;
+        border-radius: 0px 5px 5px 0px;
+        font-size: 10px;
+    }
+
+    .filters-btn{
+        margin-left: 20px;
+        height: 30px;
+        width: 40px;
+    }
+
+    .ingredients-list{
+        margin: 10px 10px 0px;
+    }
+
+    .ingredients-list li{
+        margin: 10px 5px;
+        padding: 5px;
+        font-size: 12px;
+    }
+
+    .ingredients-list li button{
+        margin-left: 10px;
+        padding: 1px 5px;
+    }
+
+    .generate-recipe-btn button{
+        font-size: 100px;
+    }
+}
+
+@media (min-width: 600px) and (max-width: 720px) {
+    .recipe-generator-component{
+        margin: 30px 60px;
+        padding: 50px 80px;
+    }
+
+    .ingredients-section{
+        padding: 40px 0px;
+    }
+
+    .ingredients-input input{
+        height: 40px;
+        width: 200px;
+        font-size: 13px;
+        padding: 0px 0px 0px 10px;
+        border-radius: 5px 0px 0px 5px;
+    }
+
+    .add-ingredient-btn{
+        height: 40px;
+        width: 80px;
+        border-radius: 0px 10px 10px 0px;
+    }
+
+    .filters-btn{
+        margin-left: 20px;
+        height: 30px;
+        width: 40px;
+    }
+
+    .ingredients-list{
+        margin: 10px 20px 0px;
+    }
+
+    .ingredients-list li{
+        margin: 10px;
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    .ingredients-list li button{
+        margin-left: 15px;
+        padding: 1px 10px;
+    }
+
+    .gen-recipe-btns-desktop{
+        display: none;
+    }
+
+    .gen-recipe-btns-mobile{
+        display: block;
+    }
+
+    .gen-recipe-btns-tier-2{
+        display: flex;
+        flex-direction: row;
+        text-align: center;
+        justify-content: center;
+        align-content: center;
+    }
+
+    .gen-recipe-btns-mobile button{
+        border-radius: 15px;
+        margin: 20px 15px 0px;
+        padding: 10px 30px;
+        font-size: 13px;
+    }
+
+    .gen-recipe-btns-tier-2 button{
+        margin: 20px 10px 0px;
+        padding: 10px;
+        font-size: 12px;
+    }
+}
+
+@media (min-width: 720px) and (max-width: 860px) {
+    .recipe-generator-component{
+        padding: 50px 100px;
+        margin: 30px 60px;
+    }
+
+    .ingredients-section{
+        padding: 40px 0px;
+    }
+
+    .ingredients-input input{
+        height: 40px;
+        width: 300px;
+        font-size: 13px;
+        padding: 0px 0px 0px 10px;
+        border-radius: 5px 0px 0px 5px;
+    }
+
+    .add-ingredient-btn{
+        height: 40px;
+        width: 80px;
+        border-radius: 0px 10px 10px 0px;
+    }
+
+    .filters-btn{
+        margin-left: 20px;
+        height: 30px;
+        width: 40px;
+    }
+
+    .ingredients-list{
+        margin: 10px 20px 0px;
+    }
+
+    .ingredients-list li{
+        margin: 10px;
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    .ingredients-list li button{
+        margin-left: 15px;
+        padding: 1px 10px;
+    }
+
+    .gen-recipe-btns-desktop{
+        display: none;
+    }
+
+    .gen-recipe-btns-mobile{
+        display: block;
+    }
+
+    .gen-recipe-btns-tier-2{
+        display: flex;
+        flex-direction: row;
+        text-align: center;
+        justify-content: center;
+        align-content: center;
+    }
+
+    .gen-recipe-btns-mobile button{
+        border-radius: 15px;
+        margin: 20px 15px 0px;
+        padding: 10px 40px;
+        font-size: 13px;
+    }
+
+    .gen-recipe-btns-tier-2 button{
+        margin: 20px 10px 0px;
+        padding: 10px 20px;
+        font-size: 12px;
+    }
+}
+
+@media (min-width: 860px) and (max-width: 1030px) {
+    .recipe-generator-component{
+        margin: 30px 80px;
+        padding: 80px 150px;
+    }
+
+    .ingredients-section{
+        padding: 50px 0px;
+    }
+
+    .ingredients-input input{
+        height: 40px;
+        width: 280px;
+        font-size: 14px;
+        padding: 0px 0px 0px 10px;
+        border-radius: 5px 0px 0px 5px;
+    }
+
+    .add-ingredient-btn{
+        height: 40px;
+        width: 80px;
+        border-radius: 0px 10px 10px 0px;
+    }
+
+    .filters-btn{
+        margin-left: 20px;
+        height: 30px;
+        width: 40px;
+    }
+
+    .ingredients-list{
+        margin: 10px 20px 0px;
+    }
+
+    .ingredients-list li{
+        margin: 10px;
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    .ingredients-list li button{
+        margin-left: 15px;
+        padding: 1px 10px;
+    }
+
+    .gen-recipe-btns-desktop{
+        display: none;
+    }
+
+    .gen-recipe-btns-mobile{
+        display: block;
+    }
+
+    .gen-recipe-btns-tier-2{
+        display: flex;
+        flex-direction: row;
+        text-align: center;
+        justify-content: center;
+        align-content: center;
+    }
+
+    .gen-recipe-btns-mobile button{
+        border-radius: 15px;
+        margin: 20px 15px 0px;
+        padding: 10px 50px;
+        font-size: 13px;
+    }
+
+    .gen-recipe-btns-tier-2 button{
+        margin: 20px 10px 0px;
+        padding: 10px 25px;
+        font-size: 12px;
+    }
+}
+
+@media (min-width: 1030px) and (max-width: 1340px) {
+    .recipe-generator-component{
+        margin: 30px 80px;
+        padding: 80px 150px;
+    }
+
+    .ingredients-section{
+        padding: 50px 0px;
+    }
+
+    .ingredients-input input{
+        height: 39px;
+        width: 350px;
+        font-size: 14px;
+        padding: 0px 0px 0px 10px;
+        border-radius: 10px 0px 0px 10px;
+    }
+
+    .add-ingredient-btn{
+        height: 40px;
+        width: 100px;
+        border-radius: 0px 10px 10px 0px;
+    }
+
+    .filters-btn{
+        margin-left: 20px;
+        height: 30px;
+        width: 40px;
+    }
+
+    .ingredients-list{
+        margin: 10px 20px 0px;
+    }
+
+    .ingredients-list li{
+        margin: 10px;
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    .ingredients-list li button{
+        margin-left: 15px;
+        padding: 1px 10px;
+    }
+
+    .gen-recipe-btns-desktop{
+        display: none;
+    }
+
+    .gen-recipe-btns-mobile{
+        display: block;
+    }
+
+    .gen-recipe-btns-tier-2{
+        display: flex;
+        flex-direction: row;
+        text-align: center;
+        justify-content: center;
+        align-content: center;
+    }
+
+    .gen-recipe-btns-mobile button{
+        border-radius: 15px;
+        margin: 20px 15px 0px;
+        padding: 10px 50px;
+    }
+
+    .gen-recipe-btns-tier-2 button{
+        margin: 20px 10px 0px;
+        padding: 10px 25px;
+    }
+}

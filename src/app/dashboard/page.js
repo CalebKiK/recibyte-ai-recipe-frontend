@@ -1,5 +1,5 @@
 import Navbar from "@/components/shared/Navbar";
-import UserDashboard from "@/components/UserDashboard";
+import UserDashboard from "@/components/dashboard/UserDashboard";
 
 export default function DashboardPage() {
     return(

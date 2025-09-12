@@ -1,7 +1,7 @@
 "use client";
 
 import Navbar from "@/components/shared/Navbar";
-import IngredientDetector from "@/components/IngredientDetector";
+import IngredientDetector from "@/components/image-detector/IngredientDetector";
 import '../../styles/IngredientDetector.css';
 import { useEffect, useState } from 'react';
 import * as cocoSsd from "@tensorflow-models/coco-ssd";

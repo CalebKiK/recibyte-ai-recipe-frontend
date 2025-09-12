@@ -1,4 +1,4 @@
-import UserAuthentication from "@/components/UserAuthentication";
+import UserAuthentication from "@/components/shared/UserAuthentication";
 
 export default function AuthPage() {
     return <UserAuthentication />

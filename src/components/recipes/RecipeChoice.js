@@ -13,7 +13,7 @@ export default function RecipeChoice({ recipe }) {
     const { token } = useAuth();
     const [message, setMessage] = useState(null);
 
-    let displayIngredients = "N/A";
+    let displayIngredients = [];
 
     const sourceIngredients = recipe.detailed_ingredients?.length
         ? recipe.detailed_ingredients
@@ -24,16 +24,14 @@ export default function RecipeChoice({ recipe }) {
             if (typeof sourceIngredients[0] === "string") {
                 displayIngredients = sourceIngredients
                     .filter(ing => ing.trim() !== "")
-                    .map(ing => toSentenceCase(ing))
-                    .join(", ");
+                    // .map(ing => toSentenceCase(ing))
             } else if (typeof sourceIngredients[0] === "object" && sourceIngredients[0].name) {
                 displayIngredients = sourceIngredients
-                    .map(ingredient => toSentenceCase(ingredient.name))
-                    .join(", ");
+                    .map(ingredient => ingredient.name)
             }
         }
     } else if (typeof sourceIngredients === "string") {
-        displayIngredients = toSentenceCase(sourceIngredients.trim());
+        displayIngredients = sourceIngredients.split(',').map(ing => toSentenceCase(ing.trim()));
     }
 
     // const addToFavorites = async () => {
@@ -83,9 +81,15 @@ export default function RecipeChoice({ recipe }) {
     let instructionSteps = [];
 
     if (Array.isArray(recipe.instructions)) {
-        instructionSteps = recipe.instructions.filter(step => step.trim() !== '');
+        // instructionSteps = recipe.instructions.filter(step => step.trim() !== '');
+        instructionSteps = recipe.instructions.flatMap(step =>
+            step.split(/\.\s*(?=\d+\.)/g)
+                .filter(s => s.trim() !== '')
+        ).filter(step => step.trim() !== '');
+
     } else if (typeof recipe.instructions === 'string') {
-        instructionSteps = recipe.instructions.split('. ').filter(step => step.trim() !== '');
+        // instructionSteps = recipe.instructions.split('. ').filter(step => step.trim() !== '');
+        instructionSteps = recipe.instructions.split(/\.\s*(?=\d+\.)/g).filter(step => step.trim() !== '');
     }
 
     return (
@@ -96,7 +100,16 @@ export default function RecipeChoice({ recipe }) {
                     <h2>Let’s make: {toTitleCase(recipe.title)}</h2>
                     <div className='recipe-choice-ingredients'>
                         <h4>Ingredients</h4>
-                        <p>{displayIngredients}</p>
+                        <ul>
+                            {displayIngredients.length > 0 ? (
+                                displayIngredients.map((ingredient, index) => (
+                                    <li key={index}>{ingredient}</li>
+                                ))
+                            ) : (
+                                <p>N/A</p>
+                            )}
+                        </ul>
+                        {/* <p>{displayIngredients}</p> */}
                     </div>
                 </div> 
             </div>

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import "@/styles/shared/UserAuthentication.css";
@@ -10,12 +9,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faLock, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { Formik, Form, Field, ErrorMessage} from "formik";
 import * as Yup from "yup";
+import { loginUser, registerUser } from "@/api/users";
 
 export default function UserAuthentication() {
     const [isLogin, setIsLogin] = useState(true);
-    // const [formData, setFormData] = useState({
-    //     username: "", email: "", password: "", password2: ""
-    // });
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false); 
     const router = useRouter();
@@ -50,32 +47,41 @@ export default function UserAuthentication() {
         setLoading(true); 
         try {
             if (isLogin) {
-                const res = await axios.post("https://backend-recipbyte.fly.dev/api/users/login/", {
-                    email: values.email,
-                    password: values.password
-                });
-                login(res.data.access);
-                localStorage.setItem("refreshToken", res.data.refresh);
-                toast.success(`Welcome back, ${formData.username}!`);
-                router.push("/homepage");
+                // const res = await axios.post("https://backend-recipbyte.fly.dev/api/users/login/", {
+                //     email: values.email,
+                //     password: values.password
+                // });
+                const res = await loginUser(values.email, values.password);
+                login(res.access);
+                localStorage.setItem("refreshToken", res.refresh);
+                toast.success(`Welcome back! ${res.username}`);
+                router.push("/");
             } else {
-                await axios.post("https://backend-recipbyte.fly.dev/api/users/register/", formData);
+                // await axios.post("https://backend-recipbyte.fly.dev/api/users/register/", formData);
+                await registerUser(values);
                 toast.success("Account created successfully!");
                 resetForm();
                 setIsLogin(true);
             }
         } catch (err) {
-            if (err.response?.data) {
-                const data = err.response.data;
-
-                Object.keys(data).forEach((field) => {
-                const messages = data[field];
-                if (Array.isArray(messages)) {
-                    messages.forEach((msg) => toast.error(msg));
+            if (err && typeof err === "object") {
+                // If backend returned structured JSON errors
+                if (Array.isArray(err.detail)) {
+                    err.detail.forEach((msg) => toast.error(msg));
+                } else if (err.detail) {
+                    toast.error(err.detail);
                 } else {
-                    toast.error(messages);
+                    // Loop over fields (like Django REST usually does)
+                    Object.keys(err).forEach((field) => {
+                        const messages = err[field];
+                        if (Array.isArray(messages)) {
+                            messages.forEach((msg) => toast.error(`${msg}`));
+                            // messages.forEach((msg) => toast.error(`${field}: ${msg}`));
+                        } else {
+                            toast.error(`${field}: ${messages}`);
+                        }
+                    });
                 }
-                });
             } else {
                 toast.error("An unexpected error occurred");
             }

@@ -16,7 +16,7 @@ export default function Navbar() {
 
     const handleLogout = async () => {
         await logout();
-        router.push("/homepage");
+        router.push("/");
         toast.success("Logged out successfully!");
     };
 
@@ -38,7 +38,7 @@ export default function Navbar() {
                 <h3>RECIBYTE</h3>
             </div>
             <div className='custom-navbar-links'>
-                <Link className='nav-bar-link' href="/homepage">
+                <Link className='nav-bar-link' href="/">
                     <div>
                         <Image 
                             src="/images/navbar-icons/home.png" 
@@ -106,7 +106,7 @@ export default function Navbar() {
                 </button>
                 <ul className="dropdown-menu">
                     <li>
-                        <Link href="/homepage" className="dropdown-item">
+                        <Link href="/" className="dropdown-item">
                             <div>
                                 <Image 
                                     src="/images/navbar-icons/home.png" 

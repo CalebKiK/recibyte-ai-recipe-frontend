@@ -1,2 +1,26 @@
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://backend-recipbyte.fly.dev/api";
 // const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000/api";
+
+// 🔹 Login user
+export async function loginUser(email, password) {
+    const res = await fetch(`${BASE_URL}/users/login/`, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ email, password })
+    });
+    const data = await res.json();
+    if (!res.ok) throw data;
+    return data;
+}
+
+// 🔹 Register user
+export async function registerUser(userData) {
+    const res = await fetch(`${BASE_URL}/users/register/`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(userData)
+    });
+    const data = await res.json();
+    if (!res.ok) throw data;
+    return data;
+}

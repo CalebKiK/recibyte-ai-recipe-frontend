@@ -88,8 +88,12 @@ export default function RecipeChoice({ recipe }) {
         ).filter(step => step.trim() !== '');
 
     } else if (typeof recipe.instructions === 'string') {
-        // instructionSteps = recipe.instructions.split('. ').filter(step => step.trim() !== '');
-        instructionSteps = recipe.instructions.split(/\.\s*(?=\d+\.)/g).filter(step => step.trim() !== '');
+        instructionSteps = recipe.instructions
+            .replace(/\n+/g, ' ')
+            .split(/\.\s*/)
+            .map(step => step.trim())
+            .filter(step => step.length > 0)
+            .map(step => step.endsWith('.') ? step : step + '.');
     }
 
     return (

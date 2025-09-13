@@ -13,7 +13,6 @@ import { loginUser, registerUser } from "@/api/users";
 
 export default function UserAuthentication() {
     const [isLogin, setIsLogin] = useState(true);
-    const [error, setError] = useState("");
     const [loading, setLoading] = useState(false); 
     const router = useRouter();
     const { login } = useAuth();
@@ -65,13 +64,11 @@ export default function UserAuthentication() {
             }
         } catch (err) {
             if (err && typeof err === "object") {
-                // If backend returned structured JSON errors
                 if (Array.isArray(err.detail)) {
                     err.detail.forEach((msg) => toast.error(msg));
                 } else if (err.detail) {
                     toast.error(err.detail);
                 } else {
-                    // Loop over fields (like Django REST usually does)
                     Object.keys(err).forEach((field) => {
                         const messages = err[field];
                         if (Array.isArray(messages)) {

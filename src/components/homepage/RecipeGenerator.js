@@ -35,7 +35,7 @@ export default function RecipeGenerator() {
             );
         }, 5000); // Change placeholder every 5 seconds
         return () => clearInterval(interval);
-    }, []);
+    }, [placeholders.length]);
 
     useEffect(() => {
         const interval = setInterval(() => {

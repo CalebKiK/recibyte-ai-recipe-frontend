@@ -65,6 +65,11 @@
     padding: 0px 0px 0px 10px;
     border: none;
     border-radius: 10px 0px 0px 10px;
+    transition: 0.5s ease-in-out; 
+}
+
+.ingredients-input input::placeholder {
+    transition: 0.5s ease-in-out;
 }
 
 .add-ingredient-btn{
@@ -95,7 +100,8 @@
 }
 
 .tip-popover{
-    margin-top: 20px;
+    margin-top: 15px;
+    font-size: 14px;
 }
 
 .ingredients-list{

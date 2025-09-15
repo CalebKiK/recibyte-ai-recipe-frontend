@@ -45,12 +45,19 @@
 }
 
 .recipe-choice-btns button{
-    margin: 30px 30px 0px;
-    padding: 10px;
+    margin: 30px 20px 0px;
+    padding: 2px;
     border-radius: 5px;
+    border: none;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    text-align: center;
+    align-content: center;
+    background-color: #ece0d1;
 }
 
-.substitute-ingredient-btn{
+/* .substitute-ingredient-btn{
     background-color: #8B4513;
     border: none;
     border-radius: 5px;
@@ -82,7 +89,7 @@
 .dislike-recipe-btn:hover{
     background-color: #c3cca7;
     transition: 0.4s ease-in;
-}
+} */
 
 
 @media (max-width: 500px) {
@@ -139,8 +146,13 @@
 
     .recipe-choice-btns button{
         margin: 20px 10px 0px;
-        padding: 10px;
+        padding: 5px;
         font-size: 10px;
+    }
+
+    .recipe-choice-btns img {
+        height: 15px;
+        width: 15px;
     }
 }
 
@@ -186,8 +198,13 @@
 
     .recipe-choice-btns button{
         margin: 20px 10px 0px;
-        padding: 10px;
+        padding: 5px;
         font-size: 10px;
+    }
+
+    .recipe-choice-btns img {
+        height: 15px;
+        width: 15px;
     }
 }
 
@@ -233,7 +250,7 @@
 
     .recipe-choice-btns button{
         margin: 20px 10px 0px;
-        padding: 15px;
+        padding: 5px;
         font-size: 12px;
     }
 }
@@ -267,7 +284,7 @@
 
     .recipe-choice-btns button{
         margin: 20px 10px 0px;
-        padding: 15px;
+        padding: 5px;
         font-size: 14px;
     }
 }

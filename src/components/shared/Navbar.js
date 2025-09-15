@@ -9,7 +9,7 @@ import '../../styles/BootstrapDropdown.scss';
 import BootstrapClient from '../BootstrapClient';
 import '../../styles/shared/Navbar.css';
 import { Menu } from 'lucide-react';
-import LogoutModal from './LogoutModal';
+import LogoutModal from '../modals/LogoutModal';
 import { useState } from 'react';
 
 export default function Navbar() {

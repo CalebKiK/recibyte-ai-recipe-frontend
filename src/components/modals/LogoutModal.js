@@ -1,6 +1,6 @@
 "use client";
 
-import "../../styles/shared/LogoutModal.css";
+import "../../styles/modals/LogoutModal.css";
 import { useState } from "react";
 
 export default function LogoutModal({ onCancel, show, onConfirm }) {

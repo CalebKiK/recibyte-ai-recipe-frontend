@@ -127,9 +127,20 @@ export default function RecipeChoice({ recipe }) {
                 </ol>
             </div>
             <div className='recipe-choice-btns'>
-                <button className='substitute-ingredient-btn'>Substitute Ingredient</button>
-                <button className='like-recipe-btn' onClick={handleLike}>Like (Thumbs Up)</button>
-                <button className='dislike-recipe-btn'>Not Like (Thumbs Down)</button>
+                <button className='share-recipe-btn' title="Share this recipe">
+                    <Image src="/images/recipe-choice-icons/share-1.png" alt="Share this recipe" height={20} width={20} />
+                </button>
+                <button className='substitute-ingredient-btn' title="Substitute ingredients">
+                    <Image src="/images/recipe-choice-icons/arrow.png" alt="Substitute ingredients" height={20} width={20} />
+                </button>
+                {/* Will turn to a full colour filled icon when clicked */}
+                <button className='like-recipe-btn' title="Like recipe" onClick={handleLike}>
+                    <Image src="/images/recipe-choice-icons/like.png" alt="Like recipe" height={20} width={20} />
+                </button>
+                {/* Will turn to a full colour filled icon when clicked */}
+                <button className='dislike-recipe-btn' title="Dislike recipe">
+                    <Image src="/images/recipe-choice-icons/dislike.png" alt="Dislike recipe" height={20} width={20} />
+                </button>
             </div>
             {/* {message && <div className='message'>{message}</div>} */}
         </div>

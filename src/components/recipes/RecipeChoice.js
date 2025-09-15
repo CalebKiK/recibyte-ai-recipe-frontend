@@ -133,11 +133,11 @@ export default function RecipeChoice({ recipe }) {
                     ))}
                 </ol>
             </div>
-            {/* <div className='recipe-choice-btns'>
+            <div className='recipe-choice-btns'>
                 <button className='substitute-ingredient-btn'>Substitute Ingredient</button>
                 <button className='like-recipe-btn' onClick={handleLike}>Like (Thumbs Up)</button>
                 <button className='dislike-recipe-btn'>Not Like (Thumbs Down)</button>
-            </div> */}
+            </div>
             {/* {message && <div className='message'>{message}</div>} */}
         </div>
     );

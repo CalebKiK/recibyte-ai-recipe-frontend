@@ -113,18 +113,11 @@ export default function RecipeChoice({ recipe }) {
                                 <p>N/A</p>
                             )}
                         </ul>
-                        {/* <p>{displayIngredients}</p> */}
                     </div>
                 </div> 
             </div>
-            {/* <h2>Let’s make: {toTitleCase(recipe.title)}</h2>
-            <div className='recipe-choice-ingredients'>
-                <h4>Ingredients</h4>
-                <p>{displayIngredients}</p>
-            </div> */}
             <div className='recipe-choice-text'>
                 <h4>Instructions</h4>
-                {/* <p>{recipe.instructions}</p> */}
                 <ol>
                     {instructionSteps.map((step, index) => (
                         <li key={index}>
@@ -133,11 +126,11 @@ export default function RecipeChoice({ recipe }) {
                     ))}
                 </ol>
             </div>
-            {/* <div className='recipe-choice-btns'>
+            <div className='recipe-choice-btns'>
                 <button className='substitute-ingredient-btn'>Substitute Ingredient</button>
                 <button className='like-recipe-btn' onClick={handleLike}>Like (Thumbs Up)</button>
                 <button className='dislike-recipe-btn'>Not Like (Thumbs Down)</button>
-            </div> */}
+            </div>
             {/* {message && <div className='message'>{message}</div>} */}
         </div>
     );

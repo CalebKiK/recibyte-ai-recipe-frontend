@@ -32,6 +32,11 @@ const nextConfig = {
                 hostname: "img.sndimg.com",
                 pathname: "/**",
             },
+            {
+                protocol: 'https',
+                hostname: 'img.sndimg.com',
+                pathname: '/food/image/upload/**',
+            },
         ],
     }
 };

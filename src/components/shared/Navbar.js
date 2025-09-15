@@ -9,15 +9,37 @@ import '../../styles/BootstrapDropdown.scss';
 import BootstrapClient from '../BootstrapClient';
 import '../../styles/shared/Navbar.css';
 import { Menu } from 'lucide-react';
+import LogoutModal from './LogoutModal';
+import { useState } from 'react';
 
 export default function Navbar() {
     const { token, logout } = useAuth();
     const router = useRouter();
 
-    const handleLogout = async () => {
+
+    // Commented out direct logout logic for modal integration
+    // const handleLogout = async () => {
+    //     await logout();
+    //     router.push("/");
+    //     toast.success("Logged out successfully!");
+    // };
+
+    // State to control logout modal
+    const [showLogoutModal, setShowLogoutModal] = useState(false);
+
+    const handleLogoutClick = () => {
+        setShowLogoutModal(true);
+    };
+
+    const handleConfirmLogout = async () => {
         await logout();
+        setShowLogoutModal(false);
         router.push("/");
         toast.success("Logged out successfully!");
+    };
+
+    const handleCancelLogout = () => {
+        setShowLogoutModal(false);
     };
 
     const handleDashboardClick = (e) => {
@@ -80,17 +102,32 @@ export default function Navbar() {
                         </div>
                     </Link>
                 ) : (
-                    <button onClick={handleLogout}>
-                        <div>
-                            <Image 
-                                src="/images/navbar-icons/logout.png" 
-                                alt="logout-icon"
-                                height={15}
-                                width={15}
-                            />
-                            Logout
-                        </div>
-                    </button>
+                    // Commented out direct logout button for modal integration
+                    // <button onClick={handleLogout}>
+                    //     <div>
+                    //         <Image 
+                    //             src="/images/navbar-icons/logout.png" 
+                    //             alt="logout-icon"
+                    //             height={15}
+                    //             width={15}
+                    //         />
+                    //         Logout
+                    //     </div>
+                    // </button>
+                    <>
+                        <button onClick={handleLogoutClick}>
+                            <div>
+                                <Image 
+                                    src="/images/navbar-icons/logout.png" 
+                                    alt="logout-icon"
+                                    height={15}
+                                    width={15}
+                                />
+                                Logout
+                            </div>
+                        </button>
+                        
+                    </>
                 )}
             </div>
 
@@ -145,21 +182,28 @@ export default function Navbar() {
                                 </div>
                             </Link>
                         ) : (
-                            <button onClick={handleLogout} className="dropdown-item">
-                                <div>
-                                    <Image 
-                                        src="/images/navbar-icons/logout.png" 
-                                        alt="logout-icon"
-                                        height={10}
-                                        width={10}
-                                    />
-                                    Logout
-                                </div>
-                            </button>
+                            <>
+                                <button onClick={handleLogoutClick} className="dropdown-item">
+                                    <div>
+                                        <Image 
+                                            src="/images/navbar-icons/logout.png" 
+                                            alt="logout-icon"
+                                            height={10}
+                                            width={10}
+                                        />
+                                        Logout
+                                    </div>
+                                </button>
+                            </>
                         )}
                     </li>
                 </ul>
             </div>
+            <LogoutModal 
+                show={showLogoutModal} 
+                onConfirm={handleConfirmLogout} 
+                onCancel={handleCancelLogout} 
+            />
         </div>
     );
 }

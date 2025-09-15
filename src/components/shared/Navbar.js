@@ -63,7 +63,7 @@ export default function Navbar() {
                             height={15}
                             width={15}
                         />
-                        <a onClick={handleDashboardClick}>Dashboard</a>
+                        <a onClick={handleDashboardClick} style={{ cursor: 'pointer' }}>Dashboard</a>
                     </div>
                 </Link>
                 

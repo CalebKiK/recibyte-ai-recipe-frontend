@@ -1,3 +1,5 @@
+import { apiRequest } from "./apiClient";
+
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://backend-recipbyte.fly.dev/api";
 // const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000/api";
 
@@ -11,6 +13,12 @@ export async function loginUser(email, password) {
     const data = await res.json();
     if (!res.ok) throw data;
     return data;
+
+    // return apiRequest("/users/login/", {
+    //     method: "POST",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify({ email, password })
+    // });
 }
 
 // 🔹 Register user
@@ -23,4 +31,10 @@ export async function registerUser(userData) {
     const data = await res.json();
     if (!res.ok) throw data;
     return data;
+
+    // return apiRequest("/users/register/", {
+    //     method: "POST",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify(userData)
+    // });
 }

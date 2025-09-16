@@ -29,7 +29,7 @@ export default function UserDashboard() {
                 <div className='dashboard-links'>
                     <button onClick={() => setSelectedSection('preferences')}>Preferences</button>
                     <button onClick={() => setSelectedSection('favourites')}>Recipe Favourites</button>
-                    <button onClick={() => setSelectedSection('history')}>Recipe History</button>
+                    <button onClick={() => setSelectedSection('history')}>User History</button>
                 </div>
                 <div className='selected-dashboard-link'>
                     {renderSection()}

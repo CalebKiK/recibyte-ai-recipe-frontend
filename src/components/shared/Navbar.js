@@ -15,16 +15,6 @@ import { useState } from 'react';
 export default function Navbar() {
     const { token, logout } = useAuth();
     const router = useRouter();
-
-
-    // Commented out direct logout logic for modal integration
-    // const handleLogout = async () => {
-    //     await logout();
-    //     router.push("/");
-    //     toast.success("Logged out successfully!");
-    // };
-
-    // State to control logout modal
     const [showLogoutModal, setShowLogoutModal] = useState(false);
 
     const handleLogoutClick = () => {
@@ -73,10 +63,6 @@ export default function Navbar() {
                 </Link>
                 {/* <Link href="/recipes">Recipes</Link> */}
 
-                {/* {token && (
-                    <Link href="/dashboard">Dashboard</Link>
-                )} */}
-
                 <Link className='nav-bar-link' href="/dashboard" legacyBehavior>
                     <div>
                         <Image 
@@ -90,7 +76,7 @@ export default function Navbar() {
                 </Link>
                 
                 {!token ? (
-                    <Link className='nav-bar-link' href="/auth">
+                    <Link className='nav-bar-link' href="/authentication">
                         <div>
                             <Image 
                                 src="/images/navbar-icons/login.png" 
@@ -102,18 +88,6 @@ export default function Navbar() {
                         </div>
                     </Link>
                 ) : (
-                    // Commented out direct logout button for modal integration
-                    // <button onClick={handleLogout}>
-                    //     <div>
-                    //         <Image 
-                    //             src="/images/navbar-icons/logout.png" 
-                    //             alt="logout-icon"
-                    //             height={15}
-                    //             width={15}
-                    //         />
-                    //         Logout
-                    //     </div>
-                    // </button>
                     <>
                         <button onClick={handleLogoutClick}>
                             <div>
@@ -170,7 +144,7 @@ export default function Navbar() {
                     </li>
                     <li>
                         {!token ? (
-                            <Link href="/auth" className="dropdown-item">
+                            <Link href="/authentication" className="dropdown-item">
                                 <div>
                                     <Image 
                                         src="/images/navbar-icons/login.png" 

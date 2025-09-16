@@ -1,7 +1,7 @@
 "use client";
 import { createContext, useContext, useState, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
-import axios from "axios";
+import { fetchUserByToken } from "@/api/users";
 
 const AuthContext = createContext();
 
@@ -30,13 +30,10 @@ export function AuthProvider({ children }) {
         setToken(newToken);
 
         try {
-            const decoded = jwtDecode(newToken);
-
-            const res = await axios.get('https://backend-recipbyte.fly.dev/api/users/profile/', {
-                headers: { Authorization: `Bearer ${newToken}` }
-            });
-
-            setUser(Array.isArray(res.data) ? res.data[0].user : res.data.user ?? res.data); 
+            const decoded = jwtDecode(newToken); 
+            const userData = await fetchUserByToken(newToken);
+            setUser(userData);
+            
         } catch (err) {
             console.error("Invalid login token", err);
             logout();

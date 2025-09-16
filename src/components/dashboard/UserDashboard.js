@@ -4,7 +4,7 @@ import { useState } from 'react';
 import '../../styles/dashboard/UserDashboard.css';
 import Favourites from './Favourites';
 import Preferences from './Preferences';
-import RecipeHistory from './RecipeHistory';
+import UserHistory from './UserHistory';
 
 export default function UserDashboard() {
     const [selectedSection, setSelectedSection] = useState('preferences');
@@ -16,7 +16,7 @@ export default function UserDashboard() {
         case 'favourites':
             return <Favourites />;
         case 'history':
-            return <RecipeHistory />;
+            return <UserHistory />;
         default:
             return <Preferences />
     }

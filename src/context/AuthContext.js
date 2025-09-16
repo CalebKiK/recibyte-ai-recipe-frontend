@@ -10,7 +10,7 @@ export function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
 
     useEffect(() => {
-        const storedToken = localStorage.getItem("authToken");
+        const storedToken = localStorage.getItem("access");
         if (storedToken) {
             setToken(storedToken);
             try {
@@ -24,14 +24,18 @@ export function AuthProvider({ children }) {
         };
     }, []);
 
-    const login = async (newToken) => {
+    const login = async ({ access, refresh }) => {
         // console.log("Received token in login:", newToken);
-        localStorage.setItem("authToken", newToken);
-        setToken(newToken);
+        // localStorage.setItem("authToken", newToken);
+        // setToken(newToken);
+
+        localStorage.setItem("access", access);
+        localStorage.setItem("refresh", refresh);
+        setToken(access);
 
         try {
-            const decoded = jwtDecode(newToken); 
-            const userData = await fetchUserByToken(newToken);
+            const decoded = jwtDecode(access); 
+            const userData = await fetchUserByToken(access);
             setUser(userData);
             
         } catch (err) {
@@ -41,7 +45,9 @@ export function AuthProvider({ children }) {
     };
 
     const logout = async () => {
-        localStorage.removeItem("authToken");
+        // localStorage.removeItem("authToken");
+        localStorage.removeItem("access");
+        localStorage.removeItem("refresh");
         setToken(null);
         setUser(null);
     };

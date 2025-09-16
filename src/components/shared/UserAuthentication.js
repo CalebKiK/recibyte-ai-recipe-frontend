@@ -54,13 +54,15 @@ export default function UserAuthentication() {
                 //     password: values.password
                 // });
                 const res = await loginUser(values.email, values.password);
-                login(res.access);
-                localStorage.setItem("refreshToken", res.refresh);
+                await login({ access: res.access, refresh: res.refresh });
+                // login(res.access);
+                // localStorage.setItem("refreshToken", res.refresh);
                 toast.success(`Welcome back! ${res.first_name}`);
                 router.push("/");
             } else {
                 // await axios.post("https://backend-recipbyte.fly.dev/api/users/register/", formData);
-                await registerUser(values);
+                const res = await registerUser(values);
+                await login({ access: res.access, refresh: res.refresh });
                 toast.success("Account created successfully!");
                 resetForm();
                 setIsLogin(true);

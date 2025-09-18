@@ -11,7 +11,7 @@ export default function GroceryList() {
     return (
         <div className="grocery-list-component">
             <h2>Grocery List</h2>
-            <p>*Catchy message or line that involves something like 'Ingredients or components to make your week meals' (or something pun related to food of the meal plan)</p>
+            <p>Everything you need to make the magic happen./ Your complete list for the week's meals.</p>
         </div>
     );
 }

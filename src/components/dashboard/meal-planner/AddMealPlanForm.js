@@ -7,8 +7,8 @@ export default function AddMealPlanForm() {
     
     return (
         <div className="add-meal-plan-form">
-            <h2>Add Meal Plan Form</h2>
-            <p>*Catchy message or line that involves adding meal planners or fun fact about meal planners</p>
+            <h2>Cook Up a Plan!</h2>
+            <p>Your personalized meal plan is a few clicks away./ Give us the details; we'll handle the rest.</p>
         </div>
     );
 }

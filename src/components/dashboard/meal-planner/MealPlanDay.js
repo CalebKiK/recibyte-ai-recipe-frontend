@@ -9,12 +9,11 @@ export default function MealPlanDay() {
     return (
         <div className="meal-plan-day-component">
             <div className='meal-planner-header'>
-                <h1>Meal Planner</h1>
-                {/* Button below conditionally rendered if there is no meal plan or if it is 3 days to the end of current meal plan */}
-                <button>Add Meal Plan</button>
+                <h1>Today's Plate/The Daily Digest</h1>
+                
             </div>
             
-            <h2>*Catchy message or line about benefits of meal planners</h2>
+            <h2>What's on the menu today? / Your culinary lineup for the day.</h2>
         </div>
     );
 }

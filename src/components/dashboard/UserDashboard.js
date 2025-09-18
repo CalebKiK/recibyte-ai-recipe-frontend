@@ -5,6 +5,7 @@ import '../../styles/dashboard/UserDashboard.css';
 import Favourites from './Favourites';
 import Preferences from './Preferences';
 import UserHistory from './UserHistory';
+import MealPlanner from './meal-planner/MealPlanner';
 
 export default function UserDashboard() {
     const [selectedSection, setSelectedSection] = useState('preferences');
@@ -17,6 +18,8 @@ export default function UserDashboard() {
             return <Favourites />;
         case 'history':
             return <UserHistory />;
+        case 'meal-planner':
+            return <MealPlanner/>;
         default:
             return <Preferences />
     }
@@ -30,6 +33,7 @@ export default function UserDashboard() {
                     <button onClick={() => setSelectedSection('preferences')}>Preferences</button>
                     <button onClick={() => setSelectedSection('favourites')}>Recipe Favourites</button>
                     <button onClick={() => setSelectedSection('history')}>User History</button>
+                    <button onClick={() => setSelectedSection('meal-planner')}>Meal Planner</button>
                 </div>
                 <div className='selected-dashboard-link'>
                     {renderSection()}

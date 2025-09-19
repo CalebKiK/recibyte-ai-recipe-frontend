@@ -1,0 +1,1 @@
+// This is a middleware file for providing server side protection and security of routes and urls that need authentication for users to access

@@ -13,7 +13,7 @@ export default function MealPlanner() {
                 <button>Add Meal Plan</button>
             </div>
             
-            <h2>A week of delicious decisions, all in one place. We do the math, you make the magic.</h2>
+            <p>A week of delicious decisions, all in one place. We do the math, you make the magic.</p>
         </div>
     );
 }

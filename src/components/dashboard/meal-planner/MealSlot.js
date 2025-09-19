@@ -2,7 +2,7 @@
 // It's also the component that would handle the drag-and-drop logic for dropping a recipe onto it
 "use client";
 
-import '../../styles/meal-planner/MealPlanDay.css';
+import '../../../styles/dashboard/meal-planner/MealPlanDay.css';
 
 export default function MealSlot() {
     

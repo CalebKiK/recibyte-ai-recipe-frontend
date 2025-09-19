@@ -1,7 +1,7 @@
 // Represents a single day in the weekly calendar. It will contain the meal slots (Breakfast, Lunch, Dinner). 
 "use client";
 
-import '../../styles/meal-planner/MealPlanDay.css';
+import '../../../styles/dashboard/meal-planner/MealPlanDay.css';
 
 export default function MealPlanDay() {
     
@@ -13,7 +13,7 @@ export default function MealPlanDay() {
                 
             </div>
             
-            <h2>What's on the menu today? / Your culinary lineup for the day.</h2>
+            <h2>What&apos;s on the menu today? / Your culinary lineup for the day.</h2>
         </div>
     );
 }

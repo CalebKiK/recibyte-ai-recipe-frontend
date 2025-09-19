@@ -1,6 +1,6 @@
 "use client";
 
-import '../../styles/meal-planner/MealPlanner.css';
+import '../../../styles/dashboard/meal-planner/MealPlanner.css';
 
 export default function MealPlanner() {
     

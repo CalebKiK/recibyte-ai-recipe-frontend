@@ -3,7 +3,7 @@
 
 "use client";
 
-import '../../styles/meal-planner/MealPlanSchedule.css';
+import '../../../styles/dashboard/meal-planner/MealPlanSchedule.css';
 
 export default function GroceryList() {
     
@@ -11,7 +11,7 @@ export default function GroceryList() {
     return (
         <div className="grocery-list-component">
             <h2>Grocery List</h2>
-            <p>Everything you need to make the magic happen./ Your complete list for the week's meals.</p>
+            <p>Everything you need to make the magic happen./ Your complete list for the week&apos;s meals.</p>
         </div>
     );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import '../../styles/meal-planner/AddMealPlanForm.css';
+import '../../../styles/dashboard/meal-planner/AddMealPlanForm.css';
 
 export default function AddMealPlanForm() {
     
@@ -8,7 +8,7 @@ export default function AddMealPlanForm() {
     return (
         <div className="add-meal-plan-form">
             <h2>Cook Up a Plan!</h2>
-            <p>Your personalized meal plan is a few clicks away./ Give us the details; we'll handle the rest.</p>
+            <p>Your personalized meal plan is a few clicks away./ Give us the details; we&apos;ll handle the rest.</p>
         </div>
     );
 }

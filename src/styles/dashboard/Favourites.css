@@ -1,12 +1,19 @@
 .recipe-item{
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     margin: 10px 5px;
     border-bottom: 1px rgb(131, 131, 131) solid;
 }
 
+.recipe-item-header{
+    display: flex;
+    flex-direction: row;
+}
+
 .recipe-item-content{
     text-align: left;
+    flex-grow: 1;
 }
 
 .recipe-item-content h4{
@@ -19,6 +26,10 @@
     font-size: 13px;
     line-height: 17px;
     margin: 5px 0px;
+}
+
+.recipe-item-steps ul li{
+    font-size: 13px;
 }
 
 .recipe-item-remove-btn{

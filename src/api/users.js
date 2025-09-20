@@ -90,7 +90,7 @@ export async function fetchUserProfile(token) {
 
 // 🔹 Fetch user's favorite recipes
 export async function fetchUserFavorites(token) {
-  const res = await fetch(`${BASE_URL}/users/profile/`, {
+  const res = await fetch(`${BASE_URL}/users/favorites/`, {
     headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
@@ -105,11 +105,8 @@ export async function fetchUserFavorites(token) {
   }
 
   if (!res.ok) {
-    console.error("Error fetching favorites:", data);
     throw new Error(data.detail || "Failed to fetch favourites");
   }
 
-  const profile = Array.isArray(data) ? data[0] : data;
-
-  return profile?.favorite_recipes || [];
+  return data;
 }

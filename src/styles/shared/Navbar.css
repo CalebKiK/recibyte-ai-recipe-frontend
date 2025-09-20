@@ -50,6 +50,7 @@
     border: none;
     font-size: 15px;
     margin-left: 30px;
+    cursor: pointer;
 }
 
 .custom-navbar-links a:hover, .custom-navbar-links button:hover{
@@ -61,7 +62,7 @@
     display: none;
 }
 
-.custom-navbar-links img{
+.custom-navbar-links img, .custom-navbar-links a img{
     margin-right: 10px;
 }
 
@@ -161,10 +162,5 @@
 
     .custom-navbar-links{
         margin-left: 80px;
-    }
-
-    .custom-navbar-links a, .custom-navbar-links button{
-        margin: 0px 25px;
-        font-size: 15px;
     }
 }

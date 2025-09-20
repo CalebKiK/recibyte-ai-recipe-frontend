@@ -9,15 +9,27 @@ import '../../styles/BootstrapDropdown.scss';
 import BootstrapClient from '../BootstrapClient';
 import '../../styles/shared/Navbar.css';
 import { Menu } from 'lucide-react';
+import LogoutModal from '../modals/LogoutModal';
+import { useState } from 'react';
 
 export default function Navbar() {
     const { token, logout } = useAuth();
     const router = useRouter();
+    const [showLogoutModal, setShowLogoutModal] = useState(false);
 
-    const handleLogout = async () => {
+    const handleLogoutClick = () => {
+        setShowLogoutModal(true);
+    };
+
+    const handleConfirmLogout = async () => {
         await logout();
+        setShowLogoutModal(false);
         router.push("/");
         toast.success("Logged out successfully!");
+    };
+
+    const handleCancelLogout = () => {
+        setShowLogoutModal(false);
     };
 
     const handleDashboardClick = (e) => {
@@ -51,10 +63,6 @@ export default function Navbar() {
                 </Link>
                 {/* <Link href="/recipes">Recipes</Link> */}
 
-                {/* {token && (
-                    <Link href="/dashboard">Dashboard</Link>
-                )} */}
-
                 <Link className='nav-bar-link' href="/dashboard" legacyBehavior>
                     <div>
                         <Image 
@@ -63,12 +71,12 @@ export default function Navbar() {
                             height={15}
                             width={15}
                         />
-                        <a onClick={handleDashboardClick}>Dashboard</a>
+                        <a onClick={handleDashboardClick} style={{ cursor: 'pointer' }}>Dashboard</a>
                     </div>
                 </Link>
                 
                 {!token ? (
-                    <Link className='nav-bar-link' href="/auth">
+                    <Link className='nav-bar-link' href="/authentication">
                         <div>
                             <Image 
                                 src="/images/navbar-icons/login.png" 
@@ -80,17 +88,20 @@ export default function Navbar() {
                         </div>
                     </Link>
                 ) : (
-                    <button onClick={handleLogout}>
-                        <div>
-                            <Image 
-                                src="/images/navbar-icons/logout.png" 
-                                alt="logout-icon"
-                                height={15}
-                                width={15}
-                            />
-                            Logout
-                        </div>
-                    </button>
+                    <>
+                        <button onClick={handleLogoutClick}>
+                            <div>
+                                <Image 
+                                    src="/images/navbar-icons/logout.png" 
+                                    alt="logout-icon"
+                                    height={15}
+                                    width={15}
+                                />
+                                Logout
+                            </div>
+                        </button>
+                        
+                    </>
                 )}
             </div>
 
@@ -133,7 +144,7 @@ export default function Navbar() {
                     </li>
                     <li>
                         {!token ? (
-                            <Link href="/auth" className="dropdown-item">
+                            <Link href="/authentication" className="dropdown-item">
                                 <div>
                                     <Image 
                                         src="/images/navbar-icons/login.png" 
@@ -145,21 +156,28 @@ export default function Navbar() {
                                 </div>
                             </Link>
                         ) : (
-                            <button onClick={handleLogout} className="dropdown-item">
-                                <div>
-                                    <Image 
-                                        src="/images/navbar-icons/logout.png" 
-                                        alt="logout-icon"
-                                        height={10}
-                                        width={10}
-                                    />
-                                    Logout
-                                </div>
-                            </button>
+                            <>
+                                <button onClick={handleLogoutClick} className="dropdown-item">
+                                    <div>
+                                        <Image 
+                                            src="/images/navbar-icons/logout.png" 
+                                            alt="logout-icon"
+                                            height={10}
+                                            width={10}
+                                        />
+                                        Logout
+                                    </div>
+                                </button>
+                            </>
                         )}
                     </li>
                 </ul>
             </div>
+            <LogoutModal 
+                show={showLogoutModal} 
+                onConfirm={handleConfirmLogout} 
+                onCancel={handleCancelLogout} 
+            />
         </div>
     );
 }

@@ -6,7 +6,7 @@ import { useAuth } from "@/context/AuthContext";
 import "@/styles/shared/UserAuthentication.css";
 import toast from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faLock, faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faLock, faEnvelope, faIdCard } from "@fortawesome/free-solid-svg-icons";
 import { Formik, Form, Field, ErrorMessage} from "formik";
 import * as Yup from "yup";
 import { loginUser, registerUser } from "@/api/users";
@@ -23,6 +23,9 @@ export default function UserAuthentication() {
     });
 
     const registerSchema = Yup.object({
+        first_name: Yup.string()
+            .min(3, "First name must be at least 3 characters")
+            .required("First name is required"),
         username: Yup.string()
             .min(5, "Username must be at least 5 characters")
             .required("Username is required"),
@@ -51,13 +54,15 @@ export default function UserAuthentication() {
                 //     password: values.password
                 // });
                 const res = await loginUser(values.email, values.password);
-                login(res.access);
-                localStorage.setItem("refreshToken", res.refresh);
-                toast.success(`Welcome back! ${res.username}`);
+                await login({ access: res.access, refresh: res.refresh });
+                // login(res.access);
+                // localStorage.setItem("refreshToken", res.refresh);
+                toast.success(`Welcome back! ${res.first_name}`);
                 router.push("/");
             } else {
                 // await axios.post("https://backend-recipbyte.fly.dev/api/users/register/", formData);
-                await registerUser(values);
+                const res = await registerUser(values);
+                await login({ access: res.access, refresh: res.refresh });
                 toast.success("Account created successfully!");
                 resetForm();
                 setIsLogin(true);
@@ -101,7 +106,7 @@ export default function UserAuthentication() {
                             <Form>
                                 <div className="input-container">
                                     <Field type="text" name="email" placeholder="Email" />
-                                    <FontAwesomeIcon icon={faUser} className="input-icon" />
+                                    <FontAwesomeIcon icon={faEnvelope} className="input-icon" />
                                     <ErrorMessage
                                         name="email"
                                         component="div"
@@ -141,6 +146,7 @@ export default function UserAuthentication() {
                     <h2 className="title">Register</h2>
                     <Formik 
                         initialValues={{
+                            first_name: "",
                             username: "",
                             email: "",
                             password: "",
@@ -152,8 +158,17 @@ export default function UserAuthentication() {
                         {() => (
                             <Form>
                                 <div className="input-container">
-                                    <Field type="text" name="username" placeholder="Username" />
+                                    <Field type="text" name="first_name" placeholder="First name" />
                                     <FontAwesomeIcon icon={faUser} className="input-icon" />
+                                    <ErrorMessage
+                                        name="first_name"
+                                        component="div"
+                                        className="error-message"
+                                    />
+                                </div>
+                                <div className="input-container">
+                                    <Field type="text" name="username" placeholder="Username" />
+                                    <FontAwesomeIcon icon={faIdCard} className="input-icon" />
                                     <ErrorMessage
                                         name="username"
                                         component="div"

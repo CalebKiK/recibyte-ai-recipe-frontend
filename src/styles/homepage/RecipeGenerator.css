@@ -216,6 +216,10 @@
         border-radius: 5px 0px 0px 5px;
     }
 
+    .tip-popover{
+        font-size: 10px;
+    }
+
     .gen-recipe-btns-desktop{
         display: none;
     }

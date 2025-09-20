@@ -1,7 +1,7 @@
 "use client";
 import { createContext, useContext, useState, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
-import axios from "axios";
+import { fetchUserByToken } from "@/api/users";
 
 const AuthContext = createContext();
 
@@ -10,7 +10,7 @@ export function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
 
     useEffect(() => {
-        const storedToken = localStorage.getItem("authToken");
+        const storedToken = localStorage.getItem("access");
         if (storedToken) {
             setToken(storedToken);
             try {
@@ -24,19 +24,20 @@ export function AuthProvider({ children }) {
         };
     }, []);
 
-    const login = async (newToken) => {
+    const login = async ({ access, refresh }) => {
         // console.log("Received token in login:", newToken);
-        localStorage.setItem("authToken", newToken);
-        setToken(newToken);
+        // localStorage.setItem("authToken", newToken);
+        // setToken(newToken);
+
+        localStorage.setItem("access", access);
+        localStorage.setItem("refresh", refresh);
+        setToken(access);
 
         try {
-            const decoded = jwtDecode(newToken);
-
-            const res = await axios.get('https://backend-recipbyte.fly.dev/api/users/profile/', {
-                headers: { Authorization: `Bearer ${newToken}` }
-            });
-
-            setUser(Array.isArray(res.data) ? res.data[0].user : res.data.user ?? res.data); 
+            const decoded = jwtDecode(access); 
+            const userData = await fetchUserByToken(access);
+            setUser(userData);
+            
         } catch (err) {
             console.error("Invalid login token", err);
             logout();
@@ -44,7 +45,9 @@ export function AuthProvider({ children }) {
     };
 
     const logout = async () => {
-        localStorage.removeItem("authToken");
+        // localStorage.removeItem("authToken");
+        localStorage.removeItem("access");
+        localStorage.removeItem("refresh");
         setToken(null);
         setUser(null);
     };

@@ -1,11 +1,13 @@
 "use client";
 
-import '../../styles/dashboard/UserDashboard.css';
+import '../../styles/dashboard/Favourites.css';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import RecipeItem from './RecipeItem';
 import toast from 'react-hot-toast';
+import { toggleRecipeFavourite } from '@/api/recipes';
+import { fetchUserProfile, fetchUserFavorites } from '@/api/users';
 
 export default function Favourites() {
     const { token } = useAuth();
@@ -14,32 +16,36 @@ export default function Favourites() {
     const [expandedId, setExpandedId] = useState(null);
 
     useEffect(() => {
-        async function fetchFavorites() {
+        async function getFavorites() {
             try {
-                const response = await axios.get('https://backend-recipbyte.fly.dev/api/users/profile/', {
-                    headers: { Authorization: `Bearer ${token}` },
-                });
-                // console.log("Fetched profile response:", response.data);
-                setFavorites(response.data[0]?.favorite_recipes || []);
+                const fetchedFavorites = await fetchUserFavorites(token);
+                setFavorites(fetchedFavorites);
             } catch (error) {
-                toast.error('Failed to load favorites.');
+                toast.error('Failed to load favourites.');
             }
         }
-        fetchFavorites();
+
+        if (token) {
+            getFavorites();
+        }
+            
     }, [token]);
 
-    const handleRemove = async (id) => {
+    const handleRemove = async (recipe) => {
         try {
-            const res = await axios.put(`https://backend-recipbyte.fly.dev/api/users/favorites/${id}/toggle/`, {}, {
-                headers: { Authorization: `Bearer ${token}` },
-            });
+            // const res = await axios.put(`https://backend-recipbyte.fly.dev/api/users/favorites/${id}/toggle/`, {}, {
+            //     headers: { Authorization: `Bearer ${token}` },
+            // });
+            const res = await toggleRecipeFavourite(recipe, token);
             toast.success(res.data.message);
 
             // Refetch updated favorites
-            const updatedRes = await axios.get('https://backend-recipbyte.fly.dev/api/users/profile/', {
-                headers: { Authorization: `Bearer ${token}` },
-            });
-            setFavorites(updatedRes.data.favorite_recipes || []);
+            // const updatedRes = await axios.get('https://backend-recipbyte.fly.dev/api/users/profile/', {
+            //     headers: { Authorization: `Bearer ${token}` },
+            // });
+            const updatedProfile = await fetchUserProfile(token);
+            setFavorites(updatedProfile[0]?.favorite_recipes || []);
+            // setFavorites(updatedRes.data.favorite_recipes || []);
         } catch (err) {
             toast.error('Failed to remove from favorites.');
         }

@@ -7,11 +7,13 @@ import axios from 'axios';
 import Image from 'next/image';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { addRecipeToFavourites, addRecipeToHistory } from "@/api/recipes";
+import { toggleRecipeFavourite, addToUserHistory } from "@/api/recipes";
 
 export default function RecipeChoice({ recipe }) {
     const { token } = useAuth();
-    const [message, setMessage] = useState(null);
+    const [liked, setLiked] = useState(false);
+    const [disliked, setDisliked] = useState(false);
+    // const [message, setMessage] = useState('');
 
     let displayIngredients = [];
 
@@ -66,11 +68,14 @@ export default function RecipeChoice({ recipe }) {
         }
 
         try {
-            await addRecipeToFavourites(recipe.id, token);
-            await addRecipeToHistory(recipe.id, token);
+            await toggleRecipeFavourite(recipe, token);
+            // await addToUserHistory(recipe.id, token);
             toast.success("Recipe added to favourites!");
+            setLiked(true);
         } catch (error) {
-            toast.error("Error while updating favourites/history.");
+            console.error("Error while updating favourites:", error);
+            toast.error("Error while updating favourites.");
+            // toast.error("Error while updating favourites/history.");
         }
 
         // await addToFavorites();
@@ -113,18 +118,11 @@ export default function RecipeChoice({ recipe }) {
                                 <p>N/A</p>
                             )}
                         </ul>
-                        {/* <p>{displayIngredients}</p> */}
                     </div>
                 </div> 
             </div>
-            {/* <h2>Let’s make: {toTitleCase(recipe.title)}</h2>
-            <div className='recipe-choice-ingredients'>
-                <h4>Ingredients</h4>
-                <p>{displayIngredients}</p>
-            </div> */}
             <div className='recipe-choice-text'>
                 <h4>Instructions</h4>
-                {/* <p>{recipe.instructions}</p> */}
                 <ol>
                     {instructionSteps.map((step, index) => (
                         <li key={index}>
@@ -133,11 +131,38 @@ export default function RecipeChoice({ recipe }) {
                     ))}
                 </ol>
             </div>
-            {/* <div className='recipe-choice-btns'>
-                <button className='substitute-ingredient-btn'>Substitute Ingredient</button>
-                <button className='like-recipe-btn' onClick={handleLike}>Like (Thumbs Up)</button>
-                <button className='dislike-recipe-btn'>Not Like (Thumbs Down)</button>
-            </div> */}
+            <div className='recipe-choice-btns'>
+                <button className='share-recipe-btn' title="Share this recipe">
+                    <Image src="/images/recipe-choice-icons/share-1.png" alt="Share this recipe" height={20} width={20} />
+                </button>
+                <button className='substitute-ingredient-btn' title="Substitute ingredients">
+                    <Image src="/images/recipe-choice-icons/arrow.png" alt="Substitute ingredients" height={20} width={20} />
+                </button>
+                {/* Will turn to a full colour filled icon when clicked */}
+                <button className='like-recipe-btn' title="Save recipe" onClick={handleLike}>
+                    <Image 
+                        src=
+                            {liked 
+                            ? "/images/recipe-choice-icons/like-2.png" 
+                            : "/images/recipe-choice-icons/like.png"} 
+                        alt="Save recipe" 
+                        height={20} 
+                        width={20} 
+                    />
+                </button>
+                {/* Will turn to a full colour filled icon when clicked */}
+                <button className='dislike-recipe-btn' title="Dislike recipe" onClick={() => setDisliked(!disliked)}>
+                    <Image 
+                        // src="/images/recipe-choice-icons/dislike.png" 
+                        src={disliked 
+                            ? "/images/recipe-choice-icons/dislike-1.png" 
+                            : "/images/recipe-choice-icons/dislike.png"} 
+                        alt="Dislike recipe" 
+                        height={20} 
+                        width={20} 
+                    />
+                </button>
+            </div>
             {/* {message && <div className='message'>{message}</div>} */}
         </div>
     );

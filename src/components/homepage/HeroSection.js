@@ -8,7 +8,7 @@ export default function HeroSection() {
     
     return (
         <div className="hero-section-component">
-            <h1>Welcome{user?.username ? `, ${user.username}` : ''}!</h1>
+            <h1>Welcome{user?.first_name ? `, ${user.first_name}` : ''}!</h1>
             <h2>Let&apos;s turn your ingredients into culinary magic.</h2>
         </div>
     );

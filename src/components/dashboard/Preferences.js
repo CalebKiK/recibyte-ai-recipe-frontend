@@ -1,6 +1,6 @@
 "use client";
 
-import '../../styles/dashboard/UserDashboard.css';
+import '../../styles/dashboard/Preferences.css';
 
 export default function Preferences() {
     return (

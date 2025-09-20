@@ -41,46 +41,6 @@
     margin-bottom: 20px;
 }
 
-.recipe-item{
-    display: flex;
-    flex-direction: row;
-    margin: 10px 5px;
-    border-bottom: 1px rgb(131, 131, 131) solid;
-}
-
-.recipe-item-content{
-    text-align: left;
-}
-
-.recipe-item-content h4{
-    font-size: 15px;
-    
-}
-
-.recipe-item-content p{
-    text-align: left;
-    font-size: 13px;
-    line-height: 17px;
-    margin: 5px 0px;
-}
-
-.recipe-item-remove-btn{
-    margin-left: 10px;
-    align-items: center;
-    justify-content: center;
-    justify-items: center;
-}
-
-.recipe-item-remove-btn button{
-    color: rgb(255, 70, 70);
-    padding: 0px 4px;
-    align-items: center;
-    justify-content: center;
-    justify-items: center;
-    border: 1px rgb(174, 174, 174) solid;
-    border-radius: 5px;
-}
-
 @media (max-width:600px) {
     .user-dashboard-component{
         margin: 30px 20px;
@@ -126,26 +86,6 @@
         margin-bottom: 10px;
         font-weight: 500;
         font-size: 20px;
-    }
-
-    .recipe-item{
-        display: flex;
-        flex-direction: row;
-        margin: 5px;
-    }
-
-    .recipe-item-content h4{
-        font-size: 13px;
-        
-    }
-
-    .recipe-item-content p{
-        font-size: 11px;
-        line-height: 15px;
-    }
-
-    .recipe-item-remove-btn{
-        margin-left: 5px;
     }
 }
 
@@ -195,24 +135,6 @@
         font-weight: 500;
         font-size: 20px;
     }
-
-    .recipe-item{
-        display: flex;
-        flex-direction: row;
-    }
-
-    .recipe-item-content h4{
-        font-size: 13px;
-    }
-
-    .recipe-item-content p{
-        font-size: 12px;
-        line-height: 16px;
-    }
-
-    .recipe-item-remove-btn{
-        margin-left: 5px;
-    }
 }
 
 @media (min-width: 900px) and (max-width: 1300px) {
@@ -260,23 +182,5 @@
         margin-bottom: 10px;
         font-weight: 500;
         font-size: 22px;
-    }
-
-    .recipe-item{
-        display: flex;
-        flex-direction: row;
-    }
-
-    .recipe-item-content h4{
-        font-size: 13px;
-    }
-
-    .recipe-item-content p{
-        font-size: 12px;
-        line-height: 16px;
-    }
-
-    .recipe-item-remove-btn{
-        margin-left: 5px;
     }
 }

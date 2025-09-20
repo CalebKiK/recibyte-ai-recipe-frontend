@@ -7,6 +7,7 @@ import toast from 'react-hot-toast';
 import Image from 'next/image';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera, faDice, faUtensils } from "@fortawesome/free-solid-svg-icons";
+import { getRandomRecipes } from "@/api/recipes";
 
 export default function RecipeGenerator() {
     const [ingredient, setIngredient] = useState('');
@@ -183,24 +184,18 @@ export default function RecipeGenerator() {
         }
     };
 
-    const handleRandomRecipe = async () => { 
+    const handleRandomRecipe = async () => {
         try {
             setLoadingRandom(true);
-            const response = await fetch('https://backend-recipbyte.fly.dev/api/recipes/random/'); 
-
-            if (response.ok) {
-                const data = await response.json();
-                router.push(`/recipes?random=true`);
-            } else if (response.status === 404) {
+            const data = await getRandomRecipes();
+            router.push(`/recipes?random=true`);
+        } catch (error) {
+            if (error.message.includes("404")) {
                 toast.error("No recipes found in the database. Please import some recipes first!");
-            }
-            else {
-                console.error("Failed to fetch random recipe:", response.status);
+            } else {
+                console.error("Error fetching random recipe:", error);
                 toast.error("Failed to fetch a random recipe. Please try again.");
             }
-        } catch (error) {
-            console.error("Error fetching random recipe:", error);
-            toast.error("An error occurred while fetching a random recipe. Check console for details.");
         } finally {
             setLoadingRandom(false);
         }

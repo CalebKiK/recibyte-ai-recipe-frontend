@@ -4,7 +4,7 @@ import '../../styles/dashboard/Favourites.css';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
-import RecipeItem from './RecipeItem';
+import FavouritesRecipeCard from './FavsRecipeCard';
 import toast from 'react-hot-toast';
 import { toggleRecipeFavourite } from '@/api/recipes';
 import { fetchUserFavorites } from '@/api/users';
@@ -77,12 +77,12 @@ export default function Favourites() {
             ) : (
                 <div className="favourites-list">
                     {favorites.map((recipe) => (
-                        <RecipeItem
-                        key={recipe.id}
-                        recipe={recipe}
-                        isExpanded={false} // disable inline expand for now
-                        onClick={() => setSelectedRecipe(recipe)}
-                        onRemove={() => onRemove(recipe.id)}
+                        <FavouritesRecipeCard
+                            key={recipe.id}
+                            recipe={recipe}
+                            isExpanded={false} // disable inline expand for now
+                            onClick={() => setSelectedRecipe(recipe)}
+                            onRemove={() => onRemove(recipe.id)}
                         />
                     ))}
 
@@ -94,7 +94,7 @@ export default function Favourites() {
                 </div>
 
                 // favorites.map(recipe => (
-                //     <RecipeItem
+                //     <FavouritesRecipeCard
                 //         key={recipe.id}
                 //         recipe={recipe}
                 //         isExpanded={expandedId === recipe.id}

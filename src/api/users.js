@@ -3,9 +3,6 @@ import { refreshAccessToken } from "./token/refresh";
 import { useAuth } from "@/context/AuthContext";
 import { BASE_URL } from "./config";
 
-// const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://backend-recipbyte.fly.dev/api";
-// const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000/api";
-
 // 🔹 Login user
 export async function loginUser(email, password) {
     const res = await fetch(`${BASE_URL}/users/login/`, {
@@ -16,8 +13,6 @@ export async function loginUser(email, password) {
     const data = await res.json();
     if (!res.ok) throw data;
 
-    // Pass tokens to AuthContext
-    // await login({ access: data.access, refresh: data.refresh });
     return data;
 
     // 👇This 'return' is to clean up the API layer so all components benefit from consistent error handling
@@ -39,7 +34,6 @@ export async function registerUser(userData) {
     const data = await res.json();
     if (!res.ok) throw data;
 
-    // await login({ access: data.access, refresh: data.refresh });
     return data;
 
     // 👇This 'return' is to clean up the API layer so all components benefit from consistent error handling
@@ -75,22 +69,13 @@ export async function fetchUserByToken(token) {
 
 // Fetch current user's profile (includes favorite_recipes)
 export async function fetchUserProfile(token) {
-    // const res = await axios.get(`${BASE_URL}/users/profile/`, {
-    //     headers: { Authorization: `Bearer ${token}` },
-    // });
-    // const data = await res.json();
-    // if (!res.ok) throw data;
-
-    // return data;
-
-    // return apiRequest(`/users/profile/`);
 
     return fetchWithAuth("/users/profile/");
 }
 
 // 🔹 Fetch user's favorite recipes
 export async function fetchUserFavorites(token) {
-  const res = await fetch(`${BASE_URL}/users/profile/`, {
+  const res = await fetch(`${BASE_URL}/users/favorites/`, {
     headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
@@ -105,11 +90,108 @@ export async function fetchUserFavorites(token) {
   }
 
   if (!res.ok) {
-    console.error("Error fetching favorites:", data);
     throw new Error(data.detail || "Failed to fetch favourites");
   }
 
-  const profile = Array.isArray(data) ? data[0] : data;
-
-  return profile?.favorite_recipes || [];
+  return data;
 }
+
+// 🔹 Fetch user search history
+export async function fetchUserSearchHistory(token) {
+  const res = await fetch(`${BASE_URL}/users/search-history/`, {
+    headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+    },
+  });
+
+  const data = await res.json();
+
+  // if (!res.ok && data.code === "token_not_valid") {
+  //   const newToken = await refreshAccessToken();
+  //   return await fetchUserSearchHistory(newToken);  // retry
+  // }
+
+  if (!res.ok) {
+    throw new Error(data.detail || "Failed to fetch search history");
+  }
+
+  return data;
+}
+
+// 🔹 Replay a search history entry
+export async function replaySearchHistory(historyId, token) {
+  const res = await fetch(`${BASE_URL}/users/search-history/${historyId}/replay/`, {
+    headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json" },
+    });
+    
+    const data = await res.json();
+
+    if (!res.ok && data.code === "token_not_valid") {
+      const newToken = await refreshAccessToken();
+      return await replaySearchHistory(historyId, newToken);  // retry
+    }
+
+    if (!res.ok) {
+      throw new Error(data.detail || "Failed to replay search history");
+    }
+
+    return data;
+}
+
+// 🔹 Add a search history to the database
+export async function addSearchHistory(query, minimalResults, token) {
+  const payload = {
+    query: query || { ingredients: [], restrictions: [], preferences: [] },
+    minimal_results: minimalResults || [],
+  };
+
+  const res = await fetch(`${BASE_URL}/users/search-history/`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+
+  let data;
+  try {
+    data = await res.json();
+  } catch (err) {
+    // Response wasn’t JSON, log it
+    const text = await res.text();
+    console.error("Non-JSON response from backend, the data:", data);
+    console.error("Non-JSON response from backend, the text:", text);
+    throw new Error("Backend did not return JSON");
+  }
+
+  if (!res.ok && data.code === "token_not_valid") {
+    const newToken = await refreshAccessToken();
+    return await addSearchHistory(query, minimalResults, newToken);
+  }
+
+  if (!res.ok) {
+    throw new Error(data.detail || "Failed to add search history");
+  }
+
+  return data;
+}
+
+// 🔹 Delete a search history entry
+export async function deleteSearchHistory(historyId, token) {
+  const res = await fetch(`${BASE_URL}/users/search-history/${historyId}/`, {
+    method: "DELETE",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  if (!res.ok) {
+    const data = await res.json();
+    throw new Error(data.detail || "Failed to delete search history");
+  }
+
+  return true;
+}
+

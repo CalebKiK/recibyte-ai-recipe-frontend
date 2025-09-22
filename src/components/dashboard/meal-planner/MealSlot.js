@@ -14,7 +14,7 @@ export default function MealSlot() {
                 
             </div>
             
-            <h2>Recipe Title (e.g., "Chicken Stir-fry")	</h2>
+            <h2>Recipe Title (e.g., &quot;Chicken Stir-fry&quot;)	</h2>
         </div>
     );
 }

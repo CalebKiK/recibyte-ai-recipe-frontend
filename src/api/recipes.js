@@ -1,23 +1,13 @@
 import { apiRequest, fetchWithAuth } from "./apiClient";
 import { BASE_URL } from "./config";
 
-// const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://backend-recipbyte.fly.dev/api";
-// const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000/api";
-
 // 🔹 Filter recipes by ingredients + dietary restrictions
 export async function getRecipesByIngredients(ingredients, dietaryRestrictions) {
-    // let url = `${BASE_URL}/recipes/filter_by_ingredients/?ingredients=${ingredients}`;
     let endpoint = `/recipes/filter_by_ingredients/?ingredients=${ingredients}`;
     if (dietaryRestrictions) {
         endpoint += `&dietaryRestrictions=${dietaryRestrictions}`
     }
 
-    // const res = await fetch(url);
-    // if (!res.ok) throw new Error("Failed to fetch recipes");
-    // return res.json();
-
-    // 👇This 'return' is to clean up the API layer so all components benefit from consistent error handling
-    // The below replaces the above 3 lines including the 'return' of the function
     return apiRequest(endpoint);
 }
 
@@ -43,29 +33,6 @@ export async function toggleRecipeFavourite(recipe, token) {
         instructions: recipe.instructions || [],
     }
 
-    // const res = await fetch(`${BASE_URL}/users/favorites/toggle/`, {
-    //     method: "POST",
-    //     headers: {
-    //         Authorization: `Bearer ${token}`,
-    //         "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(payload),
-    // });
-
-    // if (!res.ok) throw new Error("Failed to add recipe to favourites");
-    // return res.json();
-
-    // 👇This 'return' is to clean up the API layer so all components benefit from consistent error handling
-    // The below replaces the whole functionality of the function
-    // return apiRequest(`/users/favorites/toggle/`, {
-    //     method: "POST",
-    //     // headers: {
-    //     //     Authorization: `Bearer ${token}`,
-    //     //     "Content-Type": "application/json",
-    //     // },
-    //     body: JSON.stringify(payload),
-    // });
-
     return fetchWithAuth(`/users/favorites/toggle/`, {
         method: "POST",
         body: JSON.stringify(payload),
@@ -74,16 +41,6 @@ export async function toggleRecipeFavourite(recipe, token) {
 
 // 🔹 Add recipe to history
 export async function addToUserHistory(recipeId, token) {
-    // const res = await fetch(`${BASE_URL}/users/history/${recipeId}/add/`, {
-    //     method: "PUT",
-    //     headers: {
-    //         Authorization: `Bearer ${token}`,
-    //         "Content-Type": "application/json",
-    //     },
-    // });
-
-    // if (!res.ok) throw new Error("Failed to add recipe to history");
-    // return res.json();
 
     // 👇This 'return' is to clean up the API layer so all components benefit from consistent error handling
     // The below replaces the whole functionality of the function

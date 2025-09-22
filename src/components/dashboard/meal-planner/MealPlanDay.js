@@ -9,7 +9,7 @@ export default function MealPlanDay() {
     return (
         <div className="meal-plan-day-component">
             <div className='meal-planner-header'>
-                <h1>Today's Plate/The Daily Digest</h1>
+                <h1>Today&apos;s Plate/The Daily Digest</h1>
                 
             </div>
             

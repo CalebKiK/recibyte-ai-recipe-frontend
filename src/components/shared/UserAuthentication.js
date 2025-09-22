@@ -6,7 +6,7 @@ import { useAuth } from "@/context/AuthContext";
 import "@/styles/shared/UserAuthentication.css";
 import toast from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faLock, faEnvelope, faIdCard } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faLock, faEnvelope, faIdCard, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { Formik, Form, Field, ErrorMessage} from "formik";
 import * as Yup from "yup";
 import { loginUser, registerUser } from "@/api/users";
@@ -14,6 +14,7 @@ import { loginUser, registerUser } from "@/api/users";
 export default function UserAuthentication() {
     const [isLogin, setIsLogin] = useState(true);
     const [loading, setLoading] = useState(false); 
+    const [showPassword, setShowPassword] = useState(false);
     const router = useRouter();
     const { login } = useAuth();
 
@@ -42,6 +43,10 @@ export default function UserAuthentication() {
             .required("Confirm password is required"),
     });
 
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
     // const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
     const handleSubmit = async (values, { resetForm }) => {
@@ -49,18 +54,11 @@ export default function UserAuthentication() {
         setLoading(true); 
         try {
             if (isLogin) {
-                // const res = await axios.post("https://backend-recipbyte.fly.dev/api/users/login/", {
-                //     email: values.email,
-                //     password: values.password
-                // });
                 const res = await loginUser(values.email, values.password);
                 await login({ access: res.access, refresh: res.refresh });
-                // login(res.access);
-                // localStorage.setItem("refreshToken", res.refresh);
                 toast.success(`Welcome back! ${res.first_name}`);
                 router.push("/");
             } else {
-                // await axios.post("https://backend-recipbyte.fly.dev/api/users/register/", formData);
                 const res = await registerUser(values);
                 await login({ access: res.access, refresh: res.refresh });
                 toast.success("Account created successfully!");
@@ -78,7 +76,6 @@ export default function UserAuthentication() {
                         const messages = err[field];
                         if (Array.isArray(messages)) {
                             messages.forEach((msg) => toast.error(`${msg}`));
-                            // messages.forEach((msg) => toast.error(`${field}: ${msg}`));
                         } else {
                             toast.error(`${field}: ${messages}`);
                         }
@@ -114,8 +111,13 @@ export default function UserAuthentication() {
                                     />
                                 </div>
                                 <div className="input-container">
-                                    <Field type="password" name="password" placeholder="Password" />
+                                    <Field type={showPassword ? "text" : "password"} name="password" placeholder="Password" />
                                     <FontAwesomeIcon icon={faLock} className="input-icon" />
+                                    <FontAwesomeIcon 
+                                        icon={showPassword ? faEye : faEyeSlash} 
+                                        className="toggle-icon" 
+                                        onClick={togglePasswordVisibility} 
+                                    />
                                     <ErrorMessage
                                         name="password"
                                         component="div"
@@ -185,8 +187,13 @@ export default function UserAuthentication() {
                                     /> 
                                 </div>
                                 <div className="input-container">
-                                    <Field type="password" name="password" placeholder="Password" />
+                                    <Field type={showPassword ? "text" : "password"} name="password" placeholder="Password" />
                                     <FontAwesomeIcon icon={faLock} className="input-icon" />
+                                    <FontAwesomeIcon 
+                                        icon={showPassword ? faEye : faEyeSlash} 
+                                        className="toggle-icon" 
+                                        onClick={togglePasswordVisibility} 
+                                    />
                                     <ErrorMessage
                                         name="password"
                                         component="div"
@@ -194,8 +201,13 @@ export default function UserAuthentication() {
                                     />
                                 </div>
                                 <div className="input-container">
-                                    <Field type="password" name="password2" placeholder="Confirm Password" />
+                                    <Field type={showPassword ? "text" : "password"} name="password2" placeholder="Confirm Password" />
                                     <FontAwesomeIcon icon={faLock} className="input-icon" />
+                                    <FontAwesomeIcon 
+                                        icon={showPassword ? faEye : faEyeSlash} 
+                                        className="toggle-icon" 
+                                        onClick={togglePasswordVisibility} 
+                                    />
                                     <ErrorMessage
                                         name="password2"
                                         component="div"
@@ -218,65 +230,6 @@ export default function UserAuthentication() {
                     </Formik>
                 </div>
             </div>
-            {/* <div className='form-container'>
-                <div className="form-box login">
-                    <h2 className="title">Login</h2>
-                    <form onSubmit={handleSubmit}>
-                        <div className="input-container">
-                            <input type="text" name="username" placeholder="Username" onChange={handleChange} required />
-                            <FontAwesomeIcon icon={faUser} className="input-icon" />
-                        </div>
-                        <div className="input-container">
-                            <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
-                            <FontAwesomeIcon icon={faLock} className="input-icon" />
-                        </div>
-                        <button className="user-authentication-button" type="submit" disabled={loading}>
-                            {loading ?  (
-                                <>
-                                    {"Authenticating"}
-                                    <div className="spinner"></div>
-                                </>
-                            ) : "Login"}
-                        </button>
-                        <p className="toggle-link" onClick={() => setIsLogin(!isLogin)}>
-                            Don&apos;t have an account? <span>Sign Up</span>
-                        </p>
-                    </form>
-                </div>
-
-                <div className="form-box register">
-                    <h2 className="title">Register</h2>
-                    <form onSubmit={handleSubmit}>
-                        <div className="input-container">
-                            <input type="text" name="username" placeholder="Username" onChange={handleChange} required />
-                            <FontAwesomeIcon icon={faUser} className="input-icon" />
-                        </div>
-                        <div className="input-container">
-                            <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
-                            <FontAwesomeIcon icon={faEnvelope} className="input-icon" /> 
-                        </div>
-                        <div className="input-container">
-                            <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
-                            <FontAwesomeIcon icon={faLock} className="input-icon" />
-                        </div>
-                        <div className="input-container">
-                            <input type="password" name="password2" placeholder="Confirm Password" onChange={handleChange} required />
-                            <FontAwesomeIcon icon={faLock} className="input-icon" />
-                        </div>
-                        <button className="user-authentication-button" type="submit" disabled={loading}>
-                            {loading ? (
-                                <>
-                                    {"Creating Profile"}
-                                    <div className="spinner"></div>
-                                </>
-                                ) : "Register"}
-                        </button>
-                        <p className="toggle-link" onClick={() => setIsLogin(!isLogin)}>
-                            Already have an account? <span>Login</span>
-                        </p>
-                    </form>
-                </div>
-            </div> */}
 
             <div className="welcome-container">
                 <div className="welcome-panel welcome-panel-login">

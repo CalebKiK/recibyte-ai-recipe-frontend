@@ -7,11 +7,13 @@ import WhyRecipe from "@/components/recipes/WhyRecipe";
 import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { getRecipesByIngredients, getRandomRecipes } from "@/api/recipes";
+import { addSearchHistory } from "@/api/users"; 
+import { useAuth } from "@/context/AuthContext";
 import '../../styles/recipes/RecipePage.css';
 
 function RecipePageContent() {
     const searchParams = useSearchParams();
-    const recipesData = searchParams.get('recipes'); 
+    const { token } = useAuth();
     const [recipes, setRecipes] = useState([]);
     const [selectedRecipe, setSelectedRecipe] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -46,6 +48,23 @@ function RecipePageContent() {
                 setSelectedRecipe(fetchedRecipes[0]);
             } else {
                 setSelectedRecipe(null);
+            }
+
+            if (token && fetchedRecipes.length > 0 && isRandom !== 'true') {
+                const minimalResults = fetchedRecipes.map(r => ({
+                    id: r.id,
+                    title: r.title,
+                    image: r.image,
+                }));
+
+                await addSearchHistory(
+                    {
+                        ingredients: ingredients?.split(",") || [],
+                        restrictions: dietaryRestrictions?.split(",") || [],
+                    },
+                    minimalResults,
+                    token
+                );
             }
 
             // let apiUrl = '';
@@ -93,7 +112,7 @@ function RecipePageContent() {
         };
 
         fetchRecipes();
-    }, [searchParams]);
+    }, [searchParams, token]);
 
     const handleSelectRecipe = (recipe) => {
         setSelectedRecipe(recipe);

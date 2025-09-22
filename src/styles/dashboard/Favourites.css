@@ -1,34 +1,55 @@
-.recipe-item{
+.fav-recipe-card{
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     margin: 10px 5px;
+    padding: 10px 0px;
     border-bottom: 1px rgb(131, 131, 131) solid;
 }
 
-.recipe-item-content{
+.fav-recipe-card-header{
+    display: flex;
+    flex-direction: row;
+}
+
+.fav-recipe-card-header img{
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.fav-recipe-card-content{
     text-align: left;
+    flex-grow: 1;
 }
 
-.recipe-item-content h4{
+.fav-recipe-card-content h4{
     font-size: 15px;
-    
 }
 
-.recipe-item-content p{
+.fav-recipe-card-title-date small{
+    font-size: 12px;
+    color: rgb(75, 75, 75);
+}
+
+.fav-recipe-card-content p{
     text-align: left;
     font-size: 13px;
     line-height: 17px;
     margin: 5px 0px;
 }
 
-.recipe-item-remove-btn{
+.fav-recipe-card-steps ul li{
+    font-size: 13px;
+}
+
+.fav-recipe-card-remove-btn{
     margin-left: 10px;
     align-items: center;
     justify-content: center;
     justify-items: center;
 }
 
-.recipe-item-remove-btn button{
+.fav-recipe-card-remove-btn button{
     color: rgb(255, 70, 70);
     padding: 0px 4px;
     align-items: center;
@@ -49,23 +70,23 @@
         font-size: 20px;
     }
 
-    .recipe-item{
+    .fav-recipe-card{
         display: flex;
         flex-direction: row;
         margin: 5px;
     }
 
-    .recipe-item-content h4{
+    .fav-recipe-card-content h4{
         font-size: 13px;
         
     }
 
-    .recipe-item-content p{
+    .fav-recipe-card-content p{
         font-size: 11px;
         line-height: 15px;
     }
 
-    .recipe-item-remove-btn{
+    .fav-recipe-card-remove-btn{
         margin-left: 5px;
     }
 }
@@ -81,21 +102,21 @@
         font-size: 20px;
     }
 
-    .recipe-item{
+    .fav-recipe-card{
         display: flex;
         flex-direction: row;
     }
 
-    .recipe-item-content h4{
+    .fav-recipe-card-content h4{
         font-size: 13px;
     }
 
-    .recipe-item-content p{
+    .fav-recipe-card-content p{
         font-size: 12px;
         line-height: 16px;
     }
 
-    .recipe-item-remove-btn{
+    .fav-recipe-card-remove-btn{
         margin-left: 5px;
     }
 }
@@ -111,21 +132,21 @@
         font-size: 22px;
     }
 
-    .recipe-item{
+    .fav-recipe-card{
         display: flex;
         flex-direction: row;
     }
 
-    .recipe-item-content h4{
+    .fav-recipe-card-content h4{
         font-size: 13px;
     }
 
-    .recipe-item-content p{
+    .fav-recipe-card-content p{
         font-size: 12px;
         line-height: 16px;
     }
 
-    .recipe-item-remove-btn{
+    .fav-recipe-card-remove-btn{
         margin-left: 5px;
     }
 }

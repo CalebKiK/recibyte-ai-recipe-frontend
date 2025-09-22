@@ -4,7 +4,7 @@ import { useState } from 'react';
 import '../../styles/dashboard/UserDashboard.css';
 import Favourites from './Favourites';
 import Preferences from './Preferences';
-import UserHistory from './UserHistory';
+import UserSearchHistory from './UserSearchHistory';
 import MealPlanner from './meal-planner/MealPlanner';
 
 export default function UserDashboard() {
@@ -16,8 +16,8 @@ export default function UserDashboard() {
             return <Preferences />;
         case 'favourites':
             return <Favourites />;
-        case 'history':
-            return <UserHistory />;
+        case 'search-history':
+            return <UserSearchHistory />;
         case 'meal-planner':
             return <MealPlanner/>;
         default:
@@ -32,7 +32,7 @@ export default function UserDashboard() {
                 <div className='dashboard-links'>
                     <button onClick={() => setSelectedSection('preferences')}>Preferences</button>
                     <button onClick={() => setSelectedSection('favourites')}>Recipe Favourites</button>
-                    <button onClick={() => setSelectedSection('history')}>User History</button>
+                    <button onClick={() => setSelectedSection('search-history')}>User History</button>
                     <button onClick={() => setSelectedSection('meal-planner')}>Meal Planner</button>
                 </div>
                 <div className='selected-dashboard-link'>

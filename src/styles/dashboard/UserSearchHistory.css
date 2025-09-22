@@ -1,0 +1,115 @@
+.search-history-card{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 10px 5px;
+    padding: 10px 0px;
+    border-bottom: 1px rgb(131, 131, 131) solid;
+}
+
+.search-history-card-content{
+    text-align: left;
+    flex-grow: 1;
+}
+
+.search-history-card-content p{
+    font-size: 14px;
+    margin: 5px 0px;
+}
+
+.search-history-card-stats{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.search-history-card-stats small{
+    font-size: 10px;
+    color: rgb(75, 75, 75);
+}
+
+.search-history-card-stats p{
+    font-size: 13px;
+}
+
+.search-history-card-remove-btn{
+    margin-left: 10px;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+}
+
+.search-history-card-remove-btn button{
+    color: rgb(255, 70, 70);
+    padding: 0px 4px;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    border: 1px rgb(174, 174, 174) solid;
+    border-radius: 5px;
+}
+
+@media (max-width:600px) {
+
+    .search-history-card{
+        display: flex;
+        flex-direction: row;
+        margin: 5px;
+    }
+
+    .search-history-card-content p{
+        font-size: 13px;
+        margin: 0px;
+    }
+
+    .search-history-card-stats p{
+        font-size: 11px;
+    }
+
+    .search-history-card-remove-btn{
+        margin-left: 5px;
+    }
+}
+
+@media (min-width:600px) and (max-width: 900px) {
+
+    .search-history-card{
+        display: flex;
+        flex-direction: row;
+    }
+
+    .search-history-card-content p{
+        font-size: 13px;
+        margin: 0px;
+    }
+
+    .search-history-card-stats p{
+        font-size: 11px;
+    }
+
+    .search-history-card-remove-btn{
+        margin-left: 5px;
+    }
+}
+
+@media (min-width: 900px) and (max-width: 1300px) {
+
+    .search-history-card{
+        display: flex;
+        flex-direction: row;
+    }
+
+    .search-history-card-content p{
+        font-size: 13px;
+        margin: 0px;
+    }
+
+    .search-history-card-stats p{
+        font-size: 11px;
+    }
+
+    .search-history-card-remove-btn{
+        margin-left: 5px;
+    }
+}

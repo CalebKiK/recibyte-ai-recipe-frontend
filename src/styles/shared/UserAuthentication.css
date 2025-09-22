@@ -160,6 +160,16 @@
     font-size: 15px;
 }
 
+.toggle-icon {
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #8B4513;
+    font-size: 15px;
+    cursor: pointer;
+}
+
 .user-authentication-button{
     padding: 10px 20px;
     margin-top: 20px;
@@ -325,6 +335,11 @@
     right: 10px;
     font-size: 12px;
   }
+
+  .toggle-icon {
+    right: 30px;
+    font-size: 12px;
+    }
 
   .user-authentication-button {
     padding: 5px 10px;

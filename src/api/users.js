@@ -3,9 +3,6 @@ import { refreshAccessToken } from "./token/refresh";
 import { useAuth } from "@/context/AuthContext";
 import { BASE_URL } from "./config";
 
-// const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://backend-recipbyte.fly.dev/api";
-// const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000/api";
-
 // 🔹 Login user
 export async function loginUser(email, password) {
     const res = await fetch(`${BASE_URL}/users/login/`, {
@@ -16,8 +13,6 @@ export async function loginUser(email, password) {
     const data = await res.json();
     if (!res.ok) throw data;
 
-    // Pass tokens to AuthContext
-    // await login({ access: data.access, refresh: data.refresh });
     return data;
 
     // 👇This 'return' is to clean up the API layer so all components benefit from consistent error handling
@@ -39,7 +34,6 @@ export async function registerUser(userData) {
     const data = await res.json();
     if (!res.ok) throw data;
 
-    // await login({ access: data.access, refresh: data.refresh });
     return data;
 
     // 👇This 'return' is to clean up the API layer so all components benefit from consistent error handling
@@ -75,15 +69,6 @@ export async function fetchUserByToken(token) {
 
 // Fetch current user's profile (includes favorite_recipes)
 export async function fetchUserProfile(token) {
-    // const res = await axios.get(`${BASE_URL}/users/profile/`, {
-    //     headers: { Authorization: `Bearer ${token}` },
-    // });
-    // const data = await res.json();
-    // if (!res.ok) throw data;
-
-    // return data;
-
-    // return apiRequest(`/users/profile/`);
 
     return fetchWithAuth("/users/profile/");
 }

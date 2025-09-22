@@ -1,8 +1,5 @@
 import { BASE_URL } from "../config";
 
-// const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000/api";
-// const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://backend-recipbyte.fly.dev/api";
-
 export async function refreshAccessToken() {
   const refresh = localStorage.getItem("refresh");
   if (!refresh) throw new Error("No refresh token");

@@ -6,7 +6,7 @@ import { useAuth } from "@/context/AuthContext";
 import "@/styles/shared/UserAuthentication.css";
 import toast from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faLock, faEnvelope, faIdCard } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faLock, faEnvelope, faIdCard, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { Formik, Form, Field, ErrorMessage} from "formik";
 import * as Yup from "yup";
 import { loginUser, registerUser } from "@/api/users";
@@ -14,6 +14,7 @@ import { loginUser, registerUser } from "@/api/users";
 export default function UserAuthentication() {
     const [isLogin, setIsLogin] = useState(true);
     const [loading, setLoading] = useState(false); 
+    const [showPassword, setShowPassword] = useState(false);
     const router = useRouter();
     const { login } = useAuth();
 
@@ -41,6 +42,10 @@ export default function UserAuthentication() {
             .oneOf([Yup.ref("password"), null], "Passwords must match")
             .required("Confirm password is required"),
     });
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
 
     // const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -106,8 +111,13 @@ export default function UserAuthentication() {
                                     />
                                 </div>
                                 <div className="input-container">
-                                    <Field type="password" name="password" placeholder="Password" />
+                                    <Field type={showPassword ? "text" : "password"} name="password" placeholder="Password" />
                                     <FontAwesomeIcon icon={faLock} className="input-icon" />
+                                    <FontAwesomeIcon 
+                                        icon={showPassword ? faEye : faEyeSlash} 
+                                        className="toggle-icon" 
+                                        onClick={togglePasswordVisibility} 
+                                    />
                                     <ErrorMessage
                                         name="password"
                                         component="div"
@@ -177,8 +187,13 @@ export default function UserAuthentication() {
                                     /> 
                                 </div>
                                 <div className="input-container">
-                                    <Field type="password" name="password" placeholder="Password" />
+                                    <Field type={showPassword ? "text" : "password"} name="password" placeholder="Password" />
                                     <FontAwesomeIcon icon={faLock} className="input-icon" />
+                                    <FontAwesomeIcon 
+                                        icon={showPassword ? faEye : faEyeSlash} 
+                                        className="toggle-icon" 
+                                        onClick={togglePasswordVisibility} 
+                                    />
                                     <ErrorMessage
                                         name="password"
                                         component="div"
@@ -186,8 +201,13 @@ export default function UserAuthentication() {
                                     />
                                 </div>
                                 <div className="input-container">
-                                    <Field type="password" name="password2" placeholder="Confirm Password" />
+                                    <Field type={showPassword ? "text" : "password"} name="password2" placeholder="Confirm Password" />
                                     <FontAwesomeIcon icon={faLock} className="input-icon" />
+                                    <FontAwesomeIcon 
+                                        icon={showPassword ? faEye : faEyeSlash} 
+                                        className="toggle-icon" 
+                                        onClick={togglePasswordVisibility} 
+                                    />
                                     <ErrorMessage
                                         name="password2"
                                         component="div"

@@ -33,7 +33,7 @@ export default function RecipeDetailModal({ recipe, show, onClose }) {
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div
-        className="modal recipe-detail-modal"
+        className="recipe-modal recipe-detail-modal"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="modal-header">

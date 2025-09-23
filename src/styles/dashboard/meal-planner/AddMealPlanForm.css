@@ -1,0 +1,93 @@
+.add-meal-plan-form {
+    /* Main container styling for the form */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.generate-meal-plan-form-inputs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    text-align: left;
+}
+
+.generate-meal-plan-input-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.add-meal-plan-form label {
+    display: flex;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.add-meal-plan-form input[type="number"],
+.add-meal-plan-form input[type="text"],
+.add-meal-plan-form select {
+    /* Styling for all input and select fields */
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box; /* Ensures padding doesn't affect total width */
+}
+
+.checkbox-label {
+    /* Specific styling for the checkbox label to align items correctly */
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.checkbox-label input[type="checkbox"] {
+    /* Specific styling for the checkbox itself */
+    width: auto;
+    margin-top: 0;
+}
+
+
+.generate-meal-plan-form-buttons{
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    gap: 0px 20px;
+}
+
+.generate-meal-plan-form-buttons button {
+    padding: 10px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    gap: 0px 20px;
+}
+
+.generate-meal-plan-btn{
+    background-color: #8B4513; 
+    color: white;
+    border: none;
+}
+
+.generate-meal-plan-btn:hover {
+    background-color: #ba601f;
+}
+
+.cancel-generate-meal-plan-btn{
+    background-color: #D9D9D9; 
+    border: 1px solid #8B4513;
+}
+
+.cancel-generate-meal-plan-btn:hover{
+    background-color: #e1e6ea;
+}
+
+@media (max-width: 600px) {
+    .add-meal-plan-form form {
+        grid-template-columns: 1fr;
+    }
+}
+

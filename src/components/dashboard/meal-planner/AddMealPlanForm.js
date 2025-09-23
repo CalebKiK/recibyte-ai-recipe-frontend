@@ -225,7 +225,7 @@ export default function AddMealPlanForm({ onSaved = () => {}, onClose = () => {}
                     </div>
 
                     <div className="save-plan-tip">
-                        <small>Tip: use the "Save plan" checkbox to store the generated plan in your account.</small>
+                        <small>Tip: Use the &quot;Save plan&quot; checkbox to store the generated plan in your account.</small>
                     </div>
 
                     {planResponse && (

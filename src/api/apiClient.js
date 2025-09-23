@@ -19,11 +19,22 @@ export async function apiRequest(endpoint, options = {}) {
 
 export async function fetchWithAuth(endpoint, options = {}) {
   let token = localStorage.getItem("access");
-  const headers = {
-    ...(options.headers || {}),
+  // const headers = {
+  //   ...(options.headers || {}),
+  //   Authorization: `Bearer ${token}`,
+  //   "Content-Type": "application/json",
+  // };
+
+  const defaultHeaders = {
     Authorization: `Bearer ${token}`,
-    "Content-Type": "application/json",
   };
+
+  // Only add Content-Type if not set AND there’s a body
+  if (options.body && !options.headers?.["Content-Type"]) {
+    defaultHeaders["Content-Type"] = "application/json";
+  }
+
+  const headers = { ...defaultHeaders, ...(options.headers || {}) };
 
   let res = await fetch(`${BASE_URL}${endpoint}`, { ...options, headers });
   if (res.status === 401) {

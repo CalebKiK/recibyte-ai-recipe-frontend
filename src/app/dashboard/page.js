@@ -8,16 +8,24 @@ import UserDashboard from "@/components/dashboard/UserDashboard";
 import toast from "react-hot-toast";
 
 export default function DashboardPage() {
-
     const { token } = useAuth();
     const router = useRouter();
 
     useEffect(() => {
+        if (token === null) {
+        // still loading, don’t redirect yet
+        return;
+        }
+
         if (!token) {
             toast.error("You must sign in to access dashboard.");
             router.push("/authentication");
         }
     }, [token, router]);
+
+    if (token === null) {
+        return <p>Loading...</p>; // prevent flicker
+    }
 
     if (!token) {
         return null;

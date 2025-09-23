@@ -1,7 +1,9 @@
 "use client";
+
 import { createContext, useContext, useState, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
 import { fetchUserByToken } from "@/api/users";
+import { refreshAccessToken } from "@/api/token/refresh";
 
 const AuthContext = createContext();
 
@@ -9,19 +11,53 @@ export function AuthProvider({ children }) {
     const [token, setToken] = useState(null);
     const [user, setUser] = useState(null);
 
+    // useEffect(() => {
+    //     const storedToken = localStorage.getItem("access");
+    //     if (storedToken) {
+    //         setToken(storedToken);
+    //         try {
+    //             const decoded = jwtDecode(storedToken);
+    //             // console.log("Decoded token in AuthContext.js file to see user:", jwtDecode(token));
+    //             setUser(decoded);
+    //         } catch (err) {
+    //             console.error("Invalid token", err);
+    //             logout();
+    //         }
+    //     };
+    // }, []);
+
     useEffect(() => {
-        const storedToken = localStorage.getItem("access");
-        if (storedToken) {
-            setToken(storedToken);
+        const initAuth = async () => {
+        let access = localStorage.getItem("access");
+        const refresh = localStorage.getItem("refresh");
+
+        if (!access && refresh) {
+            // No access, but refresh available → try to refresh
             try {
-                const decoded = jwtDecode(storedToken);
-                // console.log("Decoded token in AuthContext.js file to see user:", jwtDecode(token));
-                setUser(decoded);
-            } catch (err) {
-                console.error("Invalid token", err);
-                logout();
+            access = await refreshAccessToken();
+            setToken(access);
+            localStorage.setItem("access", access);
+            } catch {
+            logout();
+            return;
             }
+        }
+
+        if (access) {
+            try {
+            setToken(access);
+            const decoded = jwtDecode(access);
+            // Optionally fetch user profile from backend
+            const userData = await fetchUserByToken(access);
+            setUser(userData || decoded);
+            } catch (err) {
+            console.error("Invalid token at init", err);
+            logout();
+            }
+        }
         };
+
+        initAuth();
     }, []);
 
     const login = async ({ access, refresh }) => {
@@ -36,7 +72,7 @@ export function AuthProvider({ children }) {
         try {
             const decoded = jwtDecode(access); 
             const userData = await fetchUserByToken(access);
-            setUser(userData);
+            setUser(userData || decoded);
             
         } catch (err) {
             console.error("Invalid login token", err);

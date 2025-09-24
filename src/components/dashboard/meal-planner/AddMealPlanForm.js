@@ -22,8 +22,14 @@ export default function AddMealPlanForm({ onSaved = () => {}, onClose = () => {}
     const [loading, setLoading] = useState(false);
     const [planResponse, setPlanResponse] = useState(null);
     const today = new Date();
+    const yesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1);
     const oneYearFromToday = new Date();
     oneYearFromToday.setFullYear(today.getFullYear() + 1);
+
+    const todayFormatted = today.getFullYear() + '-' +
+    String(today.getMonth() + 1).padStart(2, '0') + '-' +
+    String(today.getDate()).padStart(2, '0');
 
     useEffect(() => {
         let mounted = true;
@@ -43,7 +49,7 @@ export default function AddMealPlanForm({ onSaved = () => {}, onClose = () => {}
         timeFrame: Yup.string().oneOf(["week", "day"]).required("Timeframe is required"),
         startDate: Yup.date()
             .required("Start date is required")
-            .min(today, "Start date cannot be in the past")
+            .min(yesterday, "Start date cannot be before today")
             .max(oneYearFromToday, "Start date cannot be more than a year from today"),
         targetCalories: Yup.number()
             .nullable()
@@ -86,7 +92,7 @@ export default function AddMealPlanForm({ onSaved = () => {}, onClose = () => {}
 
     const initialValues = {
         timeFrame: "week",
-        startDate: today,
+        startDate: todayFormatted,
         targetCalories: "",
         diet: "",
         exclude: "",

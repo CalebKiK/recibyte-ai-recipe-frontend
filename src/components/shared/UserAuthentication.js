@@ -27,6 +27,8 @@ export default function UserAuthentication() {
         first_name: Yup.string()
             .min(3, "First name must be at least 3 characters")
             .required("First name is required"),
+        last_name: Yup.string().optional(),
+        gender: Yup.string().required("Gender is required"),
         username: Yup.string()
             .min(5, "Username must be at least 5 characters")
             .required("Username is required"),
@@ -89,6 +91,14 @@ export default function UserAuthentication() {
         }
     };
 
+    const genderOptions = [
+        { value: '', label: 'Select Gender (Optional)' },
+        { value: 'male', label: 'Male' },
+        { value: 'female', label: 'Female' },
+        { value: 'non-binary', label: 'Non-Binary' },
+        { value: 'prefer-not-to-say', label: 'Prefer not to say' },
+    ];
+
     return (
         <div className={`user-authentication-component ${isLogin ? '' : 'active'}`}>
             <div className='form-container'>
@@ -149,6 +159,8 @@ export default function UserAuthentication() {
                     <Formik 
                         initialValues={{
                             first_name: "",
+                            last_name: "",
+                            gender: "",
                             username: "",
                             email: "",
                             password: "",
@@ -164,6 +176,29 @@ export default function UserAuthentication() {
                                     <FontAwesomeIcon icon={faUser} className="input-icon" />
                                     <ErrorMessage
                                         name="first_name"
+                                        component="div"
+                                        className="error-message"
+                                    />
+                                </div>
+                                <div className="input-container">
+                                    <Field type="text" name="last_name" placeholder="Last name (Optional)" />
+                                    <FontAwesomeIcon icon={faUser} className="input-icon" />
+                                    <ErrorMessage
+                                        name="last_name"
+                                        component="div"
+                                        className="error-message"
+                                    />
+                                </div>
+                                <div className="input-container">
+                                    <Field as="select" name="gender" className="select-field">
+                                        {genderOptions.map(option => (
+                                            <option key={option.value} value={option.value}>
+                                                {option.label}
+                                            </option>
+                                        ))}
+                                    </Field>
+                                    <ErrorMessage
+                                        name="gender"
                                         component="div"
                                         className="error-message"
                                     />

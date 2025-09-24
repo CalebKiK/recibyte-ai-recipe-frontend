@@ -107,13 +107,33 @@
 
 @media (max-width:600px) {
     .user-dashboard-component{
-        margin: 30px 20px;
+        margin: 10px 20px;
         padding: 20px 0px;
     }
 
     .user-dashboard-component h1{
         font-weight: 500;
         font-size: 25px;
+    }
+
+    .user-dashboard-header{
+        margin-bottom: 20px;
+        padding: 10px;
+    }
+
+    .user-dashboard-header h2 {
+        text-align: left;
+        margin-left: 20px;
+    }
+
+    .user-profile-link{
+        right: 5px;
+        font-size: 11px;
+    }
+
+    .user-profile-info{
+        text-align: left;
+        margin-left: 10px;
     }
 
     .dashboard-content{
@@ -127,7 +147,8 @@
         align-items: center;
         justify-content: center;
         justify-items: center;
-        border-right: none;
+        width: 100%;
+        padding: 20px;
     }
 
     .dashboard-links button{
@@ -135,11 +156,13 @@
         border-radius: 5px;
         padding: 10px 5px;
         border: none;
+        font-size: 13px;
+        font-weight: 500;
     }
 
     .selected-dashboard-link{
         border-radius: 5px;
-        margin: 20px 10px;
+        margin: 20px 0px;
     }
 
     .user-preferences-component, .user-favourites-component, .recipe-history-component{
@@ -187,7 +210,7 @@
 
     .selected-dashboard-link{
         border-radius: 5px;
-        margin: 20px 10px;
+        margin: 20px 0px;
     }
 
     .user-preferences-component, .user-favourites-component, .recipe-history-component{

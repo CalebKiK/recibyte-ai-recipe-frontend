@@ -129,8 +129,10 @@
 }
 
 @media (max-width: 600px) {
-    .add-meal-plan-form form {
-        grid-template-columns: 1fr;
+
+    .generate-meal-plan-form-inputs {
+        display: flex;
+        flex-direction: column;
     }
 }
 

@@ -63,15 +63,19 @@ export default function Navbar() {
                 </Link>
                 {/* <Link href="/recipes">Recipes</Link> */}
 
-                <Link className='nav-bar-link' href="/dashboard" legacyBehavior>
+                <Link 
+                    href="/dashboard"
+                    className="nav-bar-link"
+                    onClick={handleDashboardClick}
+                    >
                     <div>
                         <Image 
-                            src="/images/navbar-icons/dashboards.png" 
-                            alt="dashboard-icon"
-                            height={15}
-                            width={15}
+                        src="/images/navbar-icons/dashboards.png" 
+                        alt="dashboard-icon"
+                        height={15}
+                        width={15}
                         />
-                        <a onClick={handleDashboardClick} style={{ cursor: 'pointer' }}>Dashboard</a>
+                        <span>Dashboard</span>
                     </div>
                 </Link>
                 
@@ -130,16 +134,20 @@ export default function Navbar() {
                         </Link>
                     </li>
                     <li>
-                        <Link href="/dashboard" legacyBehavior>
-                            <a onClick={handleDashboardClick} className="dropdown-item">
+                        <Link 
+                            href="/dashboard"
+                            className="nav-bar-link"
+                            onClick={handleDashboardClick}
+                            >
+                            <div>
                                 <Image 
-                                    src="/images/navbar-icons/dashboards.png" 
-                                    alt="dashboard-icon"
-                                    height={10}
-                                    width={10}
+                                src="/images/navbar-icons/dashboards.png" 
+                                alt="dashboard-icon"
+                                height={10}
+                                width={10}
                                 />
-                                Dashboard
-                            </a>
+                                <span>Dashboard</span>
+                            </div>
                         </Link>
                     </li>
                     <li>

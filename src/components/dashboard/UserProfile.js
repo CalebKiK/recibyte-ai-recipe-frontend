@@ -12,7 +12,7 @@ export default function UserProfile() {
 
     return (
         <div className="user-profile-component">
-            <h2>Your Profile</h2>
+            <h2>My Account</h2>
         </div>
     );
 }

@@ -81,7 +81,7 @@ export default function FavouritesRecipeCard({ recipe, isExpanded, onClick, onRe
             <ConfirmModal
                 show={showConfirm}
                 title="Remove from favourites?"
-                message={`Are you sure you want to remove "${recipe.title}" from your favourites?`}
+                message={`Are you sure you want to remove "${recipe.title}" from your Favourites?`}
                 confirmText="Remove"
                 cancelText="Cancel"
                 onConfirm={() => {

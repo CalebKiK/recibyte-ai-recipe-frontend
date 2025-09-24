@@ -13,6 +13,7 @@ import {
 import Preferences from './Preferences';
 import UserLibrary from './UserLibrary';
 import MealPlanner from './meal-planner/MealPlanner';
+import UserProfile from './UserProfile';
 import Image from 'next/image';
 
 export default function UserDashboard() {
@@ -26,7 +27,9 @@ export default function UserDashboard() {
         case 'user-library':
             return <UserLibrary />;
         case 'meal-planner':
-            return <MealPlanner/>;
+            return <MealPlanner />;
+        case 'user-profile-link':
+            return <UserProfile />;
         default:
             return <Preferences />
     }
@@ -65,7 +68,10 @@ export default function UserDashboard() {
         <div className="user-dashboard-component">
             <div className='user-dashboard-header'>
                 <h2>Dashboard</h2>
-                <div className='user-profile-link'>
+                <div 
+                    className='user-profile-link' 
+                    onClick={() => setSelectedSection('user-profile-link')}
+                >
                     <Image src={getProfileImage()} alt='user-icon' width={30} height={30} />
                     <div className='user-profile-info'>
                         <h4>{getUserName()}</h4>

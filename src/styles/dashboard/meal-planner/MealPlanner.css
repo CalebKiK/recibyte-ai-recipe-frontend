@@ -1,0 +1,19 @@
+.meal-planner-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* spreads h3 and button */
+  margin-bottom: 20px;
+}
+
+.meal-planner-header h3 {
+  flex: 1;
+  text-align: center;
+}
+
+.add-meal-plan-btn{
+    margin-right: 20px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 1px solid #8B4513;
+    cursor: pointer;
+}

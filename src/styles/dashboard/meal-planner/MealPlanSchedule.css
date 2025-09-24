@@ -1,0 +1,47 @@
+.mp-days{
+    background-color: #FAF1E6;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.meal-plan-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.meal-plan-table th,
+.meal-plan-table td {
+  border: 1px solid #5A2D0C;
+  padding: 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.meal-plan-table th {
+  border-radius: 5px 5px 0px 0px;
+}
+
+.meal-plan-table td {
+  border: 1px solid #5A2D0C;
+}
+
+.meal-plan-table th {
+  color: #5A2D0C;
+}
+
+.mp-meal {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.day-tag {
+  font-size: 14px;
+  margin: 4px 0px 0pc 10px;
+  padding: 2px 6px;
+  border-radius: 5px;
+  background: linear-gradient(90deg, #5A2D0C, #b17a54, #C9A66B);
+  color: #FAF1E6;
+  display: inline-block;
+}

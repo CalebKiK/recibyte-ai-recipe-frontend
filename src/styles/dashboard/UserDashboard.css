@@ -77,7 +77,7 @@
 }
 
 .user-preferences-component, .user-favourites-component, .recipe-history-component{
-    margin: 30px;
+    margin: 10px;
 }
 
 .user-preferences-component h2, .user-favourites-component h2, .recipe-history-component h2{

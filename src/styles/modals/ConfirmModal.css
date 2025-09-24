@@ -33,13 +33,14 @@
   }
   
   .modal h2 {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
   }
   
   .modal-buttons {
     display: flex;
     justify-content: center;
     gap: 30px;
+    margin-top: 20px;
   }
   
   .modal-buttons button {
@@ -50,13 +51,13 @@
     transition: background-color 0.2s ease-in-out;
   }
   
-  .logout-btn {
+  .confirm-btn {
     background-color: #8B4513; 
     color: white;
     border: none;
   }
   
-  .logout-btn:hover {
+  .confirm-btn:hover {
     background-color: #ba601f;
   }
   

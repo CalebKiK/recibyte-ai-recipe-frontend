@@ -1,0 +1,24 @@
+.user-library-links button{
+    margin: 20px 30px;
+    border-radius: 10px;
+    padding: 10px 40px;
+    border: 1px solid #8B4513;
+    font-size: 14px;
+    background-color: #FAF1E6;
+}
+
+.user-library-links button:hover{
+    background-color: #ffedd9;
+    transition: 0.5s ease-in;
+}
+
+.library-links-icon{
+    margin-right: 10px;
+}
+
+.user-library-links button.active {
+    background: linear-gradient(90deg, #5A2D0C, #b17a54, #C9A66B);
+    color: #FAF1E6;
+    font-weight: bold;
+    transition: 0.7s ease-in-out;
+}

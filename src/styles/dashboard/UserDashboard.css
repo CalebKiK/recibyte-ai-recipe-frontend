@@ -1,8 +1,42 @@
 .user-dashboard-component{
-    background-color: #C9A66B;
-    margin: 30px 300px;
+    margin: 10px 100px;
     border-radius: 5px;
     padding: 20px 10px;
+}
+
+.user-dashboard-header{
+    background-color: #C9A66B;
+    display: flex;
+    flex-direction: row;
+    align-items: center; 
+    justify-content: center;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    padding: 15px;
+    position: relative;
+}
+
+.user-dashboard-header h2 {
+    flex-grow: 1; 
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.user-profile-link{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+}
+
+.user-profile-info{
+    text-align: left;
+    margin-left: 10px;
 }
 
 .dashboard-content{
@@ -10,27 +44,36 @@
 }
 
 .dashboard-links{
+    background-color: #C9A66B;
     display: flex;
     flex-direction: column;
-    border-right: 1px solid #b17a54;
+    margin-right: 20px;
+    border-radius: 5px;
+    width: 250px;
+    padding: 20px;
 }
 
 .dashboard-links button{
-    margin: 20px 30px;
-    border-radius: 5px;
+    margin: 20px 0px;
+    border-radius: 10px;
     padding: 10px 20px;
-    border: none;
+    border: 1px solid #8B4513;
+    font-size: 14px;
+    font-weight: 600;
+    background-color: #FAF1E6;
 }
 
 .dashboard-links button:hover{
-    background-color: #FAF1E6;
+    background-color: #ffedd9;
     transition: 0.5s ease-in;
 }
 
 .selected-dashboard-link{
-    background-color: #FAF1E6;
+    /* background-color: #FAF1E6; */
+    background-color: #C9A66B;
+    flex-grow: 1;
     border-radius: 5px;
-    margin: 20px 30px;
+    padding: 20px 30px;
 }
 
 .user-preferences-component, .user-favourites-component, .recipe-history-component{
@@ -39,6 +82,27 @@
 
 .user-preferences-component h2, .user-favourites-component h2, .recipe-history-component h2{
     margin-bottom: 20px;
+}
+
+.dashboard-sidebar-icon{
+    margin-right: 10px;
+}
+
+.dashboard-links button.active{
+    background: linear-gradient(90deg, #5A2D0C, #b17a54, #C9A66B);
+    color: #FAF1E6;
+    font-weight: bold;
+    transition: 0.7s ease-in-out;
+}
+
+.dashboard-sidebar-icon, .library-links-icon {
+    color: #8B4513; 
+    font-size: 15px;
+}
+
+.dashboard-links button.active .dashboard-sidebar-icon, .user-library-links button.active .library-links-icon {
+    color: #FAF1E6; 
+    font-size: 15px;
 }
 
 @media (max-width:600px) {
@@ -91,7 +155,7 @@
 
 @media (min-width:600px) and (max-width: 900px) {
     .user-dashboard-component{
-        margin: 30px 110px;
+        margin: 30px 50px;
         padding: 20px 50px;
     }
 
@@ -139,7 +203,7 @@
 
 @media (min-width: 900px) and (max-width: 1300px) {
     .user-dashboard-component{
-        margin: 30px 140px;
+        margin: 30px 10px;
         padding: 20px 50px;
     }
 
@@ -148,30 +212,9 @@
         font-size: 28px;
     }
 
-    .dashboard-content{
-        display: flex;
-        flex-direction: column;
-    }
-
-    .dashboard-links{
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        justify-items: center;
-        border-right: none;
-    }
-
     .dashboard-links button{
-        margin: 20px;
-        border-radius: 5px;
+        margin: 20px 0px;
         padding: 10px 20px;
-        border: none;
-    }
-
-    .selected-dashboard-link{
-        border-radius: 10px;
-        margin: 20px;
     }
 
     .user-preferences-component, .user-favourites-component, .recipe-history-component{

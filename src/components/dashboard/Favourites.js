@@ -1,7 +1,6 @@
 "use client";
 
 import '../../styles/dashboard/Favourites.css';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import FavouritesRecipeCard from './FavsRecipeCard';
@@ -53,25 +52,13 @@ export default function Favourites() {
         }
     };
 
-    // const handleRemove = async (id) => {
-    //     try {
-    //         const res = await axios.put(`https://backend-recipbyte.fly.dev/api/users/favorites/${id}/toggle/`, {}, {
-    //             headers: { Authorization: `Bearer ${token}` },
-    //         });
-    //         setFavorites(prev => prev.filter(r => r.id !== id));
-    //         setMessage(res.data.message);
-    //     } catch (err) {
-    //         setMessage('Failed to remove from favorites.');
-    //     }
-    // };
-
     const handleCardClick = (recipeId) => {
         setExpandedId(prev => prev === recipeId ? null : recipeId);
     };
 
     return (
         <div className="user-favourites-component">
-            <h2>Recipe Favourites</h2>
+            <h2>Your Culinary Hall of Fame</h2>
             {favorites.length === 0 ? (
                 <p>No recipes in favourites at the moment.</p>
             ) : (
@@ -92,16 +79,6 @@ export default function Favourites() {
                         onClose={() => setSelectedRecipe(null)}
                     />
                 </div>
-
-                // favorites.map(recipe => (
-                //     <FavouritesRecipeCard
-                //         key={recipe.id}
-                //         recipe={recipe}
-                //         isExpanded={expandedId === recipe.id}
-                //         onClick={() => handleCardClick(recipe.id)}
-                //         onRemove={() => handleRemove(recipe.id)}
-                //     />
-                // ))
             )}
             {/* {message && <p className='message'>{message}</p>} */}
         </div>

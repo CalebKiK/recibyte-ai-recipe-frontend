@@ -21,6 +21,15 @@ export default function AddMealPlanForm({ onSaved = () => {}, onClose = () => {}
     const [diets, setDiets] = useState([]);
     const [loading, setLoading] = useState(false);
     const [planResponse, setPlanResponse] = useState(null);
+    const today = new Date();
+    const yesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1);
+    const oneYearFromToday = new Date();
+    oneYearFromToday.setFullYear(today.getFullYear() + 1);
+
+    const todayFormatted = today.getFullYear() + '-' +
+    String(today.getMonth() + 1).padStart(2, '0') + '-' +
+    String(today.getDate()).padStart(2, '0');
 
     useEffect(() => {
         let mounted = true;
@@ -38,6 +47,10 @@ export default function AddMealPlanForm({ onSaved = () => {}, onClose = () => {}
     const validationSchema = () =>
         Yup.object({
         timeFrame: Yup.string().oneOf(["week", "day"]).required("Timeframe is required"),
+        startDate: Yup.date()
+            .required("Start date is required")
+            .min(yesterday, "Start date cannot be before today")
+            .max(oneYearFromToday, "Start date cannot be more than a year from today"),
         targetCalories: Yup.number()
             .nullable()
             .transform((v, o) => (String(o).trim() === "" ? null : v))
@@ -79,6 +92,7 @@ export default function AddMealPlanForm({ onSaved = () => {}, onClose = () => {}
 
     const initialValues = {
         timeFrame: "week",
+        startDate: todayFormatted,
         targetCalories: "",
         diet: "",
         exclude: "",
@@ -95,6 +109,7 @@ export default function AddMealPlanForm({ onSaved = () => {}, onClose = () => {}
 
         const payload = {
             timeFrame: values.timeFrame,
+            startDate: values.startDate,
             targetCalories: 
                 values.targetCalories !== "" && values.targetCalories !== null 
                 ? Number(values.targetCalories) 
@@ -140,7 +155,7 @@ export default function AddMealPlanForm({ onSaved = () => {}, onClose = () => {}
                     <div className="generate-meal-plan-form-inputs">
                         <div className="generate-meal-plan-input-container">
                             <label>
-                                Timeframe:
+                                Timeframe:<span className="required-asterisk">*</span>
                                 <Field as="select" name="timeFrame">
                                     <option value="week">Week</option>
                                     <option value="day">Day</option>
@@ -148,6 +163,16 @@ export default function AddMealPlanForm({ onSaved = () => {}, onClose = () => {}
                             </label>
                             <div className="field-error">
                                 <ErrorMessage name="timeFrame" component="div" className="error-message" />
+                            </div>
+                        </div>
+
+                        <div className="generate-meal-plan-input-container">
+                            <label>
+                                Start Date:<span className="required-asterisk">*</span>
+                                <Field type="date" name="startDate" />
+                            </label>
+                            <div className="field-error">
+                                <ErrorMessage name="startDate" component="div" className="error-message" />
                             </div>
                         </div>
 
@@ -216,7 +241,6 @@ export default function AddMealPlanForm({ onSaved = () => {}, onClose = () => {}
                             // reset and close
                             onClose();
                             }}
-                            style={{ marginLeft: 8 }}
                             className="cancel-generate-meal-plan-btn"
                             disabled={isSubmitting}
                         >

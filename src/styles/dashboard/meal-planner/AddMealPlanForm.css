@@ -1,5 +1,4 @@
 .add-meal-plan-form {
-    /* Main container styling for the form */
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -17,38 +16,66 @@
 .generate-meal-plan-input-container {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  gap: 5px;
 }
 
 .add-meal-plan-form label {
     display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
     font-weight: 600;
+    font-size: 13px;
     margin-bottom: 5px;
 }
 
-.add-meal-plan-form input[type="number"],
-.add-meal-plan-form input[type="text"],
+.add-meal-plan-form input[type="number"], .add-meal-plan-form input[name="exclude"],
+.add-meal-plan-form input[type="text"], .add-meal-plan-form input[name="title"],
 .add-meal-plan-form select {
-    /* Styling for all input and select fields */
     padding: 10px;
     margin-top: 5px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    font-size: 1rem;
+    font-size: 12px;
     width: 100%;
     box-sizing: border-box; /* Ensures padding doesn't affect total width */
 }
 
-.checkbox-label {
-    /* Specific styling for the checkbox label to align items correctly */
+.generate-meal-plan-input-container input[type="date"] {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background: linear-gradient(#FAF1E6, #FAF1E6) padding-box,
+              linear-gradient(90deg, #5A2D0C, #b17a54, #C9A66B) border-box;
+  color: #5A2D0C;
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.generate-meal-plan-input-container input[type="date"]:focus {
+  background: linear-gradient(#fff, #fff) padding-box,
+              linear-gradient(90deg, #5A2D0C, #b17a54, #C9A66B) border-box;
+  box-shadow: 0 0 6px rgba(90, 45, 12, 0.4);
+}
+
+.add-meal-plan-form .checkbox-label {
     flex-direction: row;
     align-items: center;
     gap: 10px;
 }
 
 .checkbox-label input[type="checkbox"] {
-    /* Specific styling for the checkbox itself */
     width: auto;
     margin-top: 0;
+}
+
+.required-asterisk {
+    color: red;
+    margin-left: 2px;
 }
 
 
@@ -56,14 +83,17 @@
     align-items: center;
     text-align: center;
     justify-content: center;
-    gap: 0px 20px;
+    justify-content: space-between;
+    margin-top: 20px;
+    gap: 0px 30px;
 }
 
 .generate-meal-plan-form-buttons button {
     padding: 10px 25px;
     border-radius: 10px;
     cursor: pointer;
-    gap: 0px 20px;
+    margin: 0px 20px;
+    flex: 1;
 }
 
 .generate-meal-plan-btn{
@@ -85,9 +115,26 @@
     background-color: #e1e6ea;
 }
 
+.generate-meal-plan-btn:disabled, .cancel-generate-meal-plan-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.save-plan-tip {
+    text-align: center;
+    font-style: italic;
+    color: #888;
+    margin-top: 10px;
+}
+
 @media (max-width: 600px) {
-    .add-meal-plan-form form {
-        grid-template-columns: 1fr;
+    .generate-meal-plan-form-inputs {
+        display: flex;
+        flex-direction: column;
     }
+}
+
+@media (max-width: 700px) and (max-width: 900px) {
+    
 }
 

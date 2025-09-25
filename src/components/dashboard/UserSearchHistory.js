@@ -40,21 +40,26 @@ export default function UserSearchHistory() {
     };
 
     return (
-        <div className="recipe-history-component">
-            <h2>User Search History</h2>
+        <div className="user-search-history-component">
+            <h2>Your Recent Explorations</h2>
             {history.length === 0 ? (
-                <p>You haven’t viewed any recipes yet.</p>
+                <p>You haven’t explored any recipes yet.</p>
             ) : (
-                history.map(item => (
-                    <SearchHistoryCard
-                        key={item.id}
-                        recipe={item}
-                        isExpanded={expandedId===item.id}
-                        onClick={() => handleCardClick(item.id)}
-                        onRemove={() => handleDelete(item.id)}
-                        showRemove={false}
-                    />
-                ))
+                <div className="user-search-history-list">
+                    {
+                        history.map(item => (
+                            <SearchHistoryCard
+                                key={item.id}
+                                recipe={item}
+                                isExpanded={expandedId===item.id}
+                                onClick={() => handleCardClick(item.id)}
+                                onRemove={() => handleDelete(item.id)}
+                                showRemove={false}
+                            />
+                        ))
+                    }
+                </div>
+                
             )}
             {message && <p className='message'>{message}</p>}
         </div>

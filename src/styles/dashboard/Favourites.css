@@ -1,10 +1,16 @@
+.favourites-list{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
 .fav-recipe-card{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin: 10px 5px;
-    padding: 10px 0px;
-    border-bottom: 1px rgb(131, 131, 131) solid;
+    margin: 10px;
+    padding: 10px 20px;
+    background-color: #FAF1E6;
+    border-radius: 5px;
 }
 
 .fav-recipe-card-header{
@@ -51,23 +57,30 @@
 
 .fav-recipe-card-remove-btn button{
     color: rgb(255, 70, 70);
+    font-size: 15px;
     padding: 0px 4px;
     align-items: center;
     justify-content: center;
     justify-items: center;
-    border: 1px rgb(174, 174, 174) solid;
+    background-color: #FAF1E6;
     border-radius: 5px;
+    border: none;
 }
 
 @media (max-width:600px) {
-    .user-preferences-component, .user-favourites-component, .recipe-history-component{
+    .user-favourites-component{
         margin: 10px;
     }
 
-    .user-preferences-component h2, .user-favourites-component h2, .recipe-history-component h2{
+    .user-favourites-component h2{
         margin-bottom: 10px;
         font-weight: 500;
         font-size: 20px;
+    }
+
+    .favourites-list{
+        display: flex;
+        flex-direction: column;
     }
 
     .fav-recipe-card{
@@ -91,15 +104,19 @@
     }
 }
 
-@media (min-width:600px) and (max-width: 900px) {
-    .user-preferences-component, .user-favourites-component, .recipe-history-component{
+@media (min-width:600px) and (max-width: 1000px) {
+    .user-favourites-component{
         margin: 15px;
     }
 
-    .user-preferences-component h2, .user-favourites-component h2, .recipe-history-component h2{
+    .user-favourites-component h2{
         margin-bottom: 10px;
         font-weight: 500;
         font-size: 20px;
+    }
+
+    .favourites-list{
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .fav-recipe-card{
@@ -121,12 +138,12 @@
     }
 }
 
-@media (min-width: 900px) and (max-width: 1300px) {
-    .user-preferences-component, .user-favourites-component, .recipe-history-component{
+@media (min-width: 1000px) and (max-width: 1300px) {
+    .user-preferences-component, .user-favourites-component, .user-search-history-component{
         margin: 20px;
     }
 
-    .user-preferences-component h2, .user-favourites-component h2, .recipe-history-component h2{
+    .user-preferences-component h2, .user-favourites-component h2, .user-search-history-component h2{
         margin-bottom: 10px;
         font-weight: 500;
         font-size: 22px;

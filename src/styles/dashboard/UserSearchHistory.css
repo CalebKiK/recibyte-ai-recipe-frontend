@@ -1,10 +1,16 @@
+.user-search-history-list{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
 .search-history-card{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin: 10px 5px;
-    padding: 10px 0px;
-    border-bottom: 1px rgb(131, 131, 131) solid;
+    margin: 10px;
+    padding: 10px 20px;
+    background-color: #FAF1E6;
+    border-radius: 5px;
 }
 
 .search-history-card-content{
@@ -46,11 +52,16 @@
     align-items: center;
     justify-content: center;
     justify-items: center;
-    border: 1px rgb(174, 174, 174) solid;
+    background-color: #FAF1E6;
     border-radius: 5px;
+    border: none;
 }
 
 @media (max-width:600px) {
+    .user-search-history-list{
+        display: flex;
+        flex-direction: column;
+    }
 
     .search-history-card{
         display: flex;
@@ -72,7 +83,10 @@
     }
 }
 
-@media (min-width:600px) and (max-width: 900px) {
+@media (min-width:600px) and (max-width: 1000px) {
+    .user-search-history-list{
+        grid-template-columns: repeat(2, 1fr);
+    }
 
     .search-history-card{
         display: flex;
@@ -93,7 +107,7 @@
     }
 }
 
-@media (min-width: 900px) and (max-width: 1300px) {
+@media (min-width: 1000px) and (max-width: 1300px) {
 
     .search-history-card{
         display: flex;

@@ -1,0 +1,129 @@
+.meal-plan-schedule-component{
+  margin: 10px 0px;
+}
+
+.mp-days{
+    background-color: #FAF1E6;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.meal-plan-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.day-label{
+  display: flex;
+  flex-direction: column;
+}
+
+.meal-plan-table th,
+.meal-plan-table td {
+  border: 1px solid #5A2D0C;
+  padding: 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.meal-plan-table th {
+  border-radius: 5px 5px 0px 0px;
+}
+
+.meal-plan-table td {
+  border: 1px solid #5A2D0C;
+}
+
+.meal-plan-table th {
+  color: #5A2D0C;
+}
+
+.mp-meal {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.day-tag {
+  font-size: 14px;
+  margin: 5px 0px 0pc 0px;
+  padding: 2px 6px;
+  border-radius: 5px;
+  background: linear-gradient(90deg, #5A2D0C, #b17a54, #C9A66B);
+  color: #FAF1E6;
+  display: inline-block;
+}
+
+@media (max-width: 760px) {
+  /* .meal-plan-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .meal-plan-table th,
+  .meal-plan-table td {
+    max-width: 300px;
+  } */
+  
+  .meal-plan-table{
+    margin-top: 20px;
+  }
+
+  .meal-plan-table,
+  .meal-plan-table thead,
+  .meal-plan-table tbody,
+  .meal-plan-table tr,
+  .meal-plan-table th,
+  .meal-plan-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .meal-plan-table tr {
+    margin-bottom: 15px;
+    border: 1px solid #5A2D0C;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #fff;
+  }
+
+  .meal-plan-table td {
+    border: none;
+    padding: 8px 0;
+  }
+
+  .meal-plan-table th {
+    display: none; 
+  }
+
+  .meal-plan-table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    display: block;
+    margin-bottom: 4px;
+    color: #5A2D0C;
+  }
+}
+
+@media (min-width: 760px) and (max-width: 1300px) {
+  .meal-plan-table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .meal-plan-table th,
+  .meal-plan-table td {
+    min-width: 100px;
+    width: 400px;
+  }
+
+  .mp-meal {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+}

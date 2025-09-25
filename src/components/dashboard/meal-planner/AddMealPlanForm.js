@@ -241,7 +241,6 @@ export default function AddMealPlanForm({ onSaved = () => {}, onClose = () => {}
                             // reset and close
                             onClose();
                             }}
-                            style={{ marginLeft: 8 }}
                             className="cancel-generate-meal-plan-btn"
                             disabled={isSubmitting}
                         >

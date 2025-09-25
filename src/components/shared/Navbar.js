@@ -136,7 +136,7 @@ export default function Navbar() {
                     <li>
                         <Link 
                             href="/dashboard"
-                            className="nav-bar-link"
+                            className="dropdown-item"
                             onClick={handleDashboardClick}
                             >
                             <div>

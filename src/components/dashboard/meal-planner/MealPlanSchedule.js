@@ -42,7 +42,7 @@ export default function MealPlanSchedule({ response }) {
     <div className="meal-plan-schedule-component">
       <h3>The Kitchen Calendar</h3>
       <p>Your forecast for a flavorful {planObj.timeframe ?? ""}.
-        <strong>{createdDateStr && ` Created: ${createdDateStr} ${dateTag}`}</strong>
+        <strong>{createdDateStr && ` Created on: ${createdDateStr} ${dateTag}`}</strong>
       </p>
 
       {/* <div className="mp-created">{planObj.created_at && <small>Created at: {new Date(planObj.created_at).toLocaleString()}</small>}</div> */}
@@ -78,8 +78,11 @@ export default function MealPlanSchedule({ response }) {
                 return (
                   <tr key={d.day}>
                     <td>
-                      <strong>{label}</strong>
-                      {tag && <div className="day-tag">{tag}</div>}
+                      <div className="day-label">
+                        <strong>{label}</strong>
+                        {tag && <div className="day-tag">{tag}</div>}
+                      </div>
+                      
                     </td>
                     {d.meals.map((m, i) => (
                       <td key={i}>

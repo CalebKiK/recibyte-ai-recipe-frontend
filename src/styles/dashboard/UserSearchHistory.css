@@ -58,6 +58,10 @@
 }
 
 @media (max-width:600px) {
+    .user-search-history-list{
+        display: flex;
+        flex-direction: column;
+    }
 
     .search-history-card{
         display: flex;
@@ -79,7 +83,10 @@
     }
 }
 
-@media (min-width:600px) and (max-width: 900px) {
+@media (min-width:600px) and (max-width: 1000px) {
+    .user-search-history-list{
+        grid-template-columns: repeat(2, 1fr);
+    }
 
     .search-history-card{
         display: flex;
@@ -100,7 +107,7 @@
     }
 }
 
-@media (min-width: 900px) and (max-width: 1300px) {
+@media (min-width: 1000px) and (max-width: 1300px) {
 
     .search-history-card{
         display: flex;

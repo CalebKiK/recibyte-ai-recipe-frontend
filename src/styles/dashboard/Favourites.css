@@ -68,14 +68,19 @@
 }
 
 @media (max-width:600px) {
-    .user-preferences-component, .user-favourites-component, .recipe-history-component{
+    .user-favourites-component{
         margin: 10px;
     }
 
-    .user-preferences-component h2, .user-favourites-component h2, .recipe-history-component h2{
+    .user-favourites-component h2{
         margin-bottom: 10px;
         font-weight: 500;
         font-size: 20px;
+    }
+
+    .favourites-list{
+        display: flex;
+        flex-direction: column;
     }
 
     .fav-recipe-card{
@@ -99,15 +104,19 @@
     }
 }
 
-@media (min-width:600px) and (max-width: 900px) {
-    .user-preferences-component, .user-favourites-component, .recipe-history-component{
+@media (min-width:600px) and (max-width: 1000px) {
+    .user-favourites-component{
         margin: 15px;
     }
 
-    .user-preferences-component h2, .user-favourites-component h2, .recipe-history-component h2{
+    .user-favourites-component h2{
         margin-bottom: 10px;
         font-weight: 500;
         font-size: 20px;
+    }
+
+    .favourites-list{
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .fav-recipe-card{
@@ -129,12 +138,12 @@
     }
 }
 
-@media (min-width: 900px) and (max-width: 1300px) {
-    .user-preferences-component, .user-favourites-component, .recipe-history-component{
+@media (min-width: 1000px) and (max-width: 1300px) {
+    .user-preferences-component, .user-favourites-component, .user-search-history-component{
         margin: 20px;
     }
 
-    .user-preferences-component h2, .user-favourites-component h2, .recipe-history-component h2{
+    .user-preferences-component h2, .user-favourites-component h2, .user-search-history-component h2{
         margin-bottom: 10px;
         font-weight: 500;
         font-size: 22px;

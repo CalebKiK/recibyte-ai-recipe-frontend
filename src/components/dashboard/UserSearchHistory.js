@@ -40,7 +40,7 @@ export default function UserSearchHistory() {
     };
 
     return (
-        <div className="recipe-history-component">
+        <div className="user-search-history-component">
             <h2>Your Recent Explorations</h2>
             {history.length === 0 ? (
                 <p>You haven’t explored any recipes yet.</p>

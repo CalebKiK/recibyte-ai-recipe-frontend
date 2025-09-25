@@ -1,5 +1,5 @@
 .user-library-links button{
-    margin: 20px 30px;
+    margin: 10px 30px;
     border-radius: 10px;
     padding: 10px 40px;
     border: 1px solid #8B4513;
@@ -32,10 +32,19 @@
 
   .user-library-links button{
     margin: 10px;
-    border-radius: 10px;
     padding: 10px;
-    border: 1px solid #8B4513;
     font-size: 13px;
-    background-color: #FAF1E6;
+  }
+}
+
+@media (max-width:600px) and (max-width:1000px) {
+  .user-library-links {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+  }
+
+  .user-library-links button{
+    padding: 10px;
   }
 }

@@ -76,11 +76,11 @@
     padding: 20px 30px;
 }
 
-.user-preferences-component, .user-favourites-component, .recipe-history-component{
+.user-preferences-component, .user-favourites-component, .user-search-history-component{
     margin: 10px;
 }
 
-.user-preferences-component h2, .user-favourites-component h2, .recipe-history-component h2{
+.user-preferences-component h2, .user-favourites-component h2, .user-search-history-component h2{
     margin-bottom: 20px;
 }
 
@@ -107,7 +107,7 @@
 
 @media (max-width:600px) {
     .user-dashboard-component{
-        margin: 10px 20px;
+        margin: 0px 20px;
         padding: 20px 0px;
     }
 
@@ -142,34 +142,45 @@
     }
 
     .dashboard-links{
+        position: fixed;
+        bottom: 0;
+        left: 0;
         display: flex;
         flex-direction: row;
+        justify-content: space-around;
+        margin: 0;
         align-items: center;
         justify-content: center;
         justify-items: center;
         width: 100%;
-        padding: 20px;
+        padding: 10px;
+        z-index: 1000;
     }
 
     .dashboard-links button{
-        margin: 20px 5px;
+        margin: 10px 5px;
         border-radius: 5px;
-        padding: 10px 5px;
-        border: none;
+        padding: 10px 2px;
         font-size: 13px;
         font-weight: 500;
+        flex: 1;
     }
 
     .selected-dashboard-link{
         border-radius: 5px;
-        margin: 20px 0px;
+        margin: 0px 0px 60px;
+        flex: 1;
     }
 
-    .user-preferences-component, .user-favourites-component, .recipe-history-component{
+    .dashboard-sidebar-icon{
+        margin-right: 1px;
+    }
+
+    .user-preferences-component, .user-favourites-component, .user-search-history-component{
         margin: 10px;
     }
 
-    .user-preferences-component h2, .user-favourites-component h2, .recipe-history-component h2{
+    .user-preferences-component h2, .user-favourites-component h2, .user-search-history-component h2{
         margin-bottom: 10px;
         font-weight: 500;
         font-size: 20px;
@@ -178,13 +189,8 @@
 
 @media (min-width:600px) and (max-width: 900px) {
     .user-dashboard-component{
-        margin: 30px 50px;
-        padding: 20px 50px;
-    }
-
-    .user-dashboard-component h1{
-        font-weight: 500;
-        font-size: 25px;
+        margin: 10px 30px;
+        padding: 20px 0px;
     }
 
     .dashboard-content{
@@ -193,31 +199,39 @@
     }
 
     .dashboard-links{
+        position: fixed;
+        bottom: 0;
+        left: 0;
         display: flex;
         flex-direction: row;
         align-items: center;
-        justify-content: center;
         justify-items: center;
-        border-right: none;
+        justify-content: space-around;
+        margin: 0;
+        width: 100%;
+        padding: 10px;
+        z-index: 1000;
     }
 
     .dashboard-links button{
-        margin: 20px 10px;
+        margin: 10px 20px;
         border-radius: 5px;
         padding: 10px 20px;
-        border: none;
+        font-weight: 500;
+        flex: 1;
     }
 
     .selected-dashboard-link{
         border-radius: 5px;
-        margin: 20px 0px;
+        margin: 10px 0px 60px;
+        flex: 1;
     }
 
-    .user-preferences-component, .user-favourites-component, .recipe-history-component{
+    .user-preferences-component, .user-favourites-component, .user-search-history-component{
         margin: 15px;
     }
 
-    .user-preferences-component h2, .user-favourites-component h2, .recipe-history-component h2{
+    .user-preferences-component h2, .user-favourites-component h2, .user-search-history-component h2{
         margin-bottom: 10px;
         font-weight: 500;
         font-size: 20px;
@@ -226,25 +240,24 @@
 
 @media (min-width: 900px) and (max-width: 1300px) {
     .user-dashboard-component{
-        margin: 30px 10px;
-        padding: 20px 50px;
+        margin: 20px;
+        padding: 20px 0px;
     }
 
-    .user-dashboard-component h1{
-        font-weight: 550;
-        font-size: 28px;
+    .dashboard-links{
+        width: 220px;
     }
 
     .dashboard-links button{
         margin: 20px 0px;
-        padding: 10px 20px;
+        padding: 10px;
     }
 
-    .user-preferences-component, .user-favourites-component, .recipe-history-component{
+    .user-preferences-component, .user-favourites-component, .user-search-history-component{
         margin: 20px;
     }
 
-    .user-preferences-component h2, .user-favourites-component h2, .recipe-history-component h2{
+    .user-preferences-component h2, .user-favourites-component h2, .user-search-history-component h2{
         margin-bottom: 10px;
         font-weight: 500;
         font-size: 22px;

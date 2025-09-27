@@ -1,4 +1,4 @@
-.modal-overlay {
+.recipe-modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -16,7 +16,6 @@
   }
   
   .recipe-detail-modal {
-    background: #FAF1E6;
     margin: 30px 100px;
     border-radius: 12px;
     width: 70%;
@@ -25,16 +24,16 @@
     text-align: left;
   }
   
-  .modal-header {
+  .recipe-modal-header {
     display: flex;
     justify-content: space-between;
   }
 
-  .modal-header-content{
+  .recipe-modal-header-content{
     margin-left: 20px;
   }
 
-  .modal-heading{
+  .recipe-modal-heading{
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -47,40 +46,101 @@
     cursor: pointer;
   }
   
-  .modal-image {
+  .recipe-modal-image {
     text-align: center;
   }
   
-  .modal-header-content p{
+  .recipe-modal-header-content p{
     font-size: 14px;
     text-align: left;
   }
 
-  .modal-instructions{
+  .recipe-modal-instructions{
     text-align: left;
   }
   
-  .modal-instructions ul {
+  .recipe-modal-instructions ul {
     margin: 10px 0 0;
     padding-left: 20px;
   }
 
-  .modal-instructions ul li {
+  .recipe-modal-instructions ul li {
     font-size: 14px;
     line-height: 1.5;
   }
 
   @media (max-width: 600px) {
-    .modal-overlay{
+    .recipe-modal-overlay{
         padding: 10px;
+        overflow-x: auto;
+        align-items: flex-start;
+        overflow-y: auto;
     }
-    .modal {
+
+    .recipe-modal {
         width: 90%;
         padding: 30px 10px;
     }
 
-    .modal h2 {
-        font-size: 19px;
+    .recipe-detail-modal {
+      margin: 20px 10px 80px;
+      border-radius: 12px;
+      width: 90%;
+      padding: 20px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      text-align: left;
     }
+
+    .recipe-modal h2 {
+        font-size: 18px;
+    }
+
+    .recipe-modal-header-content{
+      margin: 0px 0px 10px;
+    }
+
+    .recipe-modal-header {
+      flex-direction: column;
+    }
+
+    .recipe-modal-instructions ul {
+      padding-left: 10px;
+    }
+
+    .close-btn {
+      font-size: 15px;
+    }
+}
+
+  @media (min-width: 600px) and (max-width: 900px) {
+    .recipe-modal-overlay{
+        padding: 10px;
+        overflow-x: auto;
+        align-items: flex-start;
+        overflow-y: auto;
+    }
+
+    .recipe-modal {
+        width: 95%;
+        padding: 30px 10px;
+    }
+
+    .recipe-detail-modal {
+      margin: 30px 50px 80px;
+      border-radius: 12px;
+      width: 95%;
+      padding: 20px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      text-align: left;
+    }
+
+    .recipe-modal h2 {
+        font-size: 18px;
+    }
+
+    .recipe-modal-header-content{
+      margin-left: 10px;
+    }
+
 }
   

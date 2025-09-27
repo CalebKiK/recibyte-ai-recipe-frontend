@@ -92,7 +92,7 @@ export default function UserAuthentication() {
     };
 
     const genderOptions = [
-        { value: '', label: 'Select Gender (Optional)' },
+        { value: '', label: 'Select Gender' },
         { value: 'male', label: 'Male' },
         { value: 'female', label: 'Female' },
         { value: 'non-binary', label: 'Non-Binary' },

@@ -140,7 +140,7 @@
     width: 100%;
 }
 
-.input-container input{
+.input-container input, .input-container .select-field{
     margin: 15px 0px;
     width: 100%;
     padding-right: 40px; 
@@ -149,6 +149,22 @@
     padding-left: 15px;
     border-radius: 10px;
     border: 1px solid rgb(98, 98, 98);
+}
+
+.select-field {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: url("data:image/svg+xml;utf8,<svg fill='%238B4513' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>") no-repeat right 10px center;
+  background-color: #fff; 
+  background-size: 15px;
+  padding-right: 40px; 
+  color: inherit;
+}
+
+.select-field option {
+  color: #8B4513;       /* option text */
+  background-color: #fff; /* background stays light */
 }
 
 .input-icon {
@@ -258,8 +274,23 @@
     overflow: hidden;
   }
 
-  /* Panels fill their container */
-  .form-box,
+  .form-box {
+    position: absolute;   
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: all 0.6s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    overflow-y: auto;
+    padding: 20px;
+    border-radius: 10px;
+    background: #FAF1E6;
+  }
+
   .welcome-panel-login,
   .welcome-panel-register {
     position: absolute;   
@@ -274,7 +305,14 @@
     align-items: center;
   }
 
-  /* Default: login visible */
+  .form-box.login {
+    justify-content: center;
+  }
+
+  .form-box.register {
+    justify-content: flex-start;
+  }
+
   .form-box.login,
   .welcome-panel-login {
     opacity: 1;
@@ -282,7 +320,6 @@
     z-index: 2;
   }
 
-  /* Register hidden by default */
   .form-box.register,
   .welcome-panel-register {
     opacity: 0;
@@ -306,16 +343,13 @@
     z-index: 2;
   }
 
-  .form-box {
-    padding: 20px;
-    border-radius: 10px;
-    overflow-y: auto;
-    background: #FAF1E6;
-  }
-
   .welcome-container {
     background: #C9A66B;
     color: #FAF1E6;
+  }
+
+  .welcome-container p{
+    font-size: 12px;
   }
 
   .user-authentication-component h2 {
@@ -324,7 +358,7 @@
     margin-bottom: 10px;
   }
 
-  .input-container input {
+  .input-container input, .input-container .select-field {
     margin: 12px 0;
     font-size: 12px;
     height: 35px;
@@ -381,8 +415,12 @@
     }
 
     .form-box{
-        padding: 0px 100px;
+        padding: 20px 100px;
         border-radius: 10px;
+    }
+
+    .form-box.register {
+        justify-content: flex-start;
     }
 
     .user-authentication-component h2{

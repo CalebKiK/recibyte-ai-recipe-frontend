@@ -95,7 +95,7 @@
     transition: 0.7s ease-in-out;
 }
 
-.dashboard-sidebar-icon, .library-links-icon {
+.dashboard-sidebar-icon{
     color: #8B4513; 
     font-size: 15px;
 }
@@ -107,7 +107,7 @@
 
 @media (max-width:600px) {
     .user-dashboard-component{
-        margin: 0px 20px;
+        margin: 0px 15px;
         padding: 20px 0px;
     }
 

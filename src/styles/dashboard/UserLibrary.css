@@ -1,3 +1,8 @@
+.user-library-links{
+  align-items: center;
+  justify-content: center;
+}
+
 .user-library-links button{
     margin: 10px 30px;
     border-radius: 10px;
@@ -14,6 +19,8 @@
 
 .library-links-icon{
     margin-right: 10px;
+    color: #8B4513; 
+    font-size: 15px;
 }
 
 .user-library-links button.active {
@@ -31,8 +38,13 @@
   }
 
   .user-library-links button{
-    margin: 10px;
-    padding: 10px;
+    margin: 5px;
+    padding: 1px;
+    font-size: 13px;
+  }
+
+  .library-links-icon{
+    margin-right: 5px;
     font-size: 13px;
   }
 }

@@ -46,25 +46,25 @@
     cursor: pointer;
   }
   
-  .modal-image {
+  .recipe-modal-image {
     text-align: center;
   }
   
-  .modal-header-content p{
+  .recipe-modal-header-content p{
     font-size: 14px;
     text-align: left;
   }
 
-  .modal-instructions{
+  .recipe-modal-instructions{
     text-align: left;
   }
   
-  .modal-instructions ul {
+  .recipe-modal-instructions ul {
     margin: 10px 0 0;
     padding-left: 20px;
   }
 
-  .modal-instructions ul li {
+  .recipe-modal-instructions ul li {
     font-size: 14px;
     line-height: 1.5;
   }
@@ -73,6 +73,8 @@
     .recipe-modal-overlay{
         padding: 10px;
         overflow-x: auto;
+        align-items: flex-start;
+        overflow-y: auto;
     }
 
     .recipe-modal {
@@ -81,7 +83,7 @@
     }
 
     .recipe-detail-modal {
-      margin: 30px 10px 80px;
+      margin: 20px 10px 80px;
       border-radius: 12px;
       width: 90%;
       padding: 20px;
@@ -90,7 +92,7 @@
     }
 
     .recipe-modal h2 {
-        font-size: 19px;
+        font-size: 18px;
     }
 
     .recipe-modal-header-content{
@@ -100,34 +102,44 @@
     .recipe-modal-header {
       flex-direction: column;
     }
+
+    .recipe-modal-instructions ul {
+      padding-left: 10px;
+    }
+
+    .close-btn {
+      font-size: 15px;
+    }
 }
 
   @media (min-width: 600px) and (max-width: 900px) {
     .recipe-modal-overlay{
         padding: 10px;
         overflow-x: auto;
+        align-items: flex-start;
+        overflow-y: auto;
     }
 
     .recipe-modal {
-        width: 90%;
+        width: 95%;
         padding: 30px 10px;
     }
 
     .recipe-detail-modal {
-      margin: 30px 80px 80px;
+      margin: 30px 50px 80px;
       border-radius: 12px;
-      width: 90%;
+      width: 95%;
       padding: 20px;
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
       text-align: left;
     }
 
     .recipe-modal h2 {
-        font-size: 19px;
+        font-size: 18px;
     }
 
     .recipe-modal-header-content{
-      margin: 0px 0px 10px;
+      margin-left: 10px;
     }
 
 }

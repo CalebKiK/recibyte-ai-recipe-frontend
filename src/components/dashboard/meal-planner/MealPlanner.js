@@ -6,7 +6,7 @@ import AddMealPlanForm from './AddMealPlanForm';
 import Modal from "@/components/modals/Modal";
 import MealPlanSchedule from "./MealPlanSchedule";
 import { useAuth } from "@/context/AuthContext";
-import { getMealPlans } from "@/api/mealPlans";
+import { getMealPlans, confirmMealPlan } from "@/api/mealPlans";
 
 export default function MealPlanner() {
     const [showAddModal, setShowAddModal] = useState(false);

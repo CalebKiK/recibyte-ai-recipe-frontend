@@ -1,4 +1,5 @@
 import { BASE_URL } from "./config";
+import { apiRequest } from "./apiClient";
 
 /**
  * Propose (generate) a meal plan via backend.
@@ -38,5 +39,28 @@ export async function proposeMealPlan(payload, token) {
     throw new Error(message);
   }
 
+  return data;
+}
+
+export async function getMealPlans(token) {
+    return apiRequest(`${BASE_URL}/meal-plans/list/`, {
+        method: "GET",
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+}
+
+export async function confirmMealPlan(pk, token) {
+  const res = await fetch(`${BASE_URL}/meal-plans/${pk}/confirm/`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.detail || "Failed to confirm meal plan");
   return data;
 }

@@ -7,13 +7,38 @@ import Modal from "@/components/modals/Modal";
 import MealPlanSchedule from "./MealPlanSchedule";
 import { useAuth } from "@/context/AuthContext";
 import { getMealPlans, confirmMealPlan } from "@/api/mealPlans";
+import toast from "react-hot-toast";
 
 export default function MealPlanner() {
     const [showAddModal, setShowAddModal] = useState(false);
     const [lastPlanResponse, setLastPlanResponse] = useState(null);
+    const [loading, setLoading] = useState(true);
     const { token } = useAuth();
 
-    const openModal = () => setShowAddModal(true);
+    // const openModal = () => setShowAddModal(true);
+    // const openModal = () => {
+    //     if (lastPlanResponse?.meal_plan?.status === "active") {
+    //         toast.error("You already have an active plan for this timeframe.");
+    //         return;
+    //     }
+    //     setShowAddModal(true);
+    // };
+
+    // Add feature for where the modal allows to open maybe 2 - 3 days before the current plan ends
+    const openModal = async () => {
+        try {
+            const plans = await getMealPlans(token);
+            const active = plans.find(p => p.status === "active");
+            if (active) {
+                toast.error("You already have an active plan for this timeframe.");
+                return;
+            }
+            setShowAddModal(true);
+        } catch (err) {
+            toast.error("Could not verify existing plans. Try again.");
+        }
+    };
+
     const closeModal = () => setShowAddModal(false);
 
     // callback when a plan is generated/saved inside form
@@ -25,13 +50,18 @@ export default function MealPlanner() {
     useEffect(() => {
         async function fetchLatestPlan() {
             if (!token) return;
+            setLoading(true);
             try {
                 const plans = await getMealPlans(token); 
                 if (plans.length > 0) {
-                    setLastPlanResponse({ saved: true, meal_plan: plans[0] });
+                    // setLastPlanResponse({ saved: true, meal_plan: plans[0] });
+                    const active = plans.find(p => p.status === "active");
+                    setLastPlanResponse({ saved: true, meal_plan: active || plans[0] });
                 }
             } catch (err) {
-                console.error("Failed to load saved plans:", err);
+                console.error("Failed to load saved plans:", err || err.message);
+            } finally {
+                setLoading(false);
             }
         }
         fetchLatestPlan();
@@ -40,7 +70,7 @@ export default function MealPlanner() {
     function handleConfirmMealPlan() {
         confirmMealPlan(lastPlanResponse.meal_plan.id, token)
             .then(confirmed => setLastPlanResponse({ saved: true, meal_plan: confirmed }))
-            .catch(err => alert("Failed to confirm plan: " + err.message));
+            .catch(err => toast.error("Failed to confirm plan: " + err.message));
     }
     
     return (
@@ -53,17 +83,18 @@ export default function MealPlanner() {
             
             <p>A week of delicious decisions, all in one place. We do the math, you make the magic.</p>
 
-            {lastPlanResponse ? (
+            {loading ? (
+                <p>Loading your meal plan...</p>
+            ) : lastPlanResponse ? (
                 <>
                     <MealPlanSchedule response={lastPlanResponse} />
-
                     {lastPlanResponse.meal_plan?.status === "draft" && (
-                    <button
-                        className="confirm-meal-plan-btn"
-                        onClick={handleConfirmMealPlan}
-                    >
-                        Confirm Meal Plan
-                    </button>
+                        <button
+                            className="confirm-meal-plan-btn"
+                            onClick={handleConfirmMealPlan}
+                        >
+                            Confirm Meal Plan
+                        </button>
                     )}
                 </>
             ) : (

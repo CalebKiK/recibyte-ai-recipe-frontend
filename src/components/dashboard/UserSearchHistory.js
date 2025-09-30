@@ -10,16 +10,20 @@ import { fetchUserSearchHistory } from '@/api/users';
 export default function UserSearchHistory() {
     const { token } = useAuth();
     const [history, setHistory] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [message, setMessage] = useState('');
     const [expandedId, setExpandedId] = useState(null);
 
     useEffect(() => {
         async function loadHistory() {
+            setLoading(true);
             try {
                 const data = await fetchUserSearchHistory(token);
                 setHistory(data || []);
             } catch (error) {
                 toast.error('Failed to load history.');
+            } finally {
+                setLoading(false);
             }
         }
         loadHistory();
@@ -42,7 +46,9 @@ export default function UserSearchHistory() {
     return (
         <div className="user-search-history-component">
             <h2>Your Recent Explorations</h2>
-            {history.length === 0 ? (
+            {loading ? (
+                <p>Fetching your culinary history...</p>
+            ) : history.length === 0 ? (
                 <p>You haven’t explored any recipes yet.</p>
             ) : (
                 <div className="user-search-history-list">

@@ -18,10 +18,23 @@
     cursor: pointer;
 }
 
+.confirm-meal-plan-btn{
+    font-size: 14px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #5A2D0C;
+    color: white;
+    cursor: pointer;  
+}
+
 @media (max-width:600px) {
   .meal-planner-header {
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
+  }
+
+  .confirm-meal-plan-btn{
+    font-size: 12px;  
   }
 }

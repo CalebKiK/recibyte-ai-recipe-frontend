@@ -14,6 +14,7 @@ export default function Favourites() {
     const [favorites, setFavorites] = useState([]);
     const [selectedRecipe, setSelectedRecipe] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [dots, setDots] = useState("");
     const [message, setMessage] = useState('');
     const [expandedId, setExpandedId] = useState(null);
 
@@ -32,6 +33,16 @@ export default function Favourites() {
 
         if (token) getFavorites();
     }, [token]);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setDots((prev) => {
+                if (prev === "....") return "";
+                return prev + ".";
+            });
+        }, 500);
+        return () => clearInterval(interval);
+    }, []);
 
     const handleRemove = async (recipe) => {
         try {
@@ -61,7 +72,7 @@ export default function Favourites() {
         <div className="user-favourites-component">
             <h2>Your Culinary Hall of Fame</h2>
             {loading ? (
-                <p>Cooking up your favorites...</p>
+                <p className='dashboard-section-load-message'>{`Cooking up your favorites${dots}`}</p>
             ) : favorites.length === 0 ? (
                 <p>No recipes in favourites at the moment.</p>
             ) : (

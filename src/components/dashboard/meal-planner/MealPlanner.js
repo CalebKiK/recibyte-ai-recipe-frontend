@@ -13,6 +13,7 @@ export default function MealPlanner() {
     const [showAddModal, setShowAddModal] = useState(false);
     const [lastPlanResponse, setLastPlanResponse] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [dots, setDots] = useState("");
     const { token } = useAuth();
 
     // const openModal = () => setShowAddModal(true);
@@ -67,6 +68,16 @@ export default function MealPlanner() {
         fetchLatestPlan();
     }, [token]);
 
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setDots((prev) => {
+                if (prev === "....") return "";
+                return prev + ".";
+            });
+        }, 500);
+        return () => clearInterval(interval);
+    }, []);
+
     function handleConfirmMealPlan() {
         confirmMealPlan(lastPlanResponse.meal_plan.id, token)
             .then(confirmed => setLastPlanResponse({ saved: true, meal_plan: confirmed }))
@@ -84,7 +95,7 @@ export default function MealPlanner() {
             <p>A week of delicious decisions, all in one place. We do the math, you make the magic.</p>
 
             {loading ? (
-                <p>Loading your meal plan...</p>
+                <p className='dashboard-section-load-message'>{`Loading your meal plan${dots}`}</p>
             ) : lastPlanResponse ? (
                 <>
                     <MealPlanSchedule response={lastPlanResponse} />

@@ -105,6 +105,26 @@
     font-size: 15px;
 }
 
+@keyframes shimmer {
+    0% {
+        background-position: -400px 0; /* Start gradient off-screen left */
+    }
+    100% {
+        background-position: 400px 0; /* Move gradient off-screen right */
+    }
+}
+
+.dashboard-section-load-message {
+    font-size: 17px;
+    font-weight: 600;
+    background: linear-gradient(90deg, #8B4513 0%, #E5C494 35%, #8B4513 70%);
+    background-size: 400px 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 9.5s infinite linear;
+}
+
 @media (max-width:600px) {
     .user-dashboard-component{
         margin: 0px 15px;

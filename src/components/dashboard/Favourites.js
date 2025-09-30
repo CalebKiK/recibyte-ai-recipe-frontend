@@ -13,23 +13,24 @@ export default function Favourites() {
     const { token } = useAuth();
     const [favorites, setFavorites] = useState([]);
     const [selectedRecipe, setSelectedRecipe] = useState(null);
+    const [loading, setLoading] = useState(true);
     const [message, setMessage] = useState('');
     const [expandedId, setExpandedId] = useState(null);
 
     useEffect(() => {
         async function getFavorites() {
+            setLoading(true);
             try {
                 const fetchedFavorites = await fetchUserFavorites(token);
                 setFavorites(fetchedFavorites);
             } catch (error) {
                 toast.error('Failed to load favourites.');
+            } finally {
+                setLoading(false);
             }
         }
 
-        if (token) {
-            getFavorites();
-        }
-            
+        if (token) getFavorites();
     }, [token]);
 
     const handleRemove = async (recipe) => {
@@ -59,7 +60,9 @@ export default function Favourites() {
     return (
         <div className="user-favourites-component">
             <h2>Your Culinary Hall of Fame</h2>
-            {favorites.length === 0 ? (
+            {loading ? (
+                <p>Cooking up your favorites...</p>
+            ) : favorites.length === 0 ? (
                 <p>No recipes in favourites at the moment.</p>
             ) : (
                 <div className="favourites-list">
@@ -67,12 +70,10 @@ export default function Favourites() {
                         <FavouritesRecipeCard
                             key={recipe.id}
                             recipe={recipe}
-                            isExpanded={false} // disable inline expand for now
                             onClick={() => setSelectedRecipe(recipe)}
-                            onRemove={() => onRemove(recipe.id)}
+                            onRemove={() => handleRemove(recipe.id)}
                         />
                     ))}
-
                     <RecipeDetailModal
                         recipe={selectedRecipe}
                         show={!!selectedRecipe}

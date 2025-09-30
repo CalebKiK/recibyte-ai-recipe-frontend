@@ -42,13 +42,32 @@ export async function proposeMealPlan(payload, token) {
   return data;
 }
 
+// export async function getMealPlans(token) {
+//     return apiRequest(`${BASE_URL}/meal-plans/list/`, {
+//         method: "GET",
+//         headers: {
+//             Authorization: `Bearer ${token}`,
+//         },
+//     });
+// }
+
 export async function getMealPlans(token) {
-    return apiRequest(`${BASE_URL}/meal-plans/list/`, {
-        method: "GET",
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
+  const response = await fetch(`${BASE_URL}/meal-plans/list/`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  if (!response.ok) {
+    let details = "";
+    try {
+      const data = await response.json();
+      details = JSON.stringify(data);
+    } catch (e) {
+      details = response.statusText;
+    }
+    throw new Error(`Failed to fetch meal plans: ${response.status} ${details}`);
+  }
+
+  return response.json();
 }
 
 export async function confirmMealPlan(pk, token) {

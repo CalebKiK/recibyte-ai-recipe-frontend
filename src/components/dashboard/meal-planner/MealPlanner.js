@@ -80,7 +80,10 @@ export default function MealPlanner() {
 
     function handleConfirmMealPlan() {
         confirmMealPlan(lastPlanResponse.meal_plan.id, token)
-            .then(confirmed => setLastPlanResponse({ saved: true, meal_plan: confirmed }))
+            .then(confirmed => {
+                setLastPlanResponse({ saved: true, meal_plan: confirmed });
+                toast.success('Meal plan confirmed successfully.');
+            })
             .catch(err => toast.error("Failed to confirm plan: " + err.message));
     }
     

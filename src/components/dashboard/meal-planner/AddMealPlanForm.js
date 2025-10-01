@@ -134,7 +134,7 @@ export default function AddMealPlanForm({ onSaved = () => {}, onClose = () => {}
         try {
             const data = await proposeMealPlan(payload, token);
             setPlanResponse(data);
-            toast.success("Meal plan generated.");
+            toast.success("Draft Meal plan generated.");
             onSaved(data);
         } catch (err) {
             console.error("Error proposing meal plan:", err);

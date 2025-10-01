@@ -205,6 +205,10 @@
         font-weight: 500;
         font-size: 20px;
     }
+
+    .dashboard-section-load-message {
+        font-size: 14px;
+    }
 }
 
 @media (min-width:600px) and (max-width: 900px) {
@@ -255,6 +259,10 @@
         margin-bottom: 10px;
         font-weight: 500;
         font-size: 20px;
+    }
+
+    .dashboard-section-load-message {
+        font-size: 15px;
     }
 }
 

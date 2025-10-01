@@ -56,13 +56,14 @@ export default function UserAuthentication() {
         setLoading(true); 
         try {
             if (isLogin) {
-                const res = await loginUser(values.email, values.password);
-                await login({ access: res.access, refresh: res.refresh });
-                toast.success(`Welcome back! ${res.first_name}`);
+                // const res = await loginUser(values.email, values.password);
+                await login(values.email, values.password);
+                toast.success("Welcome back!");
+                // toast.success(`Welcome back! ${res.first_name}`);
                 router.push("/");
             } else {
                 const res = await registerUser(values);
-                await login({ access: res.access, refresh: res.refresh });
+                await login(values.email, values.password);
                 toast.success("Account created successfully!");
                 resetForm();
                 setIsLogin(true);

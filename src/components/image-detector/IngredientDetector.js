@@ -68,7 +68,8 @@ const IngredientDetector = ({ model, onIngredientsDetected }) => {
         const uniqueIngredients = new Set();
         
         predictions.forEach(p => {
-            if (p.score > 0.6) { 
+            // if (p.score > 0.6) { 
+            if (p.score > 0.55) {
                 const canonicalName = commonIngredientsMap[p.class.toLowerCase()];
                 if (canonicalName) {
                     uniqueIngredients.add(canonicalName);
@@ -273,18 +274,35 @@ const IngredientDetector = ({ model, onIngredientsDetected }) => {
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
 
-        const displayWidth = imgElement.clientWidth;
-        const displayHeight = imgElement.clientHeight;
+        // const displayWidth = imgElement.clientWidth;
+        // const displayHeight = imgElement.clientHeight;
 
-        // const { naturalWidth, naturalHeight } = imgElement;
+        // // const { naturalWidth, naturalHeight } = imgElement;
+        // canvas.width = displayWidth;
+        // canvas.height = displayHeight;
+
+        // ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear previous drawings
+
+        // // Scale factors between natural and displayed sizes
+        // const scaleX = displayWidth / imgElement.naturalWidth;
+        // const scaleY = displayHeight / imgElement.naturalHeight;
+
+        const displayWidth = imgElement.clientWidth;
+        const displayHeight = imgElement.clientHeight; 
+        
+        // The COCO-SSD predictions are based on the **natural size** of the source image
+        const naturalWidth = imgElement.naturalWidth;
+        const naturalHeight = imgElement.naturalHeight;
+
+        // 1. Set Canvas size to match the displayed image size
         canvas.width = displayWidth;
         canvas.height = displayHeight;
 
         ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear previous drawings
 
-        // Scale factors between natural and displayed sizes
-        const scaleX = displayWidth / imgElement.naturalWidth;
-        const scaleY = displayHeight / imgElement.naturalHeight;
+        // 2. Calculate scale factors (Prediction coordinates are scaled to this)
+        const scaleX = displayWidth / naturalWidth;
+        const scaleY = displayHeight / naturalHeight;
 
         predictions.forEach(p => {
             const [x, y, width, height] = p.bbox;

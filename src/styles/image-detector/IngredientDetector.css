@@ -11,7 +11,7 @@
 }
 
 .image-detector-model-loading{
-    text-align: left;
+    
     margin-top: 20px;
 }
 
@@ -31,7 +31,7 @@
     align-items: center; 
     padding: 10px 0px;
     border-radius: 8px;
-    max-width: 900px; 
+    /* max-width: 900px;  */
     /* margin: 20px auto;  */
     margin: 10px 0px;
 }
@@ -206,7 +206,7 @@
 }
 
 .ingredients-input{
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 .ingredients-input input{
@@ -311,7 +311,7 @@
     }
 
     .ingredients-input input{
-        height: 30px;
+        height: 35px;
         width: 200px;
         padding: 0px 0px 0px 10px;
         border: none;
@@ -320,8 +320,8 @@
     }
 
     .add-ingredient-btn{
-        height: 30px;
-        width: 60px;
+        height: 35px;
+        width: 70px;
         border-radius: 0px 10px 10px 0px;
         font-size: 12px;
     }

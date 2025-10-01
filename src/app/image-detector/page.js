@@ -43,7 +43,7 @@ export default function ImageDetectorPage() {
     return(
         <div className="image-detector-page">
             <Navbar />
-            <h2>Ingredient Detector Page</h2>
+            <h2>Find Recipes By Image 💡</h2>
             {/* {loadingModel ? (
                 <div className='image-detector-model-loading'>
                     <h3>Preparing our AI Chef! 🍳</h3>

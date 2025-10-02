@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 import toast from "react-hot-toast";
 import UserAuthentication from "@/components/shared/UserAuthentication";
 

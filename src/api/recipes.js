@@ -1,4 +1,4 @@
-import { apiRequest, fetchWithAuth } from "./apiClient";
+import { fetchWithAuth } from "./apiClient";
 import { BASE_URL } from "./config";
 
 // 🔹 Filter recipes by ingredients + dietary restrictions
@@ -8,7 +8,7 @@ export async function getRecipesByIngredients(ingredients, dietaryRestrictions) 
         endpoint += `&dietaryRestrictions=${dietaryRestrictions}`
     }
 
-    return apiRequest(endpoint);
+    return fetchWithAuth(endpoint);
 }
 
 // 🔹 Get a single recipe detail (local/spoonacular)
@@ -42,10 +42,7 @@ export async function toggleRecipeFavourite(recipe, token) {
 
 // 🔹 Add recipe to history
 export async function addToUserHistory(recipeId, token) {
-
-    // 👇This 'return' is to clean up the API layer so all components benefit from consistent error handling
-    // The below replaces the whole functionality of the function
-    return apiRequest(`/users/history/${recipeId}/add/`, {
+    return fetchWithAuth(`/users/history/${recipeId}/add/`, {
         method: "PUT",
         headers: {
             Authorization: `Bearer ${token}`,
@@ -56,11 +53,5 @@ export async function addToUserHistory(recipeId, token) {
 
 // 🔹 Fetch random recipe
 export async function getRandomRecipes() {
-    // const res = await fetch(`${BASE_URL}/recipes/random/`);
-    // if (!res.ok) throw new Error("Failed to fetch random recipe");
-    // return res.json();
-
-    // 👇This 'return' is to clean up the API layer so all components benefit from consistent error handling
-    // The below replaces the whole functionality of the function
-    return apiRequest("/recipes/random/");
+    return fetchWithAuth("/recipes/random/");
 }

@@ -51,9 +51,28 @@ export function AuthProvider({ children }) {
         const initAuth = async () => {
             try {
                 const profile = await fetchUserProfile();
-                setUser(profile);
+                console.log("Fetched user profile:", profile);
+                const userData = Array.isArray(profile) ? profile[0]?.user : profile?.user || profile;
+                console.log("Fetched user data:", userData);
+                setUser(userData);
+                setToken("valid");
             } catch (err) {
-                setUser(null);
+                try {
+                    await fetch(`${BASE_URL}/token/refresh/`, {
+                        method: "POST",
+                        credentials: "include",
+                    });
+
+                    // Retry profile fetch
+                    const profile = await fetchUserProfile();
+                    const userData = Array.isArray(profile) ? profile[0]?.user : profile?.user || profile;
+                    setUser(userData);
+                    setToken("valid");
+                } catch (refreshErr) {
+                    // Refresh failed -> force logout
+                    setUser(null);
+                    setToken(null);
+                }
             } finally {
                 setLoading(false);
             }
@@ -91,8 +110,11 @@ export function AuthProvider({ children }) {
 
         if (!res.ok) throw await res.json();
 
+        setToken("valid");
+
         const profile = await fetchUserProfile();
-        setUser(profile);
+        const userData = Array.isArray(profile) ? profile[0]?.user : profile?.user || profile;
+        setUser(userData);
     };
 
     // const logout = async () => {
@@ -106,7 +128,7 @@ export function AuthProvider({ children }) {
     const logout = async () => {
         setUser(null);
         // Optional: hit a backend logout endpoint that clears cookies
-        await fetch(`${BASE_URL}/logout/`, {
+        await fetch(`${BASE_URL}/users/logout/`, {
             method: "POST",
             credentials: "include",
         });
@@ -116,7 +138,7 @@ export function AuthProvider({ children }) {
         // <AuthContext.Provider value={{ token, user, login, logout }}>
         //     {children}
         // </AuthContext.Provider>
-        <AuthContext.Provider value={{ user, login, logout, loading }}>
+        <AuthContext.Provider value={{ user, token, login, logout, loading }}>
             {children}
         </AuthContext.Provider>
     );

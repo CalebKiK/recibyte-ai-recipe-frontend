@@ -2,10 +2,11 @@
 import { NextResponse } from "next/server";
 
 export function middleware(req) {
-  const accessToken = req.cookies.get("access_token");
+  // const accessToken = req.cookies.get("access_token");
+  const refreshToken = req.cookies.get("refresh_token");
   
   // If trying to access dashboard without token, redirect
-  if (!accessToken && req.nextUrl.pathname.startsWith("/dashboard")) {
+  if (!refreshToken && req.nextUrl.pathname.startsWith("/dashboard")) {
     const loginUrl = new URL("/authentication", req.url);
     return NextResponse.redirect(loginUrl);
   }

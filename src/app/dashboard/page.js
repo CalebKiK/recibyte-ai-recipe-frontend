@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import Navbar from "@/components/shared/Navbar";
@@ -8,7 +8,7 @@ import UserDashboard from "@/components/dashboard/UserDashboard";
 import toast from "react-hot-toast";
 
 export default function DashboardPage() {
-    const { user, loading } = useAuth();
+    const { user, token, loading } = useAuth();
     const router = useRouter();
     const [dots, setDots] = useState("");
 
@@ -29,14 +29,22 @@ export default function DashboardPage() {
             return;
         }
 
-        if (!user) {
+        if (!loading && !token) {
             toast.error("You must sign in to access dashboard.");
             router.push("/authentication");
         }
-    }, [user, router]);
+    }, [loading, token, router]);
 
     if (loading) {
-        return <p>Cooking up your dashboard{dots}</p>; // prevent flicker
+        const loadingStyle = {
+            textColor: 'gray',
+            marginTop: '20px'
+        };
+        return (
+            <div style={loadingStyle}>
+                <p>Cooking up your dashboard{dots}</p>;
+            </div>
+        );
     }
 
     if (!user) {

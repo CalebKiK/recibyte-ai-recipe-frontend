@@ -15,9 +15,7 @@ export function AuthProvider({ children }) {
         const initAuth = async () => {
             try {
                 const profile = await fetchUserProfile();
-                console.log("Fetched user profile:", profile);
                 const userData = Array.isArray(profile) ? profile[0]?.user : profile?.user || profile;
-                console.log("Fetched user data:", userData);
                 setUser(userData);
                 setToken("valid");
             } catch (err) {

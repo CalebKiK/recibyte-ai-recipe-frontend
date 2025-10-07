@@ -18,6 +18,18 @@ function RecipePageContent() {
     const [selectedRecipe, setSelectedRecipe] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [dots, setDots] = useState("");
+
+    useEffect(() => {
+            const interval = setInterval(() => {
+                setDots((prev) => {
+                    if (prev === "....") return "";
+                    return prev + ".";
+                });
+            }, 500);
+            return () => clearInterval(interval);
+        }, []
+    );
 
     useEffect(() => {
         const fetchRecipes = async () => {
@@ -119,7 +131,7 @@ function RecipePageContent() {
 
     return(
         <>
-            {loading && <p>Loading recipes...</p>}
+            {loading && <p>Loading recipes{dots}</p>}
             {error && <p className="error-message">Error: {error}</p>}
 
             {!loading && !error && recipes.length > 0 && (

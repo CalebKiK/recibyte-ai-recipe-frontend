@@ -28,7 +28,7 @@ export default function MealPlanner() {
     // Add feature for where the modal allows to open maybe 2 - 3 days before the current plan ends
     const openModal = async () => {
         try {
-            const plans = await getMealPlans(user);
+            const plans = await getMealPlans();
             const active = plans.find(p => p.status === "active");
             if (active) {
                 toast.error("You already have an active plan for this timeframe.");
@@ -36,6 +36,7 @@ export default function MealPlanner() {
             }
             setShowAddModal(true);
         } catch (err) {
+            console.log("Error checking existing plans:", err || err.message);
             toast.error("Could not verify existing plans. Try again.");
         }
     };
@@ -79,12 +80,12 @@ export default function MealPlanner() {
     }, []);
 
     function handleConfirmMealPlan() {
-        confirmMealPlan(lastPlanResponse.meal_plan.id, user)
+        confirmMealPlan(lastPlanResponse.meal_plan.id)
             .then(confirmed => {
                 setLastPlanResponse({ saved: true, meal_plan: confirmed });
                 toast.success('Meal plan confirmed successfully.');
             })
-            .catch(err => toast.error("Failed to confirm plan: " + err.message));
+            .catch(err => toast.error("Failed to confirm plan: " + (err.detail || err.message || "Unknown error")));
     }
     
     return (

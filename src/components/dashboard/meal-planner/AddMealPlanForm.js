@@ -21,6 +21,8 @@ export default function AddMealPlanForm({ onSaved = () => {}, onClose = () => {}
     const [diets, setDiets] = useState([]);
     const [loading, setLoading] = useState(false);
     const [planResponse, setPlanResponse] = useState(null);
+    const [dots, setDots] = useState("");
+
     const today = new Date();
     const yesterday = new Date(today);
     yesterday.setDate(today.getDate() - 1);
@@ -43,6 +45,16 @@ export default function AddMealPlanForm({ onSaved = () => {}, onClose = () => {}
         });
         return () => (mounted = false);
     }, []);
+
+    useEffect(() => {
+            const interval = setInterval(() => {
+                setDots((prev) => {
+                    if (prev === "....") return "";
+                    return prev + ".";
+                });
+            }, 500);
+            return () => clearInterval(interval);
+        }, []);
 
     const validationSchema = () =>
         Yup.object({
@@ -132,7 +144,7 @@ export default function AddMealPlanForm({ onSaved = () => {}, onClose = () => {}
         setSubmitting(true);
 
         try {
-            const data = await proposeMealPlan(payload, user);
+            const data = await proposeMealPlan(payload);
             setPlanResponse(data);
             toast.success("Draft Meal plan generated.");
             onSaved(data);
@@ -233,7 +245,7 @@ export default function AddMealPlanForm({ onSaved = () => {}, onClose = () => {}
 
                     <div className="generate-meal-plan-form-buttons">
                         <button type="submit" className="generate-meal-plan-btn" disabled={isSubmitting}>
-                            {isSubmitting ? "Generating..." : "Generate Meal Plan"}
+                            {isSubmitting ? `Generating${dots}` : "Generate Meal Plan"}
                         </button>
                         <button
                             type="button"

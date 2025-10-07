@@ -1,27 +1,6 @@
 import { refreshAccessToken } from "./token/refresh";
 import { BASE_URL } from "./config";
 
-export async function apiRequest(endpoint, options = {}) {
-  const res = await fetch(`${BASE_URL}${endpoint}`, {
-    ...options,
-    credentials: "include", 
-  });
-
-  let data = null;
-  try { 
-    data = await res.json();
-  } catch {}
-
-  if (!res.ok) {
-    if (res.status >= 500) throw { detail: "Server unavailable, try again later" };
-    if (res.status === 404) throw { detail: "Resource not found" };
-    if (res.status === 401) throw { detail: "Unauthorized, please log in again" };
-    throw data || { detail: "Something went wrong" };
-  }
-
-  return data;
-}
-
 export async function fetchWithAuth(endpoint, options = {}) {
   let res = await fetch(`${BASE_URL}${endpoint}`, {
     ...options,
@@ -48,7 +27,14 @@ export async function fetchWithAuth(endpoint, options = {}) {
   try {
     data = await res.json();
   } catch {}
-  if (!res.ok) throw data || { detail: "Request failed" };
+
+  if (!res.ok) {
+    if (res.status >= 500) throw { detail: "Server unavailable, try again later" };
+    if (res.status === 404) throw { detail: "Resource not found" };
+    if (res.status === 401) throw { detail: "Unauthorized, please log in again" };
+    throw data || { detail: "Something went wrong" };
+  }
+
   return data;
 }
 

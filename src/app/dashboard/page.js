@@ -42,7 +42,7 @@ export default function DashboardPage() {
         };
         return (
             <div style={loadingStyle}>
-                <p>Cooking up your dashboard{dots}</p>;
+                <p>Cooking up your dashboard{dots}</p>
             </div>
         );
     }

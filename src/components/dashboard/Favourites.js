@@ -22,7 +22,7 @@ export default function Favourites() {
         async function getFavorites() {
             setLoading(true);
             try {
-                const fetchedFavorites = await fetchUserFavorites(user);
+                const fetchedFavorites = await fetchUserFavorites();
                 setFavorites(fetchedFavorites);
             } catch (error) {
                 toast.error('Failed to load favourites.');
@@ -49,14 +49,14 @@ export default function Favourites() {
             // const res = await axios.put(`https://backend-recipbyte.fly.dev/api/users/favorites/${id}/toggle/`, {}, {
             //     headers: { Authorization: `Bearer ${user}` },
             // });
-            const res = await toggleRecipeFavourite(recipe, user);
+            const res = await toggleRecipeFavourite(recipe);
             toast.success(res.data.message);
 
             // Refetch updated favorites
             // const updatedRes = await axios.get('https://backend-recipbyte.fly.dev/api/users/profile/', {
             //     headers: { Authorization: `Bearer ${user}` },
             // });
-            const updatedFavorites = await fetchUserFavorites(user);
+            const updatedFavorites = await fetchUserFavorites();
             setFavorites(updatedFavorites);
             // setFavorites(updatedRes.data.favorite_recipes || []);
         } catch (err) {

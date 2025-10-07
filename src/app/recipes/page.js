@@ -62,8 +62,7 @@ function RecipePageContent() {
                         ingredients: ingredients?.split(",") || [],
                         restrictions: dietaryRestrictions?.split(",") || [],
                     },
-                    minimalResults,
-                    user
+                    minimalResults
                 );
             }
 

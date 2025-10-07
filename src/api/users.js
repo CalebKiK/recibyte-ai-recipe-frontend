@@ -98,6 +98,7 @@ export async function addSearchHistory(query, minimalResults, token) {
 
   return fetchWithAuth("/users/search-history/", {
     method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
   });
 }

@@ -19,7 +19,7 @@ export default function UserSearchHistory() {
         async function loadHistory() {
             setLoading(true);
             try {
-                const data = await fetchUserSearchHistory(user);
+                const data = await fetchUserSearchHistory();
                 setHistory(data || []);
             } catch (error) {
                 toast.error('Failed to load history.');
@@ -46,7 +46,7 @@ export default function UserSearchHistory() {
 
     const handleDelete = async (id) => {
         try {
-            await deleteSearchHistory(id, user);
+            await deleteSearchHistory(id);
             setHistory(prev => prev.filter(item => item.id !== id));
             toast.success('Search history deleted');
             } catch (err) {

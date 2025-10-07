@@ -16,7 +16,7 @@ function sanitizeText(input = "") {
 const excludeTokenRegex = /^[\w\s\-,']+$/;
 
 export default function AddMealPlanForm({ onSaved = () => {}, onClose = () => {} }) {
-    const { token } = useAuth();
+    const { user } = useAuth();
     const [diet, setDiet] = useState("");
     const [diets, setDiets] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -101,7 +101,7 @@ export default function AddMealPlanForm({ onSaved = () => {}, onClose = () => {}
     };
 
     const handleSubmit = async (values, { setSubmitting, resetForm }) => {
-        if (!token) {
+        if (!user) {
             toast.error("Please log in to generate meal plans.");
             setSubmitting(false);
             return;
@@ -132,7 +132,7 @@ export default function AddMealPlanForm({ onSaved = () => {}, onClose = () => {}
         setSubmitting(true);
 
         try {
-            const data = await proposeMealPlan(payload, token);
+            const data = await proposeMealPlan(payload, user);
             setPlanResponse(data);
             toast.success("Draft Meal plan generated.");
             onSaved(data);

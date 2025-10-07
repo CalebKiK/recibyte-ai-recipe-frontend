@@ -13,7 +13,7 @@ import LogoutModal from '../modals/LogoutModal';
 import { useState } from 'react';
 
 export default function Navbar() {
-    const { token, logout } = useAuth();
+    const { user, logout } = useAuth();
     const router = useRouter();
     const [showLogoutModal, setShowLogoutModal] = useState(false);
 
@@ -34,7 +34,7 @@ export default function Navbar() {
 
     const handleDashboardClick = (e) => {
         e.preventDefault();
-        if (!token) {
+        if (!user) {
             toast.error("You must sign in to access dashboard.")
         } else {
             router.push("/dashboard");
@@ -79,7 +79,7 @@ export default function Navbar() {
                     </div>
                 </Link>
                 
-                {!token ? (
+                {!user ? (
                     <Link className='nav-bar-link' href="/authentication">
                         <div>
                             <Image 
@@ -151,7 +151,7 @@ export default function Navbar() {
                         </Link>
                     </li>
                     <li>
-                        {!token ? (
+                        {!user ? (
                             <Link href="/authentication" className="dropdown-item">
                                 <div>
                                     <Image 

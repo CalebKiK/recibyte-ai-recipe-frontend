@@ -3,14 +3,14 @@
 import { toSentenceCase, toTitleCase } from '@/utils/stringFormatters';
 import '../../styles/recipes/RecipeChoice.css';
 import { useAuth } from '@/context/AuthContext';
-import axios from 'axios';
+
 import Image from 'next/image';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { toggleRecipeFavourite, addToUserHistory } from "@/api/recipes";
 
 export default function RecipeChoice({ recipe }) {
-    const { token } = useAuth();
+    const { user } = useAuth();
     const [liked, setLiked] = useState(false);
     const [disliked, setDisliked] = useState(false);
     // const [message, setMessage] = useState('');
@@ -41,7 +41,7 @@ export default function RecipeChoice({ recipe }) {
     //         const response = await axios.put(
     //             `https://backend-recipbyte.fly.dev/api/users/favorites/${recipe.id}/toggle/`,
     //             {},
-    //             { headers: { Authorization: `Bearer ${token}` } }
+    //             { headers: { Authorization: `Bearer ${user}` } }
     //         );
     //         toast.success(response.data.message);
     //     } catch (error) {
@@ -54,7 +54,7 @@ export default function RecipeChoice({ recipe }) {
     //         await axios.put(
     //             `https://backend-recipbyte.fly.dev/api/users/history/${recipe.id}/add/`,
     //             {},
-    //             { headers: { Authorization: `Bearer ${token}` } }
+    //             { headers: { Authorization: `Bearer ${user}` } }
     //         );
     //     } catch (error) {
     //         console.error('Error adding to history');
@@ -62,14 +62,14 @@ export default function RecipeChoice({ recipe }) {
     // };
 
     const handleLike = async () => {
-        if (!token) {
+        if (!user) {
             toast.error('Please log in to add to favorites.');
             return;
         }
 
         try {
-            await toggleRecipeFavourite(recipe, token);
-            // await addToUserHistory(recipe.id, token);
+            await toggleRecipeFavourite(recipe, user);
+            // await addToUserHistory(recipe.id, user);
             toast.success("Recipe added to favourites!");
             setLiked(true);
         } catch (error) {

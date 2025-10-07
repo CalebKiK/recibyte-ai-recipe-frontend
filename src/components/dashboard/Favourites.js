@@ -10,7 +10,7 @@ import { fetchUserFavorites } from '@/api/users';
 import RecipeDetailModal from '../modals/RecipeDetailModal';
 
 export default function Favourites() {
-    const { token } = useAuth();
+    const { user } = useAuth();
     const [favorites, setFavorites] = useState([]);
     const [selectedRecipe, setSelectedRecipe] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -22,7 +22,7 @@ export default function Favourites() {
         async function getFavorites() {
             setLoading(true);
             try {
-                const fetchedFavorites = await fetchUserFavorites(token);
+                const fetchedFavorites = await fetchUserFavorites(user);
                 setFavorites(fetchedFavorites);
             } catch (error) {
                 toast.error('Failed to load favourites.');
@@ -31,8 +31,8 @@ export default function Favourites() {
             }
         }
 
-        if (token) getFavorites();
-    }, [token]);
+        if (user) getFavorites();
+    }, [user]);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -47,16 +47,16 @@ export default function Favourites() {
     const handleRemove = async (recipe) => {
         try {
             // const res = await axios.put(`https://backend-recipbyte.fly.dev/api/users/favorites/${id}/toggle/`, {}, {
-            //     headers: { Authorization: `Bearer ${token}` },
+            //     headers: { Authorization: `Bearer ${user}` },
             // });
-            const res = await toggleRecipeFavourite(recipe, token);
+            const res = await toggleRecipeFavourite(recipe, user);
             toast.success(res.data.message);
 
             // Refetch updated favorites
             // const updatedRes = await axios.get('https://backend-recipbyte.fly.dev/api/users/profile/', {
-            //     headers: { Authorization: `Bearer ${token}` },
+            //     headers: { Authorization: `Bearer ${user}` },
             // });
-            const updatedFavorites = await fetchUserFavorites(token);
+            const updatedFavorites = await fetchUserFavorites(user);
             setFavorites(updatedFavorites);
             // setFavorites(updatedRes.data.favorite_recipes || []);
         } catch (err) {

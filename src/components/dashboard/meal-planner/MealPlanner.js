@@ -14,7 +14,7 @@ export default function MealPlanner() {
     const [lastPlanResponse, setLastPlanResponse] = useState(null);
     const [loading, setLoading] = useState(true);
     const [dots, setDots] = useState("");
-    const { token } = useAuth();
+    const { user } = useAuth();
 
     // const openModal = () => setShowAddModal(true);
     // const openModal = () => {
@@ -28,7 +28,7 @@ export default function MealPlanner() {
     // Add feature for where the modal allows to open maybe 2 - 3 days before the current plan ends
     const openModal = async () => {
         try {
-            const plans = await getMealPlans(token);
+            const plans = await getMealPlans(user);
             const active = plans.find(p => p.status === "active");
             if (active) {
                 toast.error("You already have an active plan for this timeframe.");
@@ -50,10 +50,10 @@ export default function MealPlanner() {
 
     useEffect(() => {
         async function fetchLatestPlan() {
-            if (!token) return;
+            if (!user) return;
             setLoading(true);
             try {
-                const plans = await getMealPlans(token); 
+                const plans = await getMealPlans(user); 
                 if (plans.length > 0) {
                     // setLastPlanResponse({ saved: true, meal_plan: plans[0] });
                     const active = plans.find(p => p.status === "active");
@@ -66,7 +66,7 @@ export default function MealPlanner() {
             }
         }
         fetchLatestPlan();
-    }, [token]);
+    }, [user]);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -79,7 +79,7 @@ export default function MealPlanner() {
     }, []);
 
     function handleConfirmMealPlan() {
-        confirmMealPlan(lastPlanResponse.meal_plan.id, token)
+        confirmMealPlan(lastPlanResponse.meal_plan.id, user)
             .then(confirmed => {
                 setLastPlanResponse({ saved: true, meal_plan: confirmed });
                 toast.success('Meal plan confirmed successfully.');

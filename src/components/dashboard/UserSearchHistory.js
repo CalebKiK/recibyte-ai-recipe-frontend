@@ -8,7 +8,7 @@ import toast from 'react-hot-toast';
 import { fetchUserSearchHistory } from '@/api/users';
 
 export default function UserSearchHistory() {
-    const { token } = useAuth();
+    const { user } = useAuth();
     const [history, setHistory] = useState([]);
     const [loading, setLoading] = useState(true);
     const [message, setMessage] = useState('');
@@ -19,7 +19,7 @@ export default function UserSearchHistory() {
         async function loadHistory() {
             setLoading(true);
             try {
-                const data = await fetchUserSearchHistory(token);
+                const data = await fetchUserSearchHistory(user);
                 setHistory(data || []);
             } catch (error) {
                 toast.error('Failed to load history.');
@@ -28,7 +28,7 @@ export default function UserSearchHistory() {
             }
         }
         loadHistory();
-    }, [token]);
+    }, [user]);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -46,7 +46,7 @@ export default function UserSearchHistory() {
 
     const handleDelete = async (id) => {
         try {
-            await deleteSearchHistory(id, token);
+            await deleteSearchHistory(id, user);
             setHistory(prev => prev.filter(item => item.id !== id));
             toast.success('Search history deleted');
             } catch (err) {

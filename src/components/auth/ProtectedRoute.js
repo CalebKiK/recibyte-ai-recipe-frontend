@@ -5,17 +5,17 @@ import { useAuth } from "@/context/AuthContext";
 import toast from "react-hot-toast";
 
 export default function ProtectedRoute({ children }) {
-  const { token } = useAuth();
+  const { user } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    if (!token) {
+    if (!user) {
       toast.error("You must sign in to access this page.");
       router.push("/authentication");
     }
-  }, [token, router]);
+  }, [user, router]);
 
-  if (!token) return null;
+  if (!user) return null;
 
   return children;
 }

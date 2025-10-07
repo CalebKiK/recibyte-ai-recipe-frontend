@@ -8,26 +8,38 @@ import UserDashboard from "@/components/dashboard/UserDashboard";
 import toast from "react-hot-toast";
 
 export default function DashboardPage() {
-    const { token } = useAuth();
+    const { user, loading } = useAuth();
     const router = useRouter();
+    const [dots, setDots] = useState("");
 
     useEffect(() => {
-        if (token === null) {
-        // still loading, don’t redirect yet
-        return;
+            const interval = setInterval(() => {
+                setDots((prev) => {
+                    if (prev === "....") return "";
+                    return prev + ".";
+                });
+            }, 500);
+            return () => clearInterval(interval);
+        }, []
+    );
+
+    useEffect(() => {
+        if (user === null) {
+            // still loading, don’t redirect yet
+            return;
         }
 
-        if (!token) {
+        if (!user) {
             toast.error("You must sign in to access dashboard.");
             router.push("/authentication");
         }
-    }, [token, router]);
+    }, [user, router]);
 
-    if (token === null) {
-        return <p>Loading...</p>; // prevent flicker
+    if (loading) {
+        return <p>Cooking up your dashboard{dots}</p>; // prevent flicker
     }
 
-    if (!token) {
+    if (!user) {
         return null;
     }
 

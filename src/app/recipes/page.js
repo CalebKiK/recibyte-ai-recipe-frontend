@@ -13,7 +13,7 @@ import '../../styles/recipes/RecipePage.css';
 
 function RecipePageContent() {
     const searchParams = useSearchParams();
-    const { token } = useAuth();
+    const { user } = useAuth();
     const [recipes, setRecipes] = useState([]);
     const [selectedRecipe, setSelectedRecipe] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -50,7 +50,7 @@ function RecipePageContent() {
                 setSelectedRecipe(null);
             }
 
-            if (token && fetchedRecipes.length > 0 && isRandom !== 'true') {
+            if (user && fetchedRecipes.length > 0 && isRandom !== 'true') {
                 const minimalResults = fetchedRecipes.map(r => ({
                     id: r.id,
                     title: r.title,
@@ -63,7 +63,7 @@ function RecipePageContent() {
                         restrictions: dietaryRestrictions?.split(",") || [],
                     },
                     minimalResults,
-                    token
+                    user
                 );
             }
 
@@ -112,7 +112,7 @@ function RecipePageContent() {
         };
 
         fetchRecipes();
-    }, [searchParams, token]);
+    }, [searchParams, user]);
 
     const handleSelectRecipe = (recipe) => {
         setSelectedRecipe(recipe);

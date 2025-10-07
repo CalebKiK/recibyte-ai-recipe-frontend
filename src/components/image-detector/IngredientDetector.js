@@ -34,8 +34,32 @@ const IngredientDetector = ({ model, onIngredientsDetected }) => {
     const MIN_IMAGE_HEIGHT = 200;
 
     // Load the ingredients map once when the component mounts
+    // useEffect(() => {
+    //     const loadIngredientsMap = async () => {
+    //         try {
+    //             const response = await fetch('/data/commonIngredientsMapData.json');
+    //             if (!response.ok) {
+    //                 throw new Error(`HTTP error! status: ${response.status}`);
+    //             }
+    //             const data = await response.json();
+                
+    //             const map = data.reduce((acc, item) => {
+    //                 acc[item.coco_label.toLowerCase()] = item.canonical_name;
+    //                 return acc;
+    //             }, {});
+    //             setCommonIngredientsMap(map);
+    //             console.log("Common ingredients map loaded:", map);
+    //         } catch (err) {
+    //             console.error("Failed to load common ingredients map:", err);
+    //             setError("Failed to load ingredient definitions. Please refresh.");
+    //         }
+    //     };
+
+    //     loadIngredientsMap();
+    // }, []); 
+
     useEffect(() => {
-        const loadIngredientsMap = async () => {
+        const loadIngredientsMapPromise = new Promise(async (resolve, reject) => {
             try {
                 const response = await fetch('/data/commonIngredientsMapData.json');
                 if (!response.ok) {
@@ -47,16 +71,24 @@ const IngredientDetector = ({ model, onIngredientsDetected }) => {
                     acc[item.coco_label.toLowerCase()] = item.canonical_name;
                     return acc;
                 }, {});
+                
                 setCommonIngredientsMap(map);
                 console.log("Common ingredients map loaded:", map);
+                resolve("Ingredient definitions loaded successfully!"); // Resolve the promise on success
             } catch (err) {
                 console.error("Failed to load common ingredients map:", err);
                 setError("Failed to load ingredient definitions. Please refresh.");
+                reject("Failed to load ingredient definitions."); // Reject the promise on error
             }
-        };
+        });
 
-        loadIngredientsMap();
-    }, []); 
+        toast.promise(loadIngredientsMapPromise, {
+            loading: 'Loading ingredient definitions...',
+            success: (message) => message,
+            error: (errorMsg) => errorMsg,
+        });
+
+    }, []);
 
     // Helper function to map detected labels to actual ingredients
     const getCanonicalIngredients = useCallback((predictions) => {
@@ -68,7 +100,8 @@ const IngredientDetector = ({ model, onIngredientsDetected }) => {
         const uniqueIngredients = new Set();
         
         predictions.forEach(p => {
-            if (p.score > 0.6) { 
+            // if (p.score > 0.6) { 
+            if (p.score > 0.55) {
                 const canonicalName = commonIngredientsMap[p.class.toLowerCase()];
                 if (canonicalName) {
                     uniqueIngredients.add(canonicalName);
@@ -82,7 +115,8 @@ const IngredientDetector = ({ model, onIngredientsDetected }) => {
     // Core detection function - reusable for both image and photo
     const performDetection = useCallback(async (imageElement) => {
         if (!model || !imageElement || !commonIngredientsMap) { // Ensure map is loaded here too
-            setError("AI model or ingredient definitions not loaded.");
+            // setError("AI model or ingredient definitions not loaded.");
+            toast.error("AI model or ingredient definitions not loaded.");
             setProcessing(false);
             return;
         }
@@ -273,18 +307,35 @@ const IngredientDetector = ({ model, onIngredientsDetected }) => {
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
 
-        const displayWidth = imgElement.clientWidth;
-        const displayHeight = imgElement.clientHeight;
+        // const displayWidth = imgElement.clientWidth;
+        // const displayHeight = imgElement.clientHeight;
 
-        // const { naturalWidth, naturalHeight } = imgElement;
+        // // const { naturalWidth, naturalHeight } = imgElement;
+        // canvas.width = displayWidth;
+        // canvas.height = displayHeight;
+
+        // ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear previous drawings
+
+        // // Scale factors between natural and displayed sizes
+        // const scaleX = displayWidth / imgElement.naturalWidth;
+        // const scaleY = displayHeight / imgElement.naturalHeight;
+
+        const displayWidth = imgElement.clientWidth;
+        const displayHeight = imgElement.clientHeight; 
+        
+        // The COCO-SSD predictions are based on the **natural size** of the source image
+        const naturalWidth = imgElement.naturalWidth;
+        const naturalHeight = imgElement.naturalHeight;
+
+        // 1. Set Canvas size to match the displayed image size
         canvas.width = displayWidth;
         canvas.height = displayHeight;
 
         ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear previous drawings
 
-        // Scale factors between natural and displayed sizes
-        const scaleX = displayWidth / imgElement.naturalWidth;
-        const scaleY = displayHeight / imgElement.naturalHeight;
+        // 2. Calculate scale factors (Prediction coordinates are scaled to this)
+        const scaleX = displayWidth / naturalWidth;
+        const scaleY = displayHeight / naturalHeight;
 
         predictions.forEach(p => {
             const [x, y, width, height] = p.bbox;
@@ -371,7 +422,7 @@ const IngredientDetector = ({ model, onIngredientsDetected }) => {
 
     return (
         <div className={`ingredient-detector-component ${!model || !commonIngredientsMap ? 'loading' : ''}`}>
-            {!commonIngredientsMap && <p className="loading-message">Loading ingredient definitions...</p>}
+            {/* {!commonIngredientsMap && <p className="loading-message">Loading ingredient definitions...</p>} */}
 
             <p className="instruction-message">
                 Ready to see what you can cook? Simply <span>upload an existing photo</span> of your ingredients or <span>snap a new one</span> using your device&apos;s camera. Our AI will do the rest!

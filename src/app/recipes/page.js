@@ -13,11 +13,23 @@ import '../../styles/recipes/RecipePage.css';
 
 function RecipePageContent() {
     const searchParams = useSearchParams();
-    const { token } = useAuth();
+    const { user } = useAuth();
     const [recipes, setRecipes] = useState([]);
     const [selectedRecipe, setSelectedRecipe] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [dots, setDots] = useState("");
+
+    useEffect(() => {
+            const interval = setInterval(() => {
+                setDots((prev) => {
+                    if (prev === "....") return "";
+                    return prev + ".";
+                });
+            }, 500);
+            return () => clearInterval(interval);
+        }, []
+    );
 
     useEffect(() => {
         const fetchRecipes = async () => {
@@ -50,7 +62,7 @@ function RecipePageContent() {
                 setSelectedRecipe(null);
             }
 
-            if (token && fetchedRecipes.length > 0 && isRandom !== 'true') {
+            if (user && fetchedRecipes.length > 0 && isRandom !== 'true') {
                 const minimalResults = fetchedRecipes.map(r => ({
                     id: r.id,
                     title: r.title,
@@ -62,8 +74,7 @@ function RecipePageContent() {
                         ingredients: ingredients?.split(",") || [],
                         restrictions: dietaryRestrictions?.split(",") || [],
                     },
-                    minimalResults,
-                    token
+                    minimalResults
                 );
             }
 
@@ -112,7 +123,7 @@ function RecipePageContent() {
         };
 
         fetchRecipes();
-    }, [searchParams, token]);
+    }, [searchParams, user]);
 
     const handleSelectRecipe = (recipe) => {
         setSelectedRecipe(recipe);
@@ -120,7 +131,7 @@ function RecipePageContent() {
 
     return(
         <>
-            {loading && <p>Loading recipes...</p>}
+            {loading && <p>Loading recipes{dots}</p>}
             {error && <p className="error-message">Error: {error}</p>}
 
             {!loading && !error && recipes.length > 0 && (

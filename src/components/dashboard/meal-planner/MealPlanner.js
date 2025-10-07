@@ -13,7 +13,8 @@ export default function MealPlanner() {
     const [showAddModal, setShowAddModal] = useState(false);
     const [lastPlanResponse, setLastPlanResponse] = useState(null);
     const [loading, setLoading] = useState(true);
-    const { token } = useAuth();
+    const [dots, setDots] = useState("");
+    const { user } = useAuth();
 
     // const openModal = () => setShowAddModal(true);
     // const openModal = () => {
@@ -27,7 +28,7 @@ export default function MealPlanner() {
     // Add feature for where the modal allows to open maybe 2 - 3 days before the current plan ends
     const openModal = async () => {
         try {
-            const plans = await getMealPlans(token);
+            const plans = await getMealPlans();
             const active = plans.find(p => p.status === "active");
             if (active) {
                 toast.error("You already have an active plan for this timeframe.");
@@ -35,6 +36,7 @@ export default function MealPlanner() {
             }
             setShowAddModal(true);
         } catch (err) {
+            console.log("Error checking existing plans:", err || err.message);
             toast.error("Could not verify existing plans. Try again.");
         }
     };
@@ -49,10 +51,10 @@ export default function MealPlanner() {
 
     useEffect(() => {
         async function fetchLatestPlan() {
-            if (!token) return;
+            if (!user) return;
             setLoading(true);
             try {
-                const plans = await getMealPlans(token); 
+                const plans = await getMealPlans(user); 
                 if (plans.length > 0) {
                     // setLastPlanResponse({ saved: true, meal_plan: plans[0] });
                     const active = plans.find(p => p.status === "active");
@@ -65,12 +67,25 @@ export default function MealPlanner() {
             }
         }
         fetchLatestPlan();
-    }, [token]);
+    }, [user]);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setDots((prev) => {
+                if (prev === "....") return "";
+                return prev + ".";
+            });
+        }, 500);
+        return () => clearInterval(interval);
+    }, []);
 
     function handleConfirmMealPlan() {
-        confirmMealPlan(lastPlanResponse.meal_plan.id, token)
-            .then(confirmed => setLastPlanResponse({ saved: true, meal_plan: confirmed }))
-            .catch(err => toast.error("Failed to confirm plan: " + err.message));
+        confirmMealPlan(lastPlanResponse.meal_plan.id)
+            .then(confirmed => {
+                setLastPlanResponse({ saved: true, meal_plan: confirmed });
+                toast.success('Meal plan confirmed successfully.');
+            })
+            .catch(err => toast.error("Failed to confirm plan: " + (err.detail || err.message || "Unknown error")));
     }
     
     return (
@@ -84,7 +99,7 @@ export default function MealPlanner() {
             <p>A week of delicious decisions, all in one place. We do the math, you make the magic.</p>
 
             {loading ? (
-                <p>Loading your meal plan...</p>
+                <p className='dashboard-section-load-message'>{`Loading your meal plan${dots}`}</p>
             ) : lastPlanResponse ? (
                 <>
                     <MealPlanSchedule response={lastPlanResponse} />

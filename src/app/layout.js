@@ -40,6 +40,9 @@ export default function RootLayout({ children }) {
             error: {
               duration: 5000,
             },
+            promise: {
+              duration: 4000,
+            },
           }}
         />
       </body>

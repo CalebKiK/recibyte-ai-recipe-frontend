@@ -3,15 +3,16 @@
 import { toSentenceCase, toTitleCase } from '@/utils/stringFormatters';
 import '../../styles/recipes/RecipeChoice.css';
 import { useAuth } from '@/context/AuthContext';
-import axios from 'axios';
 import Image from 'next/image';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { toggleRecipeFavourite, addToUserHistory } from "@/api/recipes";
+import ConfirmModal from '../modals/ConfirmModal';
 
 export default function RecipeChoice({ recipe }) {
-    const { token } = useAuth();
+    const { user } = useAuth();
     const [liked, setLiked] = useState(false);
+    const [showConfirm, setShowConfirm] = useState(false);
     const [disliked, setDisliked] = useState(false);
     // const [message, setMessage] = useState('');
 
@@ -36,51 +37,38 @@ export default function RecipeChoice({ recipe }) {
         displayIngredients = sourceIngredients.split(',').map(ing => toSentenceCase(ing.trim()));
     }
 
-    // const addToFavorites = async () => {
-    //     try {
-    //         const response = await axios.put(
-    //             `https://backend-recipbyte.fly.dev/api/users/favorites/${recipe.id}/toggle/`,
-    //             {},
-    //             { headers: { Authorization: `Bearer ${token}` } }
-    //         );
-    //         toast.success(response.data.message);
-    //     } catch (error) {
-    //         toast.error('Error adding to favorites. Please try again.');
-    //     }
-    // };
-
-    // const addToHistory = async () => {
-    //     try {
-    //         await axios.put(
-    //             `https://backend-recipbyte.fly.dev/api/users/history/${recipe.id}/add/`,
-    //             {},
-    //             { headers: { Authorization: `Bearer ${token}` } }
-    //         );
-    //     } catch (error) {
-    //         console.error('Error adding to history');
-    //     }
-    // };
-
     const handleLike = async () => {
-        if (!token) {
+        if (!user) {
             toast.error('Please log in to add to favorites.');
             return;
         }
 
+        if (liked) {
+            setShowConfirm(true);
+            return;
+        }
+
         try {
-            await toggleRecipeFavourite(recipe, token);
-            // await addToUserHistory(recipe.id, token);
+            await toggleRecipeFavourite(recipe);
             toast.success("Recipe added to favourites!");
             setLiked(true);
         } catch (error) {
             console.error("Error while updating favourites:", error);
             toast.error("Error while updating favourites.");
-            // toast.error("Error while updating favourites/history.");
         }
+    };
 
-        // await addToFavorites();
-        // await addToHistory();
-        // toast.success("Recipe added to favourites!");
+    const handleConfirmRemove = async () => {
+        try {
+            await toggleRecipeFavourite(recipe); // toggles off
+            toast.success("Recipe removed from favourites.");
+            setLiked(false);
+        } catch (error) {
+            console.error("Error while removing favourite:", error);
+            toast.error("Error while removing favourite.");
+        } finally {
+            setShowConfirm(false);
+        }
     };
 
     let instructionSteps = [];
@@ -132,12 +120,12 @@ export default function RecipeChoice({ recipe }) {
                 </ol>
             </div>
             <div className='recipe-choice-btns'>
-                <button className='share-recipe-btn' title="Share this recipe">
+                {/* <button className='share-recipe-btn' title="Share this recipe">
                     <Image src="/images/recipe-choice-icons/share-1.png" alt="Share this recipe" height={20} width={20} />
                 </button>
                 <button className='substitute-ingredient-btn' title="Substitute ingredients">
                     <Image src="/images/recipe-choice-icons/arrow.png" alt="Substitute ingredients" height={20} width={20} />
-                </button>
+                </button> */}
                 {/* Will turn to a full colour filled icon when clicked */}
                 <button className='like-recipe-btn' title="Save recipe" onClick={handleLike}>
                     <Image 
@@ -151,7 +139,7 @@ export default function RecipeChoice({ recipe }) {
                     />
                 </button>
                 {/* Will turn to a full colour filled icon when clicked */}
-                <button className='dislike-recipe-btn' title="Dislike recipe" onClick={() => setDisliked(!disliked)}>
+                {/* <button className='dislike-recipe-btn' title="Dislike recipe" onClick={() => setDisliked(!disliked)}>
                     <Image 
                         // src="/images/recipe-choice-icons/dislike.png" 
                         src={disliked 
@@ -161,9 +149,20 @@ export default function RecipeChoice({ recipe }) {
                         height={20} 
                         width={20} 
                     />
-                </button>
+                </button> */}
             </div>
             {/* {message && <div className='message'>{message}</div>} */}
+
+            {/* Confirm Modal for removal */}
+            <ConfirmModal
+                show={showConfirm}
+                title="Remove from favourites?"
+                message={`Are you sure you want to remove "${recipe.title}" from your Favourites?`}
+                confirmText="Remove"
+                cancelText="Cancel"
+                onConfirm={handleConfirmRemove}
+                onCancel={() => setShowConfirm(false)}
+            />
         </div>
     );
 }

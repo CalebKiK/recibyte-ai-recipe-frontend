@@ -16,11 +16,13 @@ function sanitizeText(input = "") {
 const excludeTokenRegex = /^[\w\s\-,']+$/;
 
 export default function AddMealPlanForm({ onSaved = () => {}, onClose = () => {} }) {
-    const { token } = useAuth();
+    const { user } = useAuth();
     const [diet, setDiet] = useState("");
     const [diets, setDiets] = useState([]);
     const [loading, setLoading] = useState(false);
     const [planResponse, setPlanResponse] = useState(null);
+    const [dots, setDots] = useState("");
+
     const today = new Date();
     const yesterday = new Date(today);
     yesterday.setDate(today.getDate() - 1);
@@ -43,6 +45,16 @@ export default function AddMealPlanForm({ onSaved = () => {}, onClose = () => {}
         });
         return () => (mounted = false);
     }, []);
+
+    useEffect(() => {
+            const interval = setInterval(() => {
+                setDots((prev) => {
+                    if (prev === "....") return "";
+                    return prev + ".";
+                });
+            }, 500);
+            return () => clearInterval(interval);
+        }, []);
 
     const validationSchema = () =>
         Yup.object({
@@ -101,7 +113,7 @@ export default function AddMealPlanForm({ onSaved = () => {}, onClose = () => {}
     };
 
     const handleSubmit = async (values, { setSubmitting, resetForm }) => {
-        if (!token) {
+        if (!user) {
             toast.error("Please log in to generate meal plans.");
             setSubmitting(false);
             return;
@@ -132,9 +144,9 @@ export default function AddMealPlanForm({ onSaved = () => {}, onClose = () => {}
         setSubmitting(true);
 
         try {
-            const data = await proposeMealPlan(payload, token);
+            const data = await proposeMealPlan(payload);
             setPlanResponse(data);
-            toast.success("Meal plan generated.");
+            toast.success("Draft Meal plan generated.");
             onSaved(data);
         } catch (err) {
             console.error("Error proposing meal plan:", err);
@@ -233,7 +245,7 @@ export default function AddMealPlanForm({ onSaved = () => {}, onClose = () => {}
 
                     <div className="generate-meal-plan-form-buttons">
                         <button type="submit" className="generate-meal-plan-btn" disabled={isSubmitting}>
-                            {isSubmitting ? "Generating..." : "Generate Meal Plan"}
+                            {isSubmitting ? `Generating${dots}` : "Generate Meal Plan"}
                         </button>
                         <button
                             type="button"

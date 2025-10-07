@@ -1,11 +1,32 @@
 import { refreshAccessToken } from "./token/refresh";
 import { BASE_URL } from "./config";
 
-export async function apiRequest(endpoint, options = {}) {
-  const res = await fetch(`${BASE_URL}${endpoint}`, options);
+export async function fetchWithAuth(endpoint, options = {}) {
+  let res = await fetch(`${BASE_URL}${endpoint}`, {
+    ...options,
+    credentials: "include", 
+  });
+
+  if (res.status === 401) {
+    // try to refresh by hitting the refresh endpoint
+    const refreshRes = await fetch(`${BASE_URL}/token/refresh/`, {
+      method: "POST",
+      credentials: "include",
+    });
+
+    if (!refreshRes.ok) throw { detail: "Session expired, please log in again" };
+
+    // retry request after refresh
+    res = await fetch(`${BASE_URL}${endpoint}`, {
+      ...options,
+      credentials: "include",
+    });
+  }
 
   let data = null;
-  try { data = await res.json(); } catch {}
+  try {
+    data = await res.json();
+  } catch {}
 
   if (!res.ok) {
     if (res.status >= 500) throw { detail: "Server unavailable, try again later" };
@@ -14,38 +35,6 @@ export async function apiRequest(endpoint, options = {}) {
     throw data || { detail: "Something went wrong" };
   }
 
-  return data;
-}
-
-export async function fetchWithAuth(endpoint, options = {}) {
-  let token = localStorage.getItem("access");
-  // const headers = {
-  //   ...(options.headers || {}),
-  //   Authorization: `Bearer ${token}`,
-  //   "Content-Type": "application/json",
-  // };
-
-  const defaultHeaders = {
-    Authorization: `Bearer ${token}`,
-  };
-
-  // Only add Content-Type if not set AND there’s a body
-  if (options.body && !options.headers?.["Content-Type"]) {
-    defaultHeaders["Content-Type"] = "application/json";
-  }
-
-  const headers = { ...defaultHeaders, ...(options.headers || {}) };
-
-  let res = await fetch(`${BASE_URL}${endpoint}`, { ...options, headers });
-  if (res.status === 401) {
-    token = await refreshAccessToken();
-    const retryHeaders = { ...headers, Authorization: `Bearer ${token}` };
-    res = await fetch(`${BASE_URL}${endpoint}`, { ...options, headers: retryHeaders });
-  }
-
-  let data = null;
-  try { data = await res.json(); } catch {}
-  if (!res.ok) throw data || { detail: "Request failed" };
   return data;
 }
 

@@ -10,10 +10,11 @@ import { fetchUserFavorites } from '@/api/users';
 import RecipeDetailModal from '../modals/RecipeDetailModal';
 
 export default function Favourites() {
-    const { token } = useAuth();
+    const { user } = useAuth();
     const [favorites, setFavorites] = useState([]);
     const [selectedRecipe, setSelectedRecipe] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [dots, setDots] = useState("");
     const [message, setMessage] = useState('');
     const [expandedId, setExpandedId] = useState(null);
 
@@ -21,7 +22,7 @@ export default function Favourites() {
         async function getFavorites() {
             setLoading(true);
             try {
-                const fetchedFavorites = await fetchUserFavorites(token);
+                const fetchedFavorites = await fetchUserFavorites();
                 setFavorites(fetchedFavorites);
             } catch (error) {
                 toast.error('Failed to load favourites.');
@@ -30,22 +31,32 @@ export default function Favourites() {
             }
         }
 
-        if (token) getFavorites();
-    }, [token]);
+        if (user) getFavorites();
+    }, [user]);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setDots((prev) => {
+                if (prev === "....") return "";
+                return prev + ".";
+            });
+        }, 500);
+        return () => clearInterval(interval);
+    }, []);
 
     const handleRemove = async (recipe) => {
         try {
             // const res = await axios.put(`https://backend-recipbyte.fly.dev/api/users/favorites/${id}/toggle/`, {}, {
-            //     headers: { Authorization: `Bearer ${token}` },
+            //     headers: { Authorization: `Bearer ${user}` },
             // });
-            const res = await toggleRecipeFavourite(recipe, token);
+            const res = await toggleRecipeFavourite(recipe);
             toast.success(res.data.message);
 
             // Refetch updated favorites
             // const updatedRes = await axios.get('https://backend-recipbyte.fly.dev/api/users/profile/', {
-            //     headers: { Authorization: `Bearer ${token}` },
+            //     headers: { Authorization: `Bearer ${user}` },
             // });
-            const updatedFavorites = await fetchUserFavorites(token);
+            const updatedFavorites = await fetchUserFavorites();
             setFavorites(updatedFavorites);
             // setFavorites(updatedRes.data.favorite_recipes || []);
         } catch (err) {
@@ -61,7 +72,7 @@ export default function Favourites() {
         <div className="user-favourites-component">
             <h2>Your Culinary Hall of Fame</h2>
             {loading ? (
-                <p>Cooking up your favorites...</p>
+                <p className='dashboard-section-load-message'>{`Cooking up your favorites${dots}`}</p>
             ) : favorites.length === 0 ? (
                 <p>No recipes in favourites at the moment.</p>
             ) : (

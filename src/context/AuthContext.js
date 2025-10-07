@@ -1,95 +1,75 @@
 "use client";
 
 import { createContext, useContext, useState, useEffect } from "react";
-import { jwtDecode } from "jwt-decode";
-import { fetchUserByToken } from "@/api/users";
-import { refreshAccessToken } from "@/api/token/refresh";
+import { fetchUserProfile } from "@/api/users";
+import { BASE_URL } from "@/api/config";
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
     const [token, setToken] = useState(null);
     const [user, setUser] = useState(null);
-
-    // useEffect(() => {
-    //     const storedToken = localStorage.getItem("access");
-    //     if (storedToken) {
-    //         setToken(storedToken);
-    //         try {
-    //             const decoded = jwtDecode(storedToken);
-    //             // console.log("Decoded token in AuthContext.js file to see user:", jwtDecode(token));
-    //             setUser(decoded);
-    //         } catch (err) {
-    //             console.error("Invalid token", err);
-    //             logout();
-    //         }
-    //     };
-    // }, []);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const initAuth = async () => {
-        let access = localStorage.getItem("access");
-        const refresh = localStorage.getItem("refresh");
-
-        if (!access && refresh) {
-            // No access, but refresh available → try to refresh
             try {
-            access = await refreshAccessToken();
-            setToken(access);
-            localStorage.setItem("access", access);
-            } catch {
-            logout();
-            return;
-            }
-        }
-
-        if (access) {
-            try {
-            setToken(access);
-            const decoded = jwtDecode(access);
-            // Optionally fetch user profile from backend
-            const userData = await fetchUserByToken(access);
-            setUser(userData || decoded);
+                const profile = await fetchUserProfile();
+                const userData = Array.isArray(profile) ? profile[0]?.user : profile?.user || profile;
+                setUser(userData);
+                setToken("valid");
             } catch (err) {
-            console.error("Invalid token at init", err);
-            logout();
-            }
-        }
-        };
+                try {
+                    await fetch(`${BASE_URL}/token/refresh/`, {
+                        method: "POST",
+                        credentials: "include",
+                    });
 
+                    // Retry profile fetch
+                    const profile = await fetchUserProfile();
+                    const userData = Array.isArray(profile) ? profile[0]?.user : profile?.user || profile;
+                    setUser(userData);
+                    setToken("valid");
+                } catch (refreshErr) {
+                    // Refresh failed -> force logout
+                    setUser(null);
+                    setToken(null);
+                }
+            } finally {
+                setLoading(false);
+            }
+        };
         initAuth();
     }, []);
 
-    const login = async ({ access, refresh }) => {
-        // console.log("Received token in login:", newToken);
-        // localStorage.setItem("authToken", newToken);
-        // setToken(newToken);
+    const login = async (email, password) => {
+        const res = await fetch(`${BASE_URL}/token/`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include", // 🔑 store cookies
+            body: JSON.stringify({ email, password }),
+        });
 
-        localStorage.setItem("access", access);
-        localStorage.setItem("refresh", refresh);
-        setToken(access);
+        if (!res.ok) throw await res.json();
 
-        try {
-            const decoded = jwtDecode(access); 
-            const userData = await fetchUserByToken(access);
-            setUser(userData || decoded);
-            
-        } catch (err) {
-            console.error("Invalid login token", err);
-            logout();
-        }
+        setToken("valid");
+
+        const profile = await fetchUserProfile();
+        const userData = Array.isArray(profile) ? profile[0]?.user : profile?.user || profile;
+        setUser(userData);
     };
 
     const logout = async () => {
-        // localStorage.removeItem("authToken");
-        localStorage.removeItem("access");
-        localStorage.removeItem("refresh");
-        setToken(null);
         setUser(null);
+        // Optional: hit a backend logout endpoint that clears cookies
+        await fetch(`${BASE_URL}/users/logout/`, {
+            method: "POST",
+            credentials: "include",
+        });
     };
 
     return (
-        <AuthContext.Provider value={{ token, user, login, logout }}>
+        <AuthContext.Provider value={{ user, token, login, logout, loading }}>
             {children}
         </AuthContext.Provider>
     );

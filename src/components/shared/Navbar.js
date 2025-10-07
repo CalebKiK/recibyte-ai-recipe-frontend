@@ -51,7 +51,7 @@ export default function Navbar() {
             </div>
             <div className='custom-navbar-links'>
                 <Link className='nav-bar-link' href="/">
-                    <div>
+                    <div className='nav-bar-link-div'>
                         <Image 
                             src="/images/navbar-icons/home.png" 
                             alt="homepage-icon"
@@ -68,7 +68,7 @@ export default function Navbar() {
                     className="nav-bar-link"
                     onClick={handleDashboardClick}
                     >
-                    <div>
+                    <div className='nav-bar-link-div'>
                         <Image 
                         src="/images/navbar-icons/dashboards.png" 
                         alt="dashboard-icon"
@@ -81,7 +81,7 @@ export default function Navbar() {
                 
                 {!user ? (
                     <Link className='nav-bar-link' href="/authentication">
-                        <div>
+                        <div className='nav-bar-link-div'>
                             <Image 
                                 src="/images/navbar-icons/login.png" 
                                 alt="login-icon"
@@ -94,7 +94,7 @@ export default function Navbar() {
                 ) : (
                     <>
                         <button onClick={handleLogoutClick}>
-                            <div>
+                            <div className='nav-bar-link-div'>
                                 <Image 
                                     src="/images/navbar-icons/logout.png" 
                                     alt="logout-icon"
@@ -122,7 +122,7 @@ export default function Navbar() {
                 <ul className="dropdown-menu">
                     <li>
                         <Link href="/" className="dropdown-item">
-                            <div>
+                            <div className='nav-bar-link-div-mobile'>
                                 <Image 
                                     src="/images/navbar-icons/home.png" 
                                     alt="homepage-icon"
@@ -139,7 +139,7 @@ export default function Navbar() {
                             className="dropdown-item"
                             onClick={handleDashboardClick}
                             >
-                            <div>
+                            <div className='nav-bar-link-div-mobile'>
                                 <Image 
                                 src="/images/navbar-icons/dashboards.png" 
                                 alt="dashboard-icon"
@@ -153,7 +153,7 @@ export default function Navbar() {
                     <li>
                         {!user ? (
                             <Link href="/authentication" className="dropdown-item">
-                                <div>
+                                <div className='nav-bar-link-div-mobile'>
                                     <Image 
                                         src="/images/navbar-icons/login.png" 
                                         alt="login-icon"
@@ -166,7 +166,7 @@ export default function Navbar() {
                         ) : (
                             <>
                                 <button onClick={handleLogoutClick} className="dropdown-item">
-                                    <div>
+                                    <div className='nav-bar-link-div-mobile'>
                                         <Image 
                                             src="/images/navbar-icons/logout.png" 
                                             alt="logout-icon"

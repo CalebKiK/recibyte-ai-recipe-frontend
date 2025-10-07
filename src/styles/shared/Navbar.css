@@ -58,12 +58,21 @@
     transition: 0.5s ease-in;
 }
 
-.btn-group, .btn-group button{
+.custom-navbar-links a .nav-bar-link-div, .custom-navbar-links button .nav-bar-link-div{
+    display: flex;
+    align-items: center;
+}
+
+.nav-bar-link-div span {
+    vertical-align: middle; 
+}
+
+.btn-group, .btn-group button, .nav-bar-link-div-mobile{
     display: none;
 }
 
 .custom-navbar-links img, .custom-navbar-links a img{
-    margin-right: 10px;
+    margin-right: 5px;
 }
 
 .dropdown-item img{

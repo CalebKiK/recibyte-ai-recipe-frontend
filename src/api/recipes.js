@@ -35,6 +35,7 @@ export async function toggleRecipeFavourite(recipe, token) {
 
     return fetchWithAuth(`/users/favorites/toggle/`, {
         method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
     });
 }

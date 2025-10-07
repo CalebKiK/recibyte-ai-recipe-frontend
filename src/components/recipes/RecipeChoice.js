@@ -68,7 +68,7 @@ export default function RecipeChoice({ recipe }) {
         }
 
         try {
-            await toggleRecipeFavourite(recipe, user);
+            await toggleRecipeFavourite(recipe);
             // await addToUserHistory(recipe.id, user);
             toast.success("Recipe added to favourites!");
             setLiked(true);

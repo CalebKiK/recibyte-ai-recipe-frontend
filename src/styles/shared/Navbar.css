@@ -99,6 +99,10 @@
         margin-left: 80px;
     }
 
+    .nav-bar-link-div-mobile{
+        display: block;
+    }
+
     .btn-group .btn {
         background-color: #8b4513da;
         border: none;

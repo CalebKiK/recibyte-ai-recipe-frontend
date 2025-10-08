@@ -153,13 +153,13 @@ function RecipePageContent() {
     return(
         <>
             {loading && <p>Loading recipes{dots}</p>}
-            {error && (
+            {/* {error && (
                 <div className="error-message">
                     <FontAwesomeIcon icon={faMagnifyingGlass} className="error-icon" />
                     <p>{error}</p>
                 </div>
-            )}
-            {/* {error && <p className="error-message">{error}</p>} */}
+            )} */}
+            {error && <p className="error-message">{error}</p>}
 
             {!loading && !error && recipes.length > 0 && (
                 <>

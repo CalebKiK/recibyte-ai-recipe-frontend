@@ -4,14 +4,14 @@ import { toSentenceCase, toTitleCase } from '@/utils/stringFormatters';
 import '../../styles/recipes/RecipeChoice.css';
 import { useAuth } from '@/context/AuthContext';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { toggleRecipeFavourite, addToUserHistory } from "@/api/recipes";
 import ConfirmModal from '../modals/ConfirmModal';
 
 export default function RecipeChoice({ recipe }) {
     const { user } = useAuth();
-    const [liked, setLiked] = useState(false);
+    const [liked, setLiked] = useState(Boolean(recipe.is_favorite));
     const [showConfirm, setShowConfirm] = useState(false);
     const [disliked, setDisliked] = useState(false);
     // const [message, setMessage] = useState('');
@@ -37,25 +37,39 @@ export default function RecipeChoice({ recipe }) {
         displayIngredients = sourceIngredients.split(',').map(ing => toSentenceCase(ing.trim()));
     }
 
+    useEffect(() => {
+        setLiked(Boolean(recipe.is_favorite));
+    }, [recipe?.is_favorite]);
+
     const handleLike = async () => {
         if (!user) {
             toast.error('Please log in to add to favorites.');
             return;
         }
 
-        if (liked) {
-            setShowConfirm(true);
-            return;
-        }
-
         try {
-            await toggleRecipeFavourite(recipe);
-            toast.success("Recipe added to favourites!");
-            setLiked(true);
+            const res = await toggleRecipeFavourite(recipe);
+            const newState = res && typeof res.is_favorite !== "undefined" ? res.is_favorite : !liked;
+            setLiked(newState);
+            toast.success(newState ? "Recipe added to favourites!" : "Recipe removed from favourites.");
         } catch (error) {
             console.error("Error while updating favourites:", error);
             toast.error("Error while updating favourites.");
         }
+
+        // if (liked) {
+        //     setShowConfirm(true);
+        //     return;
+        // }
+
+        // try {
+        //     await toggleRecipeFavourite(recipe);
+        //     toast.success("Recipe added to favourites!");
+        //     setLiked(true);
+        // } catch (error) {
+        //     console.error("Error while updating favourites:", error);
+        //     toast.error("Error while updating favourites.");
+        // }
     };
 
     const handleConfirmRemove = async () => {

@@ -9,7 +9,7 @@ import toast from 'react-hot-toast';
 import { toggleRecipeFavourite, addToUserHistory } from "@/api/recipes";
 import ConfirmModal from '../modals/ConfirmModal';
 
-export default function RecipeChoice({ recipe }) {
+export default function RecipeChoice({ recipe, onUpdateFavourite }) {
     const { user } = useAuth();
     const [liked, setLiked] = useState(Boolean(recipe.is_favorite));
     const [showConfirm, setShowConfirm] = useState(false);
@@ -51,6 +51,11 @@ export default function RecipeChoice({ recipe }) {
             const res = await toggleRecipeFavourite(recipe);
             const newState = res && typeof res.is_favorite !== "undefined" ? res.is_favorite : !liked;
             setLiked(newState);
+
+            if (onUpdateFavourite) {
+                onUpdateFavourite(recipe.id, newState, recipe.source || "local_db");
+            }
+
             toast.success(newState ? "Recipe added to favourites!" : "Recipe removed from favourites.");
         } catch (error) {
             console.error("Error while updating favourites:", error);

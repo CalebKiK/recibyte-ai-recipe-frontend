@@ -7,6 +7,8 @@ import WhyRecipe from "@/components/recipes/WhyRecipe";
 import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { getRecipesByIngredients, getRandomRecipes } from "@/api/recipes";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { addSearchHistory } from "@/api/users"; 
 import { useAuth } from "@/context/AuthContext";
 import '../../styles/recipes/RecipePage.css';
@@ -114,7 +116,13 @@ function RecipePageContent() {
             
             } catch (err) {
                 console.error("Error fetching recipes:", err);
-                setError("An error occurred while fetching recipes. Please check your network connection or the backend server.");
+                if (err?.detail) {
+                    setError(err.detail);
+                } else if (err?.error) {
+                    setError(err.error);
+                } else {
+                    setError("Hmm… looks like we couldn’t find any recipes with those ingredients.");
+                }
                 setRecipes([]);
                 setSelectedRecipe(null);
             } finally {
@@ -125,6 +133,19 @@ function RecipePageContent() {
         fetchRecipes();
     }, [searchParams, user]);
 
+    const handleUpdateFavourite = (id, isFav, source) => {
+        setRecipes(prev =>
+            prev.map(r =>
+                r.id === id && (r.source || "local_db") === source
+                    ? { ...r, is_favorite: isFav }
+                    : r
+            )
+        );
+        if (selectedRecipe?.id === id && (selectedRecipe.source || "local_db") === source) {
+            setSelectedRecipe({ ...selectedRecipe, is_favorite: isFav });
+        }
+    };
+
     const handleSelectRecipe = (recipe) => {
         setSelectedRecipe(recipe);
     };
@@ -132,7 +153,13 @@ function RecipePageContent() {
     return(
         <>
             {loading && <p>Loading recipes{dots}</p>}
-            {error && <p className="error-message">Error: {error}</p>}
+            {error && (
+                <div className="error-message">
+                    <FontAwesomeIcon icon={faMagnifyingGlass} className="error-icon" />
+                    <p>{error}</p>
+                </div>
+            )}
+            {/* {error && <p className="error-message">{error}</p>} */}
 
             {!loading && !error && recipes.length > 0 && (
                 <>
@@ -141,7 +168,7 @@ function RecipePageContent() {
                     )}
 
                     {selectedRecipe && (
-                        <RecipeChoice recipe={selectedRecipe} />
+                        <RecipeChoice recipe={selectedRecipe} onUpdateFavourite={handleUpdateFavourite} />
                     )}
 
                     {recipes.length === 1 && !selectedRecipe && (

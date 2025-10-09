@@ -53,6 +53,7 @@
   .recipe-modal-header-content p{
     font-size: 14px;
     text-align: left;
+    line-height: 1.5;
   }
 
   .recipe-modal-instructions{
@@ -96,7 +97,7 @@
     }
 
     .recipe-modal-header-content{
-      margin: 0px 0px 10px;
+      margin: 10px 0px 10px;
     }
 
     .recipe-modal-header {

@@ -46,16 +46,8 @@ export default function Favourites() {
 
     const handleRemove = async (recipe) => {
         try {
-            // const res = await axios.put(`https://backend-recipbyte.fly.dev/api/users/favorites/${id}/toggle/`, {}, {
-            //     headers: { Authorization: `Bearer ${user}` },
-            // });
             const res = await toggleRecipeFavourite(recipe);
             toast.success(res.data.message);
-
-            // Refetch updated favorites
-            // const updatedRes = await axios.get('https://backend-recipbyte.fly.dev/api/users/profile/', {
-            //     headers: { Authorization: `Bearer ${user}` },
-            // });
             const updatedFavorites = await fetchUserFavorites();
             setFavorites(updatedFavorites);
             // setFavorites(updatedRes.data.favorite_recipes || []);

@@ -23,7 +23,7 @@ export async function getRecipeDetails(recipe) {
 }
 
 // 🔹 Add or Remove recipe to favourites
-export async function toggleRecipeFavourite(recipe, token) {
+export async function toggleRecipeFavourite(recipe) {
     const payload = {
         source: recipe.source,
         source_recipe_id: recipe.id,

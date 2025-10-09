@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { addSearchHistory } from "@/api/users"; 
 import { useAuth } from "@/context/AuthContext";
+import toast from "react-hot-toast";
 import '../../styles/recipes/RecipePage.css';
 
 function RecipePageContent() {
@@ -121,6 +122,7 @@ function RecipePageContent() {
                 } else if (err?.error) {
                     setError(err.error);
                 } else {
+                    toast.error("Our recipe radar came up empty. Time for a new search?");
                     setError("Hmm… looks like we couldn’t find any recipes with those ingredients.");
                 }
                 setRecipes([]);

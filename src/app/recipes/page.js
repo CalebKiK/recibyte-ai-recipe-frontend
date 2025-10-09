@@ -44,76 +44,42 @@ function RecipePageContent() {
             const isRandom = searchParams.get('random');
 
             try {
-            let fetchedRecipes = [];
+                let fetchedRecipes = [];
 
-            if (isRandom === 'true') {
-                const data = await getRandomRecipes();
-                fetchedRecipes = [data];
-            } else if (ingredients) {
-                const data = await getRecipesByIngredients(ingredients, dietaryRestrictions);
-                fetchedRecipes = data;
-            } else {
-                setError('No search criteria provided to fetch recipes.');
-                setLoading(false);
-                return;
-            }
+                if (isRandom === 'true') {
+                    const data = await getRandomRecipes();
+                    fetchedRecipes = [data];
+                } else if (ingredients) {
+                    const data = await getRecipesByIngredients(ingredients, dietaryRestrictions);
+                    fetchedRecipes = data;
+                } else {
+                    setError('No search criteria provided to fetch recipes.');
+                    setLoading(false);
+                    return;
+                }
 
-            setRecipes(fetchedRecipes);
-            if (fetchedRecipes.length === 1) {
-                setSelectedRecipe(fetchedRecipes[0]);
-            } else {
-                setSelectedRecipe(null);
-            }
+                setRecipes(fetchedRecipes);
+                if (fetchedRecipes.length === 1) {
+                    setSelectedRecipe(fetchedRecipes[0]);
+                } else {
+                    setSelectedRecipe(null);
+                }
 
-            if (user && fetchedRecipes.length > 0 && isRandom !== 'true') {
-                const minimalResults = fetchedRecipes.map(r => ({
-                    id: r.id,
-                    title: r.title,
-                    image: r.image,
-                }));
+                if (user && fetchedRecipes.length > 0 && isRandom !== 'true') {
+                    const minimalResults = fetchedRecipes.map(r => ({
+                        id: r.id,
+                        title: r.title,
+                        image: r.image,
+                    }));
 
-                await addSearchHistory(
-                    {
-                        ingredients: ingredients?.split(",") || [],
-                        restrictions: dietaryRestrictions?.split(",") || [],
-                    },
-                    minimalResults
-                );
-            }
-
-            // let apiUrl = '';
-
-            // if (isRandom === 'true') {
-            //     apiUrl = 'https://backend-recipbyte.fly.dev/api/recipes/random/';
-            // } else if (ingredients) {
-            //     apiUrl = `https://backend-recipbyte.fly.dev/api/recipes/filter_by_ingredients/?ingredients=${ingredients}`;
-            //     if (dietaryRestrictions) {
-            //         apiUrl += `&dietaryRestrictions=${dietaryRestrictions}`;
-            //     }
-            // } else {
-            //     setError('No search criteria provided to fetch recipes.');
-            //     setLoading(false);
-            //     return;
-            // }
-
-            // try {
-            //     const response = await fetch(apiUrl);
-
-            //     if (response.ok) {
-            //         const data = await response.json();
-            //         const fetchedRecipes = isRandom === 'true' ? [data] : data;
-            //         setRecipes(fetchedRecipes);
-            //         if (fetchedRecipes.length === 1) {
-            //             setSelectedRecipe(fetchedRecipes[0]);
-            //         } else {
-            //             setSelectedRecipe(null);
-            //         }
-            //     } else {
-            //         const errorData = await response.json();
-            //         setError(errorData.error || `Failed to fetch recipes: ${response.status}`);
-            //         setRecipes([]);
-            //         setSelectedRecipe(null);
-            //     }
+                    await addSearchHistory(
+                        {
+                            ingredients: ingredients?.split(",") || [],
+                            restrictions: dietaryRestrictions?.split(",") || [],
+                        },
+                        minimalResults
+                    );
+                }
             
             } catch (err) {
                 console.error("Error fetching recipes:", err);

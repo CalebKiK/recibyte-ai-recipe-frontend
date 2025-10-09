@@ -88,7 +88,7 @@ function RecipePageContent() {
                 } else if (err?.error) {
                     setError(err.error);
                 } else {
-                    toast.error("Our recipe radar came up empty. Time for a new search?");
+                    toast.error("Recipe radar empty. Try new search?");
                     setError("Hmm… looks like we couldn’t find any recipes with those ingredients.");
                 }
                 setRecipes([]);

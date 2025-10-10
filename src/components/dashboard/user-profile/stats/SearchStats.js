@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import '../../../../styles/dashboard/user-profile/stats/SearchStats.css';
 
 export default function SearchStats() {
     const [timeframe, setTimeframe] = useState("week");

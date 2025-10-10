@@ -18,7 +18,7 @@ import UserProfile from './user-profile/UserProfile';
 import Image from 'next/image';
 
 export default function UserDashboard() {
-    const [selectedSection, setSelectedSection] = useState('preferences');
+    const [selectedSection, setSelectedSection] = useState('user-profile-links');
     const { user } = useAuth();
 
   const renderSection = () => {

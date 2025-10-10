@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import '../../../../styles/dashboard/user-profile/personal-info/ProfileData.css';
 
 export default function PersonalPreferences() {
     const [dietaryRestrictions, setDietaryRestrictions] = useState([]);

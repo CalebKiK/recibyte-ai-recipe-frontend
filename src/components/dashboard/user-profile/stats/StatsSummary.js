@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import '../../../../styles/dashboard/user-profile/stats/SearchStats.css';
 
 export default function StatsSummary() {
     const favoritesCount = 0; // placeholder

@@ -1,0 +1,21 @@
+.stats-summary-card, .search-stats-card{
+    /* display: flex;
+    flex-direction: row;
+    justify-content: space-between; */
+    margin: 10px;
+    padding: 10px 20px;
+    background-color: #FAF1E6;
+    border-radius: 5px;
+}
+
+@media (max-width:600px) {
+    .stats-summary-card, .search-stats-card{
+
+    }
+}
+
+@media (max-width:600px) and (max-width:1000px) {
+    .stats-summary-card, .search-stats-card{
+
+    }
+}

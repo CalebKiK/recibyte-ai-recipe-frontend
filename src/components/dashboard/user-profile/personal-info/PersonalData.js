@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import '../../../../styles/dashboard/user-profile/personal-info/ProfileData.css';
 
 export default function PersonalData() {
     const [avatar, setAvatar] = useState("avatar1.png");

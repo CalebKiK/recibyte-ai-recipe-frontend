@@ -1,0 +1,15 @@
+.personal-info-section{
+
+}
+
+@media (max-width:600px) {
+    .personal-info-section{
+
+    }
+}
+
+@media (max-width:600px) and (max-width:1000px) {
+    .personal-info-section{
+
+    }
+}

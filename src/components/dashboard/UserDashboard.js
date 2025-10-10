@@ -11,9 +11,9 @@ import {
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import Preferences from './Preferences';
-import UserLibrary from './UserLibrary';
+import UserLibrary from './library/UserLibrary';
 import MealPlanner from './meal-planner/MealPlanner';
-import UserProfile from './UserProfile';
+import UserProfile from './user-profile/UserProfile';
 import Image from 'next/image';
 
 export default function UserDashboard() {
@@ -31,7 +31,7 @@ export default function UserDashboard() {
         case 'user-profile-link':
             return <UserProfile />;
         default:
-            return <Preferences />
+            return <UserProfile />
     }
   };
 
@@ -82,12 +82,19 @@ export default function UserDashboard() {
             <div className='dashboard-content'>
                 <div className='dashboard-links'>
                     <button 
+                        onClick={() => setSelectedSection('user-profile-link')} 
+                        className={selectedSection === 'user-profile-link' ? 'active' : ''}
+                    >
+                        <FontAwesomeIcon icon={faSlidersH} className="dashboard-sidebar-icon" />
+                        Profile
+                    </button>
+                    {/* <button 
                         onClick={() => setSelectedSection('preferences')} 
                         className={selectedSection === 'preferences' ? 'active' : ''}
                     >
                         <FontAwesomeIcon icon={faSlidersH} className="dashboard-sidebar-icon" />
                         Preferences
-                    </button>
+                    </button> */}
                     <button 
                         onClick={() => setSelectedSection('user-library')} 
                         className={selectedSection === 'user-library' ? 'active' : ''}

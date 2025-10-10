@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import '../../styles/dashboard/UserSearchHistory.css';
+import '../../styles/dashboard/library/UserSearchHistory.css';
 import ConfirmModal from '../modals/ConfirmModal';
 import { formatCreatedAt } from '@/utils/formatDate';
 

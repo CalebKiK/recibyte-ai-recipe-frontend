@@ -623,6 +623,7 @@
         background-color: #E6F7F1;
         padding: 8px 10px;
         padding-right: 20px; 
+        font-size: 13px;
     }
 
     .gen-recipe-btns-desktop{
@@ -689,9 +690,22 @@
         margin: 10px 20px 0px;
     }
 
+    .filters-dropdown{
+        margin-left: 10px;
+        width: 110px;
+    }
+
+    .select-field {
+        background: url("data:image/svg+xml;utf8,<svg fill='%238B4513' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>") no-repeat right 5px center; 
+        background-size: 15px;
+        background-color: #E6F7F1;
+        padding: 8px 10px;
+        padding-right: 20px; 
+    }
+
     .ingredients-list li, .filters-list li{
         margin: 10px;
-        padding: 10px;
+        padding: 7px;
         font-size: 13px;
     }
 

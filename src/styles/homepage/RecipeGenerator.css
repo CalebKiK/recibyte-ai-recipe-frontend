@@ -173,14 +173,14 @@
   -webkit-appearance: none;
   -moz-appearance: none;
   background: url("data:image/svg+xml;utf8,<svg fill='%238B4513' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>") no-repeat right 10px center;
-  background-color: #fff; 
+  background-color: #E6F7F1; 
   background-size: 15px;
   padding: 8px 12px;
   padding-right: 40px; 
   border: 1px solid #8B4513;
   border-radius: 6px;
   color: #8B4513;
-  font-size: 14px;
+  font-size: 14px; 
 }
 
 .select-field option {
@@ -248,7 +248,7 @@
 
 @media (max-width: 600px) {
     .recipe-generator-component{
-        margin: 20px 5px;
+        margin: 0px 5px;
         padding: 40px 45px;
     }
 
@@ -266,7 +266,7 @@
     }
 
     .ingredients-section{
-        padding: 20px 0px;
+        padding: 20px 5px;
     }
 
     .ingredients-input input{
@@ -327,6 +327,21 @@
         width: 40px;
     }
 
+    .filters-dropdown{
+        margin-left: 10px;
+        width: 80px;
+    }
+
+    .select-field {
+        background: url("data:image/svg+xml;utf8,<svg fill='%238B4513' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>") no-repeat right 5px center; 
+        background-size: 15px;
+        background-color: #E6F7F1;
+        padding: 8px 10px;
+        padding-right: 20px; 
+        border-radius: 5px;
+        font-size: 10px;
+    }
+
     .ingredients-filters-list{
         margin: 0px;
     }
@@ -337,13 +352,15 @@
 
     .ingredients-list li, .filters-list li{
         margin: 10px 5px;
-        padding: 5px;
-        font-size: 12px;
+        padding: 2px 5px;
+        font-size: 11px;
+        border-radius: 5px;
     }
 
     .ingredients-list li button, .filters-list li button{
         margin-left: 10px;
         padding: 1px 5px;
+        font-size: 10px;
     }
 
     .generate-recipe-btn button{
@@ -353,26 +370,27 @@
 
 @media (min-width: 600px) and (max-width: 720px) {
     .recipe-generator-component{
-        margin: 30px 60px;
-        padding: 50px 80px;
+        margin: 10px 60px;
+        padding: 50px 70px;
     }
 
     .ingredients-section{
-        padding: 40px 0px;
+        padding: 40px 5px;
     }
 
     .ingredients-input input{
-        height: 40px;
+        height: 35px;
         width: 200px;
-        font-size: 13px;
+        font-size: 12px;
         padding: 0px 0px 0px 10px;
         border-radius: 5px 0px 0px 5px;
     }
 
     .add-ingredient-btn{
-        height: 40px;
-        width: 80px;
+        height: 35px;
+        width: 70px;
         border-radius: 0px 10px 10px 0px;
+        font-size: 10px;
     }
 
     .filters-btn{
@@ -381,19 +399,43 @@
         width: 40px;
     }
 
+    .filters-dropdown{
+        margin-left: 10px;
+        width: 80px;
+    }
+
+    .select-field {
+        background: url("data:image/svg+xml;utf8,<svg fill='%238B4513' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>") no-repeat right 5px center;
+        background-size: 15px;
+        background-color: #E6F7F1;
+        padding: 8px 10px;
+        padding-right: 20px; 
+        border-radius: 10px;
+        font-size: 12px;
+    }
+
+    .ingredients-filters-list{
+        margin: 0px 10px;
+    }
+
     .ingredients-list{
-        margin: 10px 20px 0px;
+        margin: 10px 10px 0px;
     }
 
     .ingredients-list li, .filters-list li{
-        margin: 10px;
-        padding: 10px;
-        font-size: 13px;
+        margin: 10px 7px;
+        padding: 3px 7px;
+        font-size: 12px;
+        border-radius: 7px;
     }
 
     .ingredients-list li button, .filters-list li button{
-        margin-left: 15px;
-        padding: 1px 10px;
+        margin-left: 10px;
+        padding: 1px 5px;
+    }
+
+    .tip-popover{
+        font-size: 11px;
     }
 
     .gen-recipe-btns-desktop{
@@ -416,7 +458,7 @@
         border-radius: 15px;
         margin: 20px 15px 0px;
         padding: 10px 30px;
-        font-size: 13px;
+        font-size: 12px;
     }
 
     .gen-recipe-btns-tier-2 button{
@@ -429,25 +471,25 @@
 @media (min-width: 720px) and (max-width: 860px) {
     .recipe-generator-component{
         padding: 50px 100px;
-        margin: 30px 60px;
+        margin: 0px 60px;
     }
 
     .ingredients-section{
-        padding: 40px 0px;
+        padding: 40px 10px;
     }
 
     .ingredients-input input{
-        height: 40px;
-        width: 300px;
+        height: 35px;
+        width: 250px;
         font-size: 13px;
         padding: 0px 0px 0px 10px;
         border-radius: 5px 0px 0px 5px;
     }
 
     .add-ingredient-btn{
-        height: 40px;
+        height: 35px;
         width: 80px;
-        border-radius: 0px 10px 10px 0px;
+        border-radius: 0px 8px 8px 0px;
     }
 
     .filters-btn{
@@ -456,19 +498,39 @@
         width: 40px;
     }
 
+    .ingredients-filters-list{
+        margin: 0px 10px;
+    }
+
     .ingredients-list{
         margin: 10px 20px 0px;
     }
 
     .ingredients-list li, .filters-list li{
         margin: 10px;
-        padding: 10px;
+        padding: 5px;
         font-size: 13px;
+        border-radius: 6px;
     }
 
     .ingredients-list li button, .filters-list li button{
-        margin-left: 15px;
+        margin-left: 10px;
         padding: 1px 10px;
+    }
+
+    .filters-dropdown{
+        margin-left: 10px;
+        width: 100px;
+    }
+
+    .select-field {
+        background: url("data:image/svg+xml;utf8,<svg fill='%238B4513' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>") no-repeat right 5px center; 
+        background-size: 15px;
+        background-color: #E6F7F1;
+        padding: 8px 10px;
+        padding-right: 20px; 
+        border-radius: 5px;
+        font-size: 13px;
     }
 
     .gen-recipe-btns-desktop{
@@ -491,7 +553,7 @@
         border-radius: 15px;
         margin: 20px 15px 0px;
         padding: 10px 40px;
-        font-size: 13px;
+        font-size: 12px;
     }
 
     .gen-recipe-btns-tier-2 button{
@@ -503,12 +565,12 @@
 
 @media (min-width: 860px) and (max-width: 1030px) {
     .recipe-generator-component{
-        margin: 30px 80px;
-        padding: 80px 150px;
+        margin: 0px 80px;
+        padding: 80px 100px;
     }
 
     .ingredients-section{
-        padding: 50px 0px;
+        padding: 50px 10px;
     }
 
     .ingredients-input input{
@@ -531,19 +593,36 @@
         width: 40px;
     }
 
+    .ingredients-filters-list{
+        margin: 0px 30px;
+    }
+
     .ingredients-list{
         margin: 10px 20px 0px;
     }
 
     .ingredients-list li, .filters-list li{
         margin: 10px;
-        padding: 10px;
+        padding: 7px;
         font-size: 13px;
     }
 
     .ingredients-list li button, .filters-list li button{
         margin-left: 15px;
         padding: 1px 10px;
+    }
+
+    .filters-dropdown{
+        margin-left: 10px;
+        width: 110px;
+    }
+
+    .select-field {
+        background: url("data:image/svg+xml;utf8,<svg fill='%238B4513' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>") no-repeat right 5px center; 
+        background-size: 15px;
+        background-color: #E6F7F1;
+        padding: 8px 10px;
+        padding-right: 20px; 
     }
 
     .gen-recipe-btns-desktop{
@@ -578,7 +657,7 @@
 
 @media (min-width: 1030px) and (max-width: 1340px) {
     .recipe-generator-component{
-        margin: 30px 80px;
+        margin: 10px 80px;
         padding: 80px 150px;
     }
 

@@ -6,13 +6,14 @@ import '../../styles/homepage/RecipeGenerator.css';
 import toast from 'react-hot-toast';
 import Image from 'next/image';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCamera, faDice, faUtensils } from "@fortawesome/free-solid-svg-icons";
+import { faCamera, faDice, faUtensils, faSliders, faChevronDown, faChevronUp  } from "@fortawesome/free-solid-svg-icons";
 import { getRandomRecipes } from "@/api/recipes";
 
 export default function RecipeGenerator() {
     const [ingredient, setIngredient] = useState('');
     const [ingredientsList, setIngredientsList] = useState([]);
     const [showFilters, setShowFilters] = useState(false);
+    const [availableRestrictions, setAvailableRestrictions] = useState([]);
     const [dietaryRestrictions, setDietaryRestrictions] = useState([]);
     const router = useRouter();
     const [loadingGenerate, setLoadingGenerate] = useState(false);
@@ -46,6 +47,19 @@ export default function RecipeGenerator() {
             });
         }, 500);
         return () => clearInterval(interval);
+    }, []);
+
+    useEffect(() => {
+        let mounted = true;
+        fetch("/data/dietaryRestrictions.json")
+            .then((r) => r.json())
+            .then((data) => {
+                if (mounted) setAvailableRestrictions(data || []);
+            })
+            .catch(() => {
+                if (mounted) setAvailableRestrictions([]);
+            });
+        return () => (mounted = false);
     }, []);
 
     const backgroundImages = [
@@ -161,9 +175,7 @@ export default function RecipeGenerator() {
         setIngredientsList(updatedList);
     };
 
-    const toggleFilters = () => {
-        setShowFilters(!showFilters);
-    };
+    const toggleFilters = () => setShowFilters(!showFilters);
 
     const handleRestrictionChange = (restriction) => {
         if (dietaryRestrictions.includes(restriction)) {
@@ -254,31 +266,58 @@ export default function RecipeGenerator() {
                         }}
                     />
                     <button className='add-ingredient-btn' onClick={handleAddIngredient}>Add</button>
-                    {/* <button className='filters-btn' onClick={toggleFilters}>
-                        <span role="img" aria-label="filters">⚙️</span>
-                    </button> */}
-                    {showFilters && (
-                        <div className='filters-dropdown'>
-                            <label>
-                                <input
-                                    type="checkbox"
-                                    value="vegetarian"
-                                    checked={dietaryRestrictions.includes('vegetarian')}
-                                    onChange={() => handleRestrictionChange('vegetarian')}
-                                />
-                                Vegetarian
-                            </label>
-                            <label>
-                                <input
-                                    type="checkbox"
-                                    value="vegan"
-                                    checked={dietaryRestrictions.includes('vegan')}
-                                    onChange={() => handleRestrictionChange('vegan')}
-                                />
-                                Vegan
-                            </label>
+
+                    <div className="filters-dropdown">
+                            <select
+                                className="select-field"
+                                value={dietaryRestrictions[0] || ""}
+                                onChange={(e) => {
+                                const value = e.target.value;
+                                    if (value) {
+                                        setDietaryRestrictions([value]); // only 1 restriction stored
+                                    } else {
+                                        setDietaryRestrictions([]); // reset if they choose none
+                                    }
+                                    setShowFilters(false);
+                                }}
+                            >
+                                <option value="">Diet</option>
+                                {availableRestrictions.map((restriction) => (
+                                <option key={restriction} value={restriction}>
+                                    {restriction}
+                                </option>
+                                ))}
+                            </select>
                         </div>
-                    )}
+                    
+                    {/* <button className='filters-btn' onClick={toggleFilters}>
+                        Diet
+                        <FontAwesomeIcon icon={showFilters ? faChevronUp : faChevronDown} className="ml-2" />
+                    </button>
+                    {showFilters && (
+                        <div className="filters-dropdown">
+                            <select
+                                className="select-field"
+                                value={dietaryRestrictions[0] || ""}
+                                onChange={(e) => {
+                                const value = e.target.value;
+                                    if (value) {
+                                        setDietaryRestrictions([value]); // only 1 restriction stored
+                                    } else {
+                                        setDietaryRestrictions([]); // reset if they choose none
+                                    }
+                                    setShowFilters(false);
+                                }}
+                            >
+                                <option value="">— none —</option>
+                                {availableRestrictions.map((restriction) => (
+                                <option key={restriction} value={restriction}>
+                                    {restriction}
+                                </option>
+                                ))}
+                            </select>
+                        </div>
+                    )} */}
                 </div>
                 {showTip && ingredientsList.length < 3 && (
                     <div className="tip-popover">
@@ -295,7 +334,14 @@ export default function RecipeGenerator() {
                         ))
                         }
                     </ul>
-                    <ul className='filters-list'></ul>
+                    <ul className="filters-list">
+                        {dietaryRestrictions.map((r, index) => (
+                            <li key={index}>
+                                {r}
+                                <button onClick={() => handleRestrictionChange(r)}>x</button>
+                            </li>
+                        ))}
+                    </ul>
                 </div>
                 <div className='gen-recipe-btns-desktop'>
                     <button 

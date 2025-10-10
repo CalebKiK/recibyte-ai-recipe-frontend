@@ -59,6 +59,13 @@
     padding: 50px 0px;
 }
 
+.ingredients-input{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
 .ingredients-input input{
     height: 40px;
     width: 400px;
@@ -85,13 +92,26 @@
     transition: 0.4s ease-in;
 }
 
+.filters-dropdown{
+    margin-left: 20px;
+    width: 120px;
+}
+
 .filters-btn{
     background-color: #F5FFAC;
-    margin-left: 50px;
+    margin-left: 30px;
     height: 40px;
     width: 50px;
     border: none;
     border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 10px;
+    cursor: pointer;
+    font-weight: 500;
+    color: #8B4513;
 }
 
 .filters-btn:hover{
@@ -104,13 +124,25 @@
     font-size: 14px;
 }
 
-.ingredients-list{
+.ingredients-filters-list{
     display: flex;
     flex-wrap: wrap;
-    margin: 10px 20px 0px;
+    margin: 0px 80px;
 }
 
-.ingredients-list li{
+.ingredients-list, .filters-list {
+    display: contents; 
+}
+
+.ingredients-list{
+    padding: 0; 
+}
+
+.filters-list{
+    padding: 0; 
+}
+
+.ingredients-list li, .filters-list li{
     background-color: #FAF1E6;
     margin: 10px;
     width: fit-content;
@@ -121,10 +153,39 @@
     font-size: 13px;
 }
 
-.ingredients-list li button{
+.ingredients-list li{
+    background-color: #FAF1E6;
+}
+
+.filters-list li{
+    background-color: #E6F7F1;
+}
+
+.ingredients-list li button, .filters-list li button{
     margin-left: 20px;
     border: none;
     padding: 1px 10px;
+}
+
+.select-field {
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: url("data:image/svg+xml;utf8,<svg fill='%238B4513' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>") no-repeat right 10px center;
+  background-color: #fff; 
+  background-size: 15px;
+  padding: 8px 12px;
+  padding-right: 40px; 
+  border: 1px solid #8B4513;
+  border-radius: 6px;
+  color: #8B4513;
+  font-size: 14px;
+}
+
+.select-field option {
+  color: #8B4513;
+  background-color: #fff;
 }
 
 .gen-recipe-btns-desktop button{
@@ -266,17 +327,21 @@
         width: 40px;
     }
 
+    .ingredients-filters-list{
+        margin: 0px;
+    }
+
     .ingredients-list{
         margin: 10px 10px 0px;
     }
 
-    .ingredients-list li{
+    .ingredients-list li, .filters-list li{
         margin: 10px 5px;
         padding: 5px;
         font-size: 12px;
     }
 
-    .ingredients-list li button{
+    .ingredients-list li button, .filters-list li button{
         margin-left: 10px;
         padding: 1px 5px;
     }
@@ -320,13 +385,13 @@
         margin: 10px 20px 0px;
     }
 
-    .ingredients-list li{
+    .ingredients-list li, .filters-list li{
         margin: 10px;
         padding: 10px;
         font-size: 13px;
     }
 
-    .ingredients-list li button{
+    .ingredients-list li button, .filters-list li button{
         margin-left: 15px;
         padding: 1px 10px;
     }
@@ -395,13 +460,13 @@
         margin: 10px 20px 0px;
     }
 
-    .ingredients-list li{
+    .ingredients-list li, .filters-list li{
         margin: 10px;
         padding: 10px;
         font-size: 13px;
     }
 
-    .ingredients-list li button{
+    .ingredients-list li button, .filters-list li button{
         margin-left: 15px;
         padding: 1px 10px;
     }
@@ -470,13 +535,13 @@
         margin: 10px 20px 0px;
     }
 
-    .ingredients-list li{
+    .ingredients-list li, .filters-list li{
         margin: 10px;
         padding: 10px;
         font-size: 13px;
     }
 
-    .ingredients-list li button{
+    .ingredients-list li button, .filters-list li button{
         margin-left: 15px;
         padding: 1px 10px;
     }
@@ -545,13 +610,13 @@
         margin: 10px 20px 0px;
     }
 
-    .ingredients-list li{
+    .ingredients-list li, .filters-list li{
         margin: 10px;
         padding: 10px;
         font-size: 13px;
     }
 
-    .ingredients-list li button{
+    .ingredients-list li button, .filters-list li button{
         margin-left: 15px;
         padding: 1px 10px;
     }

@@ -1,9 +1,9 @@
 "use client";
 
-import '../../styles/dashboard/library/Favourites.css';
+import '../../../styles/dashboard/library/Favourites.css';
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
-import FavouritesRecipeCard from '../FavsRecipeCard';
+import FavouritesRecipeCard from './FavsRecipeCard';
 import toast from 'react-hot-toast';
 import { toggleRecipeFavourite } from '@/api/recipes';
 import { fetchUserFavorites } from '@/api/users';

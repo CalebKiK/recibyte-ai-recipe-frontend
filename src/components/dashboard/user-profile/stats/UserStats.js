@@ -1,0 +1,14 @@
+"use client";
+
+import React from 'react';
+import StatsSummary from './StatsSummary';
+import SearchStats from './SearchStats';
+
+export default function UserStats() {
+    return (
+        <div className="user-stats-section">
+            <StatsSummary />
+            <SearchStats />
+        </div>
+    );
+}

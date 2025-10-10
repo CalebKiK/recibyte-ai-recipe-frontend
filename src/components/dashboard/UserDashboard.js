@@ -9,6 +9,7 @@ import {
   faBookOpen,
   faCalendarDays,
   faUserCircle,
+  faUserGear,
 } from "@fortawesome/free-solid-svg-icons";
 import Preferences from './Preferences';
 import UserLibrary from './library/UserLibrary';
@@ -85,7 +86,7 @@ export default function UserDashboard() {
                         onClick={() => setSelectedSection('user-profile-link')} 
                         className={selectedSection === 'user-profile-link' ? 'active' : ''}
                     >
-                        <FontAwesomeIcon icon={faSlidersH} className="dashboard-sidebar-icon" />
+                        <FontAwesomeIcon icon={faUserGear} className="dashboard-sidebar-icon" />
                         Profile
                     </button>
                     {/* <button 

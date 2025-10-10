@@ -268,27 +268,27 @@ export default function RecipeGenerator() {
                     <button className='add-ingredient-btn' onClick={handleAddIngredient}>Add</button>
 
                     <div className="filters-dropdown">
-                            <select
-                                className="select-field"
-                                value={dietaryRestrictions[0] || ""}
-                                onChange={(e) => {
-                                const value = e.target.value;
-                                    if (value) {
-                                        setDietaryRestrictions([value]); // only 1 restriction stored
-                                    } else {
-                                        setDietaryRestrictions([]); // reset if they choose none
-                                    }
-                                    setShowFilters(false);
-                                }}
-                            >
-                                <option value="">Diet</option>
-                                {availableRestrictions.map((restriction) => (
-                                <option key={restriction} value={restriction}>
-                                    {restriction}
-                                </option>
-                                ))}
-                            </select>
-                        </div>
+                        <select
+                            className="select-field"
+                            value={dietaryRestrictions[0] || ""}
+                            onChange={(e) => {
+                            const value = e.target.value;
+                                if (value) {
+                                    setDietaryRestrictions([value]); // only 1 restriction stored
+                                } else {
+                                    setDietaryRestrictions([]); // reset if they choose none
+                                }
+                                setShowFilters(false);
+                            }}
+                        >
+                            <option value="">Diet</option>
+                            {availableRestrictions.map((restriction) => (
+                            <option key={restriction} value={restriction}>
+                                {restriction}
+                            </option>
+                            ))}
+                        </select>
+                    </div>
                     
                     {/* <button className='filters-btn' onClick={toggleFilters}>
                         Diet

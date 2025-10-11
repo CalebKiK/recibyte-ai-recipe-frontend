@@ -8,9 +8,36 @@
     border-radius: 5px;
 }
 
+.stats-item{
+    display: flex;
+    flex-direction: row;
+}
+
+.timeframe-buttons{
+    margin-top: 10px;
+}
+
+.timeframe-buttons button{
+    padding: 10px 20px;
+    margin: 0px 20px;
+    border-radius: 5px;
+}
+
 @media (max-width:600px) {
     .stats-summary-card, .search-stats-card{
+        margin: 10px 0px;
+        padding: 10px;
+    }
 
+    .stats-item{
+        display: flex;
+        flex-direction: row;
+        font-size: 12px;
+    }
+
+    .timeframe-buttons button{
+        padding: 5px 10px;
+        margin: 0px 10px;
     }
 }
 

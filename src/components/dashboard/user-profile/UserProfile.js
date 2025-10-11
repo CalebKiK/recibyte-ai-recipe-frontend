@@ -24,7 +24,7 @@ export default function UserProfile() {
 
     return (
         <div className="user-profile-component">
-            <h2>My Account</h2>
+            {/* <h2>My Account</h2> */}
             <div className="user-profile-content">
                 <div className="user-profile-links">
                     <button 

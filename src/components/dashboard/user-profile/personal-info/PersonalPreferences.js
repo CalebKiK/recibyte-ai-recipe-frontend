@@ -24,13 +24,18 @@ export default function PersonalPreferences() {
     }, []);
 
     const handleSave = () => {
-        toast.success("Preferences saved successfully!");
+        toast.success("Changes noted! Save feature is still baking.");
         // TODO: connect to backend
         console.log("Saving preferences:", {
             dietaryRestrictions,
             culinaryPreferences,
             bio
         });
+    };
+
+    const handleEdit = () => {
+        // TODO: connect to backend
+        toast.success("Tweaking unlocked! Our save feature is still simmering.");
     };
 
     const handleSingleRestrictionChange = (e) => {
@@ -46,38 +51,51 @@ export default function PersonalPreferences() {
     return (
         <div className="preferences-card">
             <h3>Preferences</h3>
+            <div className='preferences-content'>
+                <div className='user-preferences'>
+                    <div className='diet-preference'>
+                        <label>Diet</label>
+                        <div className="profile-filters-dropdown">
+                            <select
+                                className="select-field"
+                                // Use dietaryRestrictions[0] for value, or empty string if array is empty
+                                value={dietaryRestrictions[0] || ""} 
+                                onChange={handleSingleRestrictionChange}
+                                disabled={availableRestrictions.length === 0}
+                            >
+                                <option value="">Diet (Select One)</option>
+                                {availableRestrictions.map((restriction) => (
+                                <option key={restriction} value={restriction}>
+                                    {restriction}
+                                </option>
+                                ))}
+                            </select>
+                            {/* Optional: Add a loading message if data is still fetching and availableRestrictions is empty */}
+                            {availableRestrictions.length === 0 && <p className="text-sm text-gray-500">Loading...</p>}
+                        </div>
+                    </div>
+                    
+                    <div className='profile-culinary-preferences'>
+                        <label>Culinary</label>
+                        <input 
+                            placeholder="e.g. Italian, Mediterranean" 
+                            value={culinaryPreferences} 
+                            onChange={e => setCulinaryPreferences(e.target.value.split(","))}
+                        />
+                    </div>
+                </div>
 
-            <label>Dietary Restrictions</label>
-            <div className="filters-dropdown">
-                <select
-                    className="select-field"
-                    // Use dietaryRestrictions[0] for value, or empty string if array is empty
-                    value={dietaryRestrictions[0] || ""} 
-                    onChange={handleSingleRestrictionChange}
-                    disabled={availableRestrictions.length === 0}
-                >
-                    <option value="">Diet (Select One)</option>
-                    {availableRestrictions.map((restriction) => (
-                    <option key={restriction} value={restriction}>
-                        {restriction}
-                    </option>
-                    ))}
-                </select>
-                {/* Optional: Add a loading message if data is still fetching and availableRestrictions is empty */}
-                {availableRestrictions.length === 0 && <p className="text-sm text-gray-500">Loading...</p>}
+                <div className='user-bio'>
+                    <label>Bio</label>
+                    <textarea value={bio} onChange={e => setBio(e.target.value)} />
+                </div>
             </div>
 
-            <label>Culinary Preferences</label>
-            <input 
-                placeholder="e.g. Italian, Mediterranean" 
-                value={culinaryPreferences} 
-                onChange={e => setCulinaryPreferences(e.target.value.split(","))}
-            />
-
-            <label>Bio</label>
-            <textarea value={bio} onChange={e => setBio(e.target.value)} />
-
-            <button onClick={handleSave} className="save-btn">Save Preferences</button>
+            <div className='profile-crud-btns'>
+                <button onClick={handleEdit} className="profile-edit-btn">Edit</button>
+                <button onClick={handleSave} className="profile-save-btn">Save Preferences</button>
+            </div>
+            
         </div>
     );
 }

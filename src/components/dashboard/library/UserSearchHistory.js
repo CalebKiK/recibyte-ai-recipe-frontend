@@ -1,6 +1,6 @@
 "use client";
 
-import '../../styles/dashboard/UserSearchHistory.css';
+import '../../../styles/dashboard/library/UserSearchHistory.css';
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import SearchHistoryCard from './SearchHistoryCard';

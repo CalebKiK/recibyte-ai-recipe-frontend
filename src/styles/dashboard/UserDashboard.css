@@ -100,7 +100,7 @@
     font-size: 15px;
 }
 
-.dashboard-links button.active .dashboard-sidebar-icon, .user-library-links button.active .library-links-icon {
+.dashboard-links button.active .dashboard-sidebar-icon, .user-library-links button.active .library-links-icon, .user-profile-links button.active .profile-links-icon {
     color: #FAF1E6; 
     font-size: 15px;
 }

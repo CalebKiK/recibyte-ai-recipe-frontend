@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from 'react';
-import '../../styles/dashboard/Favourites.css';
+import '../../../styles/dashboard/library/Favourites.css';
 import Image from 'next/image';
-import ConfirmModal from '../modals/ConfirmModal';
+import ConfirmModal from '../../modals/ConfirmModal';
 import { toSentenceCase, toTitleCase } from '@/utils/stringFormatters';
 import { formatCreatedAt } from '@/utils/formatDate';
 

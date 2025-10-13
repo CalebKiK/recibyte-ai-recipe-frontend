@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import toast from 'react-hot-toast';
 import { fetchUserProfile } from '@/api/users';
+import { formatCreatedAt } from '@/utils/formatDate';
 import '../../../../styles/dashboard/user-profile/personal-info/ProfileData.css';
 
 export default function PersonalData() {
@@ -40,7 +41,7 @@ export default function PersonalData() {
                   avatar: profile.user.profile_photo || "default.png",
                   username: profile.user.username,
                   first_name: profile.user.first_name,
-                  last_name: profile.user.last_name,
+                  last_name: profile.user.last_name || "N/A",
                   email: profile.user.email,
                   gender: profile.gender || "prefer-not-to-say",
                   member_since: profile.member_since
@@ -122,8 +123,9 @@ export default function PersonalData() {
                         </div>
                         
                         <div className='other-personal-info'>
-                            <p>Member since 
-                                <span>{userData.member_since}</span>
+                            <p>Member since: 
+                                {/* <span>{userData.member_since}</span> */}
+                                <span>{formatCreatedAt(userData.member_since)}</span>
                             </p>
                         </div>
                     </div>

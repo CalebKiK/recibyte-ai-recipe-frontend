@@ -11,16 +11,46 @@
 .stats-item{
     display: flex;
     flex-direction: row;
+    margin: 10px 0px;
 }
 
-.timeframe-buttons{
-    margin-top: 10px;
+.stats-item strong{
+    margin-left: 10px;
 }
 
-.timeframe-buttons button{
+.timeframe-buttons {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.timeframe-buttons button {
     padding: 10px 20px;
     margin: 0px 20px;
     border-radius: 5px;
+    border: 1px solid #8B4513;
+    font-size: 14px;
+    background-color: #FAF1E6;
+    cursor: pointer;
+}
+
+.timeframe-buttons button:hover{
+    background-color: #ffedd9;
+    transition: 0.5s ease-in;
+}
+
+.timeframe-buttons button.active {
+    background: linear-gradient(90deg, #C9A66B, #b17a54, #5A2D0C);
+    color: #FAF1E6;
+    font-weight: bold;
+    transition: 0.7s ease-in-out;
+}
+
+.search-stats-card h4{
+    margin: 10px 0px 20px;
 }
 
 @media (max-width:600px) {
@@ -38,6 +68,10 @@
     .timeframe-buttons button{
         padding: 5px 10px;
         margin: 0px 10px;
+    }
+
+    .search-stats-card h4{
+        margin: 10px 0px;
     }
 }
 

@@ -24,9 +24,21 @@ export default function SearchStats() {
             <h3>Search Insights</h3>
 
             <div className="timeframe-buttons">
-                <button onClick={() => setTimeframe("week")} className={timeframe === "week" ? "active" : ""}>Last Week</button>
-                <button onClick={() => setTimeframe("month")} className={timeframe === "month" ? "active" : ""}>Last Month</button>
+                <button 
+                    onClick={() => setTimeframe("week")} 
+                    className={timeframe === "week" ? "active" : ""}
+                    >
+                        Last Week
+                </button>
+                <button 
+                    onClick={() => setTimeframe("month")} 
+                    className={timeframe === "month" ? "active" : ""}
+                    >
+                        Last Month
+                </button>
             </div>
+
+            <h4>{timeframe === "week" ? "Previous Week" : "Last Month"}</h4>
 
             <ResponsiveContainer width="100%" height={250}>
                 <BarChart data={data[timeframe]}>

@@ -8,7 +8,8 @@ import '../../../../styles/dashboard/user-profile/personal-info/ProfileData.css'
 export default function PersonalPreferences() {
     const [dietaryRestrictions, setDietaryRestrictions] = useState([]);
     const [culinaryPreferences, setCulinaryPreferences] = useState([]);
-    const [availableRestrictions, setAvailableRestrictions] = useState([]);
+    const [availableDietRestrictions, setAvailableDietRestrictions] = useState([]);
+    const [availableCulinaryPreferences, setAvailableCulinaryPreferences] = useState([]);
     const [bio, setBio] = useState("");
 
     useEffect(() => {
@@ -23,8 +24,13 @@ export default function PersonalPreferences() {
 
         fetch("/data/dietaryRestrictions.json")
             .then(r => r.json())
-            .then(setAvailableRestrictions)
-            .catch(() => setAvailableRestrictions([]));
+            .then(setAvailableDietRestrictions)
+            .catch(() => setAvailableDietRestrictions([]));
+
+        fetch("/data/culinaryPreferences.json")
+            .then(r => r.json())
+            .then(setAvailableCulinaryPreferences)
+            .catch(() => setAvailableCulinaryPreferences([]));
     }, []);
 
     const handleSave = () => {
@@ -57,7 +63,7 @@ export default function PersonalPreferences() {
             <h3>Preferences</h3>
             <div className='preferences-content'>
                 <div className='user-preferences'>
-                    <div className='diet-preference'>
+                    <div className='profile-diet-preference'>
                         <label>Diet</label>
                         <div className="profile-filters-dropdown">
                             <select
@@ -65,26 +71,43 @@ export default function PersonalPreferences() {
                                 // Use dietaryRestrictions[0] for value, or empty string if array is empty
                                 value={dietaryRestrictions[0] || ""} 
                                 onChange={handleSingleRestrictionChange}
-                                disabled={availableRestrictions.length === 0}
+                                disabled={availableDietRestrictions.length === 0}
                             >
                                 <option value="">Diet (Select One)</option>
-                                {availableRestrictions.map((restriction) => (
+                                {availableDietRestrictions.map((restriction) => (
                                 <option key={restriction} value={restriction}>
                                     {restriction}
                                 </option>
                                 ))}
                             </select>
-                            {availableRestrictions.length === 0 && <p className="text-sm text-gray-500">Loading...</p>}
+                            {availableDietRestrictions.length === 0 && <p className="text-sm text-gray-500">Loading...</p>}
                         </div>
                     </div>
                     
                     <div className='profile-culinary-preferences'>
                         <label>Culinary</label>
-                        <input 
+                        <div className="profile-filters-dropdown">
+                            <select
+                                className="select-field"
+                                // Use dietaryRestrictions[0] for value, or empty string if array is empty
+                                value={culinaryPreferences[0] || ""} 
+                                onChange={handleSingleRestrictionChange}
+                                disabled={availableCulinaryPreferences.length === 0}
+                            >
+                                <option value="">Culinary preference (Select One)</option>
+                                {availableCulinaryPreferences.map((restriction) => (
+                                <option key={restriction} value={restriction}>
+                                    {restriction}
+                                </option>
+                                ))}
+                            </select>
+                            {availableCulinaryPreferences.length === 0 && <p className="text-sm text-gray-500">Loading...</p>}
+                        </div>
+                        {/* <input 
                             placeholder="e.g. Italian, Mediterranean" 
                             value={culinaryPreferences} 
                             onChange={e => setCulinaryPreferences(e.target.value.split(","))}
-                        />
+                        /> */}
                     </div>
                 </div>
 

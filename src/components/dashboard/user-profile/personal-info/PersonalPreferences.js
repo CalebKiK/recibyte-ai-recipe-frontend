@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import { fetchUserProfile } from '@/api/users';
 import '../../../../styles/dashboard/user-profile/personal-info/ProfileData.css';
 
 export default function PersonalPreferences() {
@@ -10,17 +11,33 @@ export default function PersonalPreferences() {
     const [availableRestrictions, setAvailableRestrictions] = useState([]);
     const [bio, setBio] = useState("");
 
+    // useEffect(() => {
+    //     let mounted = true;
+    //     fetch("/data/dietaryRestrictions.json")
+    //     .then((r) => r.json())
+    //     .then((data) => {
+    //         if (mounted) setAvailableRestrictions(data || []);
+    //     })
+    //     .catch(() => {
+    //         if (mounted) setAvailableRestrictions([]);
+    //     });
+    //     return () => (mounted = false);
+    // }, []);
+
     useEffect(() => {
-        let mounted = true;
+        fetchUserProfile()
+            .then(data => {
+                const profile = Array.isArray(data) ? data[0] : data;
+                setDietaryRestrictions(profile.dietary_restrictions || []);
+                setCulinaryPreferences(profile.culinary_preferences || []);
+                setBio(profile.bio || "");
+            })
+            .catch(() => toast.error("Could not load preferences"));
+
         fetch("/data/dietaryRestrictions.json")
-        .then((r) => r.json())
-        .then((data) => {
-            if (mounted) setAvailableRestrictions(data || []);
-        })
-        .catch(() => {
-            if (mounted) setAvailableRestrictions([]);
-        });
-        return () => (mounted = false);
+            .then(r => r.json())
+            .then(setAvailableRestrictions)
+            .catch(() => setAvailableRestrictions([]));
     }, []);
 
     const handleSave = () => {

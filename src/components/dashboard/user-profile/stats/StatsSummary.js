@@ -5,8 +5,6 @@ import { fetchUserInsights } from '@/api/users';
 import '../../../../styles/dashboard/user-profile/stats/SearchStats.css';
 
 export default function StatsSummary() {
-    const favoritesCount = 0; // placeholder
-    const mealPlans = 2; // placeholder
 
     const [insights, setInsights] = useState(null);
     const [dots, setDots] = useState("");

@@ -9,23 +9,6 @@ export default function SearchStats() {
     const [timeframe, setTimeframe] = useState("week");
     const [data, setData] = useState({ week: [], month: [] });
 
-    // const sampleData = {
-    //     week: [
-    //         { ingredient: "Chicken", count: 12 },
-    //         { ingredient: "Tomato", count: 8 },
-    //         { ingredient: "Pasta", count: 5 },
-    //         { ingredient: "Garlic", count: 4 },
-    //         { ingredient: "Cheese", count: 3 },
-    //     ],
-    //     month: [
-    //         { ingredient: "Rice", count: 20 },
-    //         { ingredient: "Beef", count: 15 },
-    //         { ingredient: "Onion", count: 10 },
-    //         { ingredient: "Carrot", count: 8 },
-    //         { ingredient: "Potato", count: 6 },
-    //     ],
-    // };
-
     useEffect(() => {
         fetchUserInsights().then((res) => {
             setData({

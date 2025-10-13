@@ -11,19 +11,6 @@ export default function PersonalPreferences() {
     const [availableRestrictions, setAvailableRestrictions] = useState([]);
     const [bio, setBio] = useState("");
 
-    // useEffect(() => {
-    //     let mounted = true;
-    //     fetch("/data/dietaryRestrictions.json")
-    //     .then((r) => r.json())
-    //     .then((data) => {
-    //         if (mounted) setAvailableRestrictions(data || []);
-    //     })
-    //     .catch(() => {
-    //         if (mounted) setAvailableRestrictions([]);
-    //     });
-    //     return () => (mounted = false);
-    // }, []);
-
     useEffect(() => {
         fetchUserProfile()
             .then(data => {
@@ -87,7 +74,6 @@ export default function PersonalPreferences() {
                                 </option>
                                 ))}
                             </select>
-                            {/* Optional: Add a loading message if data is still fetching and availableRestrictions is empty */}
                             {availableRestrictions.length === 0 && <p className="text-sm text-gray-500">Loading...</p>}
                         </div>
                     </div>

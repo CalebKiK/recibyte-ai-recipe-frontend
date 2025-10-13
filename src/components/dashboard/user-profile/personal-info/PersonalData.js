@@ -88,9 +88,6 @@ export default function PersonalData() {
                         <button onClick={handleAvatarChange}>
                             Change Avatar
                         </button>
-                        {/* <button onClick={() => setUserData({ ...userData, avatar: "avatar2.png" })}>
-                            Change Avatar
-                        </button> */}
                     </div>
                     <div className="personal-fields">
                         <div className='user-names'>

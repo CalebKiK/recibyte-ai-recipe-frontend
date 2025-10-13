@@ -108,7 +108,7 @@ export default function PersonalData() {
               </div>
               <div className="personal-fields-info">
                 <label>Gender</label>
-                <select value={local.gender} onChange={(e) => setLocal((s) => ({ ...s, gender: e.target.value }))}>
+                <select value={local.gender} onChange={(e) => setLocal((s) => ({ ...s, gender: e.target.value }))} disabled >
                   <option value="male">Male</option>
                   <option value="female">Female</option>
                   <option value="non-binary">Non-Binary</option>

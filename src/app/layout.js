@@ -4,6 +4,7 @@ import { Toaster } from 'react-hot-toast';
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "./globals.css";
+import ReactQueryProvider from "@/providers/ReactQueryProvider";
 
 config.autoAddCss = false;
 
@@ -30,7 +31,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <AuthProvider><main>{children}</main></AuthProvider>
+        {/* <AuthProvider><main>{children}</main></AuthProvider> */}
+        <ReactQueryProvider>
+          <AuthProvider>
+            <main>{children}</main>
+          </AuthProvider>
+        </ReactQueryProvider>
         <Toaster 
           position="top-right"
           toastOptions={{

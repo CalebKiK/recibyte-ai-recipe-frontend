@@ -17,8 +17,29 @@ export async function registerUser(userData) {
 
 // Fetch current user's profile (includes favorite_recipes)
 export async function fetchUserProfile() {
-
     return fetchWithAuth("/users/profile/");
+}
+
+// export async function fetchUserProfile() {
+//     const result = await fetchWithAuth("/users/profile/");
+//     console.log("📌 fetchWithAuth raw result:", result);
+//     return result;
+// }
+
+// export async function fetchUserProfile() {
+//     const res = await fetchWithAuth("/users/profile/");
+//     if (!res.ok) {
+//         console.error("❌ Failed to fetch profile:", res.status, res.statusText);
+//         throw new Error("Profile fetch failed");
+//     }
+//     const data = await res.json();
+//     console.log("✅ UserProfile API response:", data);
+//     return data;
+// }
+
+// 🔹 Fetch user insights
+export async function fetchUserInsights() {
+  return fetchWithAuth("/users/profile/insights/");
 }
 
 // 🔹 Fetch user's favorite recipes

@@ -6,8 +6,9 @@ import { useAuth } from '@/context/AuthContext';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
-import { toggleRecipeFavourite, addToUserHistory } from "@/api/recipes";
+import { toggleRecipeFavourite } from "@/api/recipes";
 import ConfirmModal from '../modals/ConfirmModal';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export default function RecipeChoice({ recipe, onUpdateFavourite }) {
     const { user } = useAuth();
@@ -15,6 +16,8 @@ export default function RecipeChoice({ recipe, onUpdateFavourite }) {
     const [showConfirm, setShowConfirm] = useState(false);
     const [disliked, setDisliked] = useState(false);
     // const [message, setMessage] = useState('');
+
+    const queryClient = useQueryClient();
 
     let displayIngredients = [];
 
@@ -41,54 +44,147 @@ export default function RecipeChoice({ recipe, onUpdateFavourite }) {
         setLiked(Boolean(recipe.is_favorite));
     }, [recipe?.is_favorite]);
 
-    const handleLike = async () => {
+    const favMutation = useMutation({
+        mutationFn: () => toggleRecipeFavourite(recipe),
+        // optimistic update
+        onMutate: async () => {
+            // cancel outgoing queries that could be affected
+            await queryClient.cancelQueries(['userInsights']);
+            await queryClient.cancelQueries(['userProfile']);
+
+            // snapshot previous state
+            const previousInsights = queryClient.getQueryData(['userInsights']);
+            const previousProfile = queryClient.getQueryData(['userProfile']);
+            const previousLiked = liked;
+
+            // Immediate UI: toggle liked
+            setLiked((p) => !p);
+
+            // Inform parent list (if provided) so the button updates across components immediately
+            if (onUpdateFavourite) {
+                onUpdateFavourite(recipe.id, !previousLiked, recipe.source || "local_db");
+            }
+
+            // Optimistically adjust fav_recipes_count if we have it cached
+            if (previousInsights) {
+                queryClient.setQueryData(['userInsights'], old => {
+                    if (!old) return old;
+                    const current = old.fav_recipes_count || 0;
+                    const next = previousLiked ? Math.max(0, current - 1) : current + 1;
+                    return { ...old, fav_recipes_count: next };
+                });
+            }
+
+            // Return context for rollback
+            return { previousInsights, previousProfile, previousLiked };
+        },
+        onError: (err, _variables, context) => {
+            // rollback caches
+            if (context?.previousInsights) {
+                queryClient.setQueryData(['userInsights'], context.previousInsights);
+            }
+            if (context?.previousProfile) {
+                queryClient.setQueryData(['userProfile'], context.previousProfile);
+            }
+
+            // rollback local UI
+            const prevLiked = context?.previousLiked ?? false;
+            setLiked(prevLiked);
+            if (onUpdateFavourite) {
+                onUpdateFavourite(recipe.id, prevLiked, recipe.source || "local_db");
+            }
+
+            console.error("Error while updating favourites:", err);
+            toast.error("Error while updating favourites.");
+        },
+        onSuccess: (data) => {
+            // server's definitive state (if provided)
+            if (data && typeof data.is_favorite !== "undefined") {
+                const serverIsFav = Boolean(data.is_favorite);
+                setLiked(serverIsFav);
+                if (onUpdateFavourite) {
+                    onUpdateFavourite(recipe.id, serverIsFav, recipe.source || "local_db");
+                }
+                toast.success(serverIsFav ? "Recipe added to favourites!" : "Recipe removed from favourites.");
+            } else {
+                // if server didn't return is_favorite, trigger a revalidation to get canonical state
+                toast.success("Favorites updated.");
+            }
+        },
+        onSettled: () => {
+            // ensure data correctness across the app
+            queryClient.invalidateQueries(['userInsights']);
+            queryClient.invalidateQueries(['userProfile']);
+        },
+    });
+
+    const handleLike = () => {
         if (!user) {
             toast.error('Please log in to add to favorites.');
             return;
         }
-
-        try {
-            const res = await toggleRecipeFavourite(recipe);
-            const newState = res && typeof res.is_favorite !== "undefined" ? res.is_favorite : !liked;
-            setLiked(newState);
-
-            if (onUpdateFavourite) {
-                onUpdateFavourite(recipe.id, newState, recipe.source || "local_db");
-            }
-
-            toast.success(newState ? "Recipe added to favourites!" : "Recipe removed from favourites.");
-        } catch (error) {
-            console.error("Error while updating favourites:", error);
-            toast.error("Error while updating favourites.");
-        }
-
-        // if (liked) {
-        //     setShowConfirm(true);
-        //     return;
-        // }
-
-        // try {
-        //     await toggleRecipeFavourite(recipe);
-        //     toast.success("Recipe added to favourites!");
-        //     setLiked(true);
-        // } catch (error) {
-        //     console.error("Error while updating favourites:", error);
-        //     toast.error("Error while updating favourites.");
-        // }
+        favMutation.mutate();
     };
 
-    const handleConfirmRemove = async () => {
-        try {
-            await toggleRecipeFavourite(recipe); // toggles off
-            toast.success("Recipe removed from favourites.");
-            setLiked(false);
-        } catch (error) {
-            console.error("Error while removing favourite:", error);
-            toast.error("Error while removing favourite.");
-        } finally {
+    // const handleLike = async () => {
+    //     if (!user) {
+    //         toast.error('Please log in to add to favorites.');
+    //         return;
+    //     }
+
+    //     try {
+    //         const res = await toggleRecipeFavourite(recipe);
+    //         const newState = res && typeof res.is_favorite !== "undefined" ? res.is_favorite : !liked;
+    //         setLiked(newState);
+
+    //         if (onUpdateFavourite) {
+    //             onUpdateFavourite(recipe.id, newState, recipe.source || "local_db");
+    //         }
+
+    //         toast.success(newState ? "Recipe added to favourites!" : "Recipe removed from favourites.");
+    //     } catch (error) {
+    //         console.error("Error while updating favourites:", error);
+    //         toast.error("Error while updating favourites.");
+    //     }
+
+    //     // if (liked) {
+    //     //     setShowConfirm(true);
+    //     //     return;
+    //     // }
+
+    //     // try {
+    //     //     await toggleRecipeFavourite(recipe);
+    //     //     toast.success("Recipe added to favourites!");
+    //     //     setLiked(true);
+    //     // } catch (error) {
+    //     //     console.error("Error while updating favourites:", error);
+    //     //     toast.error("Error while updating favourites.");
+    //     // }
+    // };
+
+    const handleConfirmRemove = () => {
+        if (!user) {
+            toast.error('Please log in to remove favorites.');
             setShowConfirm(false);
+            return;
         }
+        // reuse same mutation (toggle)
+        favMutation.mutate();
+        setShowConfirm(false);
     };
+
+    // const handleConfirmRemove = async () => {
+    //     try {
+    //         await toggleRecipeFavourite(recipe); // toggles off
+    //         toast.success("Recipe removed from favourites.");
+    //         setLiked(false);
+    //     } catch (error) {
+    //         console.error("Error while removing favourite:", error);
+    //         toast.error("Error while removing favourite.");
+    //     } finally {
+    //         setShowConfirm(false);
+    //     }
+    // };
 
     let instructionSteps = [];
 
@@ -146,7 +242,12 @@ export default function RecipeChoice({ recipe, onUpdateFavourite }) {
                     <Image src="/images/recipe-choice-icons/arrow.png" alt="Substitute ingredients" height={20} width={20} />
                 </button> */}
                 {/* Will turn to a full colour filled icon when clicked */}
-                <button className='like-recipe-btn' title="Save recipe" onClick={handleLike}>
+                <button 
+                    className='like-recipe-btn' 
+                    title="Save recipe" 
+                    onClick={handleLike} 
+                    disabled={favMutation.isLoading}
+                >
                     <Image 
                         src=
                             {liked 

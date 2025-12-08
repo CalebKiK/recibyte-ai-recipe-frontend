@@ -82,7 +82,7 @@ function RecipePageContent() {
                 }
             
             } catch (err) {
-                console.error("Error fetching recipes:", err);
+                // console.error("Error fetching recipes:", err);
                 if (err?.detail) {
                     setError(err.detail);
                 } else if (err?.error) {

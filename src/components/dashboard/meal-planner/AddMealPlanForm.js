@@ -149,7 +149,7 @@ export default function AddMealPlanForm({ onSaved = () => {}, onClose = () => {}
             toast.success("Draft Meal plan generated.");
             onSaved(data);
         } catch (err) {
-            console.error("Error proposing meal plan:", err);
+            // console.error("Error proposing meal plan:", err);
             const msg = (err && err.message) || "Failed to generate meal plan";
             toast.error(msg);
         } finally {

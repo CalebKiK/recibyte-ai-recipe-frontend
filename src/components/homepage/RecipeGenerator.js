@@ -190,7 +190,7 @@ export default function RecipeGenerator() {
             setLoadingSnap(true);
             router.push('/image-detector');
         } catch (error) {
-            console.error(error);
+            // console.error(error);
             toast.error("Error navigating to Image Detector.");
             setLoadingSnap(false);
         }
@@ -205,7 +205,7 @@ export default function RecipeGenerator() {
             if (error.message.includes("404")) {
                 toast.error("No recipes found in the database. Please import some recipes first!");
             } else {
-                console.error("Error fetching random recipe:", error);
+                // console.error("Error fetching random recipe:", error);
                 toast.error("Failed to fetch a random recipe. Please try again.");
             }
         } finally {
@@ -227,7 +227,7 @@ export default function RecipeGenerator() {
 
                 router.push(url);
             } catch (error) {
-                console.error("Error generating recipes:", error);
+                // console.error("Error generating recipes:", error);
                 toast.error("Something went wrong. Please try again.");
                 setLoadingGenerate(false);
             }

@@ -36,7 +36,7 @@ export default function MealPlanner() {
             }
             setShowAddModal(true);
         } catch (err) {
-            console.log("Error checking existing plans:", err || err.message);
+            // console.log("Error checking existing plans:", err || err.message);
             toast.error("Could not verify existing plans. Try again.");
         }
     };
@@ -61,7 +61,8 @@ export default function MealPlanner() {
                     setLastPlanResponse({ saved: true, meal_plan: active || plans[0] });
                 }
             } catch (err) {
-                console.error("Failed to load saved plans:", err || err.message);
+                // console.error("Failed to load saved plans:", err || err.message);
+                toast.error("Failed to load saved plans:", err || err.message);
             } finally {
                 setLoading(false);
             }

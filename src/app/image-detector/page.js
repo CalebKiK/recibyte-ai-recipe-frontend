@@ -17,12 +17,12 @@ export default function ImageDetectorPage() {
             try{
                 await tf.ready();
                 const loadedModel = await cocoSsd.load();
-                console.log("COCO-SSD model loaded");
+                // console.log("COCO-SSD model loaded");
                 setModel(loadedModel);
                 setLoadingModel(false);
             
             } catch (error) {
-                console.error("Failed to load COCO-SSD model:", error);
+                // console.error("Failed to load COCO-SSD model:", error);
                 setLoadingModel(false);
                 toast.error("Error loading ingredient detector. Please try again later")
             }
@@ -32,7 +32,8 @@ export default function ImageDetectorPage() {
     }, []);
 
     const handleIngredientsDetected = (ingredients) => {
-        console.log("Ingredients detected from ImageDetector AI model:", ingredients);
+        // console.log("Ingredients detected from ImageDetector AI model:", ingredients);
+        console.log("Ingredients detected from ImageDetector AI model");
         // Here, you would typically send these ingredients to your Django backend
         // Example:
         // sendIngredientsToBackend(ingredients); 

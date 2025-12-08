@@ -73,10 +73,10 @@ const IngredientDetector = ({ model, onIngredientsDetected }) => {
                 }, {});
                 
                 setCommonIngredientsMap(map);
-                console.log("Common ingredients map loaded:", map);
+                // console.log("Common ingredients map loaded:", map);
                 resolve("Ingredient definitions loaded successfully!"); // Resolve the promise on success
             } catch (err) {
-                console.error("Failed to load common ingredients map:", err);
+                // console.error("Failed to load common ingredients map:", err);
                 setError("Failed to load ingredient definitions. Please refresh.");
                 reject("Failed to load ingredient definitions."); // Reject the promise on error
             }
@@ -128,7 +128,7 @@ const IngredientDetector = ({ model, onIngredientsDetected }) => {
 
         try {
             const predictions = await model.detect(imageElement);
-            console.log('Raw COCO-SSD Predictions:', predictions);
+            // console.log('Raw COCO-SSD Predictions:', predictions);
 
             const canonicalIngredients = getCanonicalIngredients(predictions);
             setDetectedIngredients(canonicalIngredients);
@@ -137,7 +137,7 @@ const IngredientDetector = ({ model, onIngredientsDetected }) => {
             drawBoundingBoxes(imageElement, predictions); // Draw new boxes
 
         } catch (err) {
-            console.error('Error during object detection:', err);
+            // console.error('Error during object detection:', err);
             setError("Failed to detect ingredients. Please try again.");
         } finally {
             setProcessing(false);
@@ -231,11 +231,11 @@ const IngredientDetector = ({ model, onIngredientsDetected }) => {
             if (videoRef.current) {
                 videoRef.current.srcObject = stream;
                 videoRef.current.play();
-                console.log("Webcam started and stream assigned:", stream);
+                // console.log("Webcam started and stream assigned:", stream);
                 setCameraActive(true);
             }
         } catch (err) {
-            console.error('Error accessing webcam:', err);
+            // console.error('Error accessing webcam:', err);
             setError("Could not access webcam. Please ensure camera permissions are granted. Error: " + err.message);
             setCameraActive(false);
         }
@@ -411,7 +411,7 @@ const IngredientDetector = ({ model, onIngredientsDetected }) => {
     
                     router.push(url);
                 } catch (error) {
-                    console.error("Error generating recipes:", error);
+                    // console.error("Error generating recipes:", error);
                     toast.error("Something went wrong. Please try again.");
                     setLoadingGenerate(false);
                 }

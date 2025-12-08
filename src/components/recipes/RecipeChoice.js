@@ -94,7 +94,7 @@ export default function RecipeChoice({ recipe, onUpdateFavourite }) {
                 onUpdateFavourite(recipe.id, prevLiked, recipe.source || "local_db");
             }
 
-            console.error("Error while updating favourites:", err);
+            // console.error("Error while updating favourites:", err);
             toast.error("Error while updating favourites.");
         },
         onSuccess: (data) => {
